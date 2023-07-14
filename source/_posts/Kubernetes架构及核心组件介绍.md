@@ -59,7 +59,7 @@ kubelet和kube-proxy运行在每个节点上，负责维护运行的pod和Kubern
 
 ### kubelet
 
-kueblet是一个运行在节点上的agent，通过kube-apiserver监听分配到该节点上的pod，然后根据pod的定义，调用容器运行时，确保pod的容器业务运行起来。（当然还有特殊的static pod了，可以参考：[Kubernetes中的Static pod实现与使用场景分析](http://xawei.me/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/)）
+kueblet是一个运行在节点上的agent，通过kube-apiserver监听分配到该节点上的pod，然后根据pod的定义，调用容器运行时，确保pod的容器业务运行起来。（当然还有特殊的static pod了，可以参考：[Kubernetes中的Static pod实现与使用场景分析](http://xawei.xyz/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/)）
 
 ### kube-proxy
 

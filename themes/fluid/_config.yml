@@ -371,9 +371,9 @@ footer:
   # 页脚第一行文字的 HTML，建议保留 Fluid 的链接，用于向更多人推广本主题
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
   content: '
-    <a href="http://xawei.me" target="_blank" rel="nofollow noopener"><span>xawei</span></a>
+    <a href="http://xawei.xyz" target="_blank" rel="nofollow noopener"><span>xawei</span></a>
     <i class="iconfont icon-love"></i>
-    <a href="http://xawei.me/about/" target="_blank" rel="nofollow noopener"><span>Hello world</span></a>
+    <a href="http://xawei.xyz/about/" target="_blank" rel="nofollow noopener"><span>Hello world</span></a>
     <br>
     Powered by <a href="https://cloud.tencent.com/document/product/457/57339" target="_blank" rel="nofollow noopener"><span>EKSCI</span></a>
     <br>
