@@ -1,0 +1,9 @@
+---
+title: Kubernetes Service an Ingress
+categories: kubernetes
+date: 2024-5-1 13:01:00
+---
+
+本文介绍Kubernetes中的 Service 和 Ingress 相关知识。
+
+<!--more-->
