@@ -23,11 +23,11 @@ info:
 # Docs: https://redefine-docs.ohevan.com/basic/defaults
 defaults:
   # Favicon
-  favicon: /images/redefine-favicon.svg
+  favicon: https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png
   # Site logo
   logo: 
   # Site avatar
-  avatar: /images/redefine-avatar.svg
+  avatar: https://img9.doubanio.com/icon/ul52829878-16.jpg
 # IMAGE CONFIGURATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
