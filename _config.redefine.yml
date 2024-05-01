@@ -108,7 +108,7 @@ fontawesome: # Pro v6.2.1
 # Docs: https://redefine-docs.ohevan.com/home/home_banner
 home_banner:
   # Whether to enable home banner
-  enable: true
+  enable: false
   # style of home banner
   style: fixed # static or fixed
   # Home banner image
@@ -189,19 +189,19 @@ navbar:
     Home: 
       path: / 
       icon: fa-regular fa-house # can be empty
-    # Archives: 
-    #   path: /archives 
-    #   icon: fa-regular fa-archive # can be empty
-    # Status: 
-    #   path: https://status.ohevan.com/
-    #   icon: fa-regular fa-chart-bar
-    # About: 
-    #   icon: fa-regular fa-user
-    #   submenus:
-    #     Me: /about
-    #     Github: https://github.com/EvanNotFound/hexo-theme-redefine
-    #     Blog: https://ohevan.com
-    #     Friends: /friends
+    Archives: 
+      path: /archives 
+      icon: fa-regular fa-archive # can be empty
+    Status: 
+      path: https://status.ohevan.com/
+      icon: fa-regular fa-chart-bar
+    About: 
+      icon: fa-regular fa-user
+      submenus:
+        Me: /about
+        Github: https://github.com/EvanNotFound/hexo-theme-redefine
+        Blog: https://ohevan.com
+        Friends: /friends
     # Links: 
     #   icon: fa-regular fa-link
     #   submenus:
@@ -323,7 +323,7 @@ articles:
 # Docs: https://redefine-docs.ohevan.com/posts/comment
 comment:
   # Whether to enable comment
-  enable: true
+  enable: false
   # Comment system
   system: waline # waline, gitalk, twikoo, giscus
   # System configuration
