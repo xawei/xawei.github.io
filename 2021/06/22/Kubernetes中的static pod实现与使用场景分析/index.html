@@ -1,257 +1,524 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png">
-  <link rel="icon" href="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。">
-  <meta name="author" content="xawei">
-  <meta name="keywords" content="">
-  
-  <title>Kubernetes中的Static pod实现与使用场景分析 - 个人日常技术</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="The Redefine Team">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2021/06/22/kubernetes中的static pod实现与使用场景分析/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes中的Static pod实现与使用场景分析">
+<meta property="og:url" content="http://example.com/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="个人日常技术">
+<meta property="og:description" content="介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707003849.png">
+<meta property="og:image" content="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707005243.png">
+<meta property="og:image" content="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122532.png">
+<meta property="og:image" content="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122852.png">
+<meta property="article:published_time" content="2021-06-22T12:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-01T12:17:38.541Z">
+<meta property="article:author" content="xawei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707003849.png">
     
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
     
-  
+    <title>
+        
+            Kubernetes中的Static pod实现与使用场景分析 -
+        
+        Theme Redefine
+    </title>
 
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
+    <!--- Inject Part-->
+    
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Theme Redefine
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
 
-<!-- 自定义样式保持在最底部 -->
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
 
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>xawei</strong>&nbsp;</a>
+<div class="progress-bar-container">
+    
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('https://weiblog.oss-cn-beijing.aliyuncs.com/img/20160218151642786.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Kubernetes中的Static pod实现与使用场景分析">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-22 12:00" pubdate>
-        2021年6月22日 中午
-      </time>
-    </span>
-  
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
 </div>
 
-<div class="mt-1">
-  
+
+<main class="page-container" id="swup">
+
     
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.5k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      33
-       分钟
-    </span>
-  
+    <div class="main-content-container">
 
-  
-  
-</div>
 
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
             
-          </div>
-
-          
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
         </div>
-      </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Kubernetes中的Static pod实现与使用场景分析</h1>
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
-            <div class="markdown-body">
-              <p>介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。</p>
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Kubernetes中的Static pod实现与使用场景分析</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/redefine-avatar.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">The Redefine Team</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2021-06-22 12:00</span>
+        <span class="mobile">2021-06-22 12:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-05-01 12:17:38</span>
+            <span class="mobile">2024-05-01 12:17:38</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/kubernetes/">kubernetes</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。</p>
 <span id="more"></span>
 
 <h2 id="先决知识"><a href="#先决知识" class="headerlink" title="先决知识"></a>先决知识</h2><ul>
-<li>Kubernetes集群的<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/">基本架构</a>和<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/components/">各组件的功能</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/">Pod</a>的基本概念及原理</li>
-<li>Kubernetes中的<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a>和<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/">Daemonset</a>基本原理</li>
+<li>Kubernetes集群的<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/" >基本架构 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>和<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/components/" >各组件的功能 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/" >Pod <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的基本概念及原理</li>
+<li>Kubernetes中的<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" >Deployment <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>和<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/" >Daemonset <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>基本原理</li>
 </ul>
 <h2 id="Static-pod简介"><a href="#Static-pod简介" class="headerlink" title="Static pod简介"></a>Static pod简介</h2><h3 id="普通的Pod"><a href="#普通的Pod" class="headerlink" title="普通的Pod"></a>普通的Pod</h3><p>Pod是kubernets中最基本的工作单元，一个Pod中可以包含一组容器。通常情况，Pod的创建流程是如下所示（以Bare Pod为例）：</p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707003849.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707003849.png"
+                      style="zoom:50%;" 
+                >
 
 <p>用户首先是请求Kube-apiserver创建Pod，当Pod被系统接受后，Pod作为一个资源对象被持久化在Etcd中，状态为Pending。控制组件Kube-scheduler通过Kube-apiserver监听到这个未被指定调度节点的Pod后，将会根据一定策略，修改Pod的status字段，标记为这个Pod理应分配到某个节点。而所有节点上的Kubelet也会通过监听Kube-apiserver来发先被调度到本节点Pod，此时Kubelet才真正意义上地根据Pod定义的信息，来在自身节点上启动Pod。</p>
 <h3 id="Static-pod"><a href="#Static-pod" class="headerlink" title="Static pod"></a>Static pod</h3><p>跟Kubernetes中其他普通的Pod不一样，Static pod是直接由节点上的Kubelet管理的。只要把Pod的定义声明文件放在Kubelet所在节点的指定路径下，或者某个指定的URL地址，Kubelet就会读取Pod的定义文件，并且启动这个Pod，也会按照定义的配置管理Static pod的生命周期。Static pod的启动可以不需要集群，只节点上有Kubelet和相应容器运行时即可。</p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707005243.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707005243.png"
+                      style="zoom:50%;" 
+                >
 
 <h4 id="快速使用Static-pod示例"><a href="#快速使用Static-pod示例" class="headerlink" title="快速使用Static pod示例"></a>快速使用Static pod示例</h4><p>Static pod的使用很简单，我们来快速试用一下吧。</p>
 <ul>
 <li><p>Step 1：准备一台服务器作为节点；</p>
 </li>
-<li><p>Step 2：在节点上安装容器运行时：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/">点我参考</a>；</p>
+<li><p>Step 2：在节点上安装容器运行时：<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/" >点我参考 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>；</p>
 </li>
-<li><p>Step 3：在节点上安装Kubelet：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl">点我参考</a>；</p>
+<li><p>Step 3：在节点上安装Kubelet：<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl" >点我参考 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>；</p>
 </li>
-<li><p>Step 4：手动指定Kubelet启动参数：<br>kubelet –cgroup-driver=systemd –pod-manifest-path=/etc/kubernetes/manifests/ –fail-swap-on=false –pod-infra-container-image=kubernetes/pause &gt; /tmp/kubelet.log 2&gt;&amp;1</p>
+<li><p>Step 4：手动指定Kubelet启动参数：<br>kubelet –cgroup-driver&#x3D;systemd –pod-manifest-path&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F; –fail-swap-on&#x3D;false –pod-infra-container-image&#x3D;kubernetes&#x2F;pause &gt; &#x2F;tmp&#x2F;kubelet.log 2&gt;&amp;1</p>
 </li>
 <li><p>Step 5：观察Pod定义的容器组已被Kubelet正确启动，纳入管理:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat &gt; /etc/kubernetes/manifests/pod.yaml &lt;&lt;EOF<br>&#123;<br>    &quot;kind&quot;:&quot;Pod&quot;,<br>    &quot;apiVersion&quot;:&quot;v1&quot;,<br>    &quot;metadata&quot;:&#123;<br>        &quot;name&quot;:&quot;static-pod-demo&quot;,<br>        &quot;namespace&quot;:&quot;default&quot;,<br>        &quot;uid&quot;:&quot;114b565b-fbe0-4301-a7bd-89598ce86a7a&quot;<br>    &#125;,<br>    &quot;spec&quot;:&#123;<br>        &quot;containers&quot;:[<br>            &#123;<br>                &quot;name&quot;:&quot;nginx-container&quot;,<br>                &quot;image&quot;:&quot;nginx:latest&quot;<br>            &#125;<br>        ],<br>        &quot;restartPolicy&quot;:&quot;Always&quot;<br>    &#125;<br>&#125;<br>EOF<br></code></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; /etc/kubernetes/manifests/pod.yaml &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">    &quot;kind&quot;:&quot;Pod&quot;,</span><br><span class="line">    &quot;apiVersion&quot;:&quot;v1&quot;,</span><br><span class="line">    &quot;metadata&quot;:&#123;</span><br><span class="line">        &quot;name&quot;:&quot;static-pod-demo&quot;,</span><br><span class="line">        &quot;namespace&quot;:&quot;default&quot;,</span><br><span class="line">        &quot;uid&quot;:&quot;114b565b-fbe0-4301-a7bd-89598ce86a7a&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;spec&quot;:&#123;</span><br><span class="line">        &quot;containers&quot;:[</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;name&quot;:&quot;nginx-container&quot;,</span><br><span class="line">                &quot;image&quot;:&quot;nginx:latest&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;restartPolicy&quot;:&quot;Always&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></div>
 
-<p><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122532.png" srcset="/img/loading.gif" lazyload></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122532.png"
+                     
+                ></p>
 </li>
-<li><p>Step 6：停止Static pod，只需要把Pod.yaml文件移出/etc/kubernetes/manifests/目录即可<br><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122852.png" srcset="/img/loading.gif" lazyload></p>
+<li><p>Step 6：停止Static pod，只需要把Pod.yaml文件移出&#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;目录即可<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122852.png"
+                     
+                ></p>
 </li>
 </ul>
 <h2 id="为什么需要Static-pod"><a href="#为什么需要Static-pod" class="headerlink" title="为什么需要Static pod"></a>为什么需要Static pod</h2><p>Kubernetes官方文档，在介绍Static pod时，特别做了如下的标注说明：</p>
 <blockquote>
-<p><strong>Note:</strong> If you are running clustered Kubernetes and are using static Pods to run a Pod on every node, you should probably be using a <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset">DaemonSet</a> instead.</p>
+<p><strong>Note:</strong> If you are running clustered Kubernetes and are using static Pods to run a Pod on every node, you should probably be using a <a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset" >DaemonSet <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> instead.</p>
 </blockquote>
 <p>也就是说，如果你在使用Static pod来实现kubernetes集群中每个Node的上启动Pod，那么你更应该使用DaemonSet，而不是Static pod。</p>
 <p>既然官方文档都推荐使用DaemonSet了，为什么还存在static pod这种机制？</p>
@@ -262,29 +529,29 @@
 <blockquote>
 <p><strong>注意</strong>：这里不会详细介绍Kubelet的启动已经各种其他能力，可以参考：</p>
 </blockquote>
-<p>Kubernetes/cmd/kubelet/app/server.go:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">run</span><span class="hljs-params">(ctx context.Context, s *options.KubeletServer, kubeDeps *kubelet.Dependencies, featureGate featuregate.FeatureGate)</span> <span class="hljs-params">(err error)</span></span> &#123;<br>	...<br>  <span class="hljs-comment">// About to get clients and such, detect standaloneMode</span><br>    standaloneMode := <span class="hljs-literal">true</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.KubeConfig) &gt; <span class="hljs-number">0</span> &#123;<br>      standaloneMode = <span class="hljs-literal">false</span><br>    &#125;<br>	...<br>  <span class="hljs-comment">// if in standalone mode, indicate as much by setting all clients to nil</span><br>    <span class="hljs-keyword">switch</span> &#123;<br>    <span class="hljs-keyword">case</span> standaloneMode:<br>      kubeDeps.KubeClient = <span class="hljs-literal">nil</span><br>      kubeDeps.EventClient = <span class="hljs-literal">nil</span><br>      kubeDeps.HeartbeatClient = <span class="hljs-literal">nil</span><br>      klog.InfoS(<span class="hljs-string">&quot;Standalone mode, no API client&quot;</span>)<br>  ...<br>    &#125;<br>  ...<br>  <span class="hljs-keyword">if</span> err := RunKubelet(s, kubeDeps, s.RunOnce); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>  ...<br>&#125;  <br></code></pre></td></tr></table></figure>
+<p>Kubernetes&#x2F;cmd&#x2F;kubelet&#x2F;app&#x2F;server.go:</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(ctx context.Context, s *options.KubeletServer, kubeDeps *kubelet.Dependencies, featureGate featuregate.FeatureGate)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	...</span><br><span class="line">  <span class="comment">// About to get clients and such, detect standaloneMode</span></span><br><span class="line">    standaloneMode := <span class="literal">true</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.KubeConfig) &gt; <span class="number">0</span> &#123;</span><br><span class="line">      standaloneMode = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">	...</span><br><span class="line">  <span class="comment">// if in standalone mode, indicate as much by setting all clients to nil</span></span><br><span class="line">    <span class="keyword">switch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> standaloneMode:</span><br><span class="line">      kubeDeps.KubeClient = <span class="literal">nil</span></span><br><span class="line">      kubeDeps.EventClient = <span class="literal">nil</span></span><br><span class="line">      kubeDeps.HeartbeatClient = <span class="literal">nil</span></span><br><span class="line">      klog.InfoS(<span class="string">&quot;Standalone mode, no API client&quot;</span>)</span><br><span class="line">  ...</span><br><span class="line">    &#125;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">if</span> err := RunKubelet(s, kubeDeps, s.RunOnce); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></div>
 
 <p>首先找到Kubelet的启动入口，会判断是否传入kubeConfig，如果没有，则是Stand alone模式，即无集群模式，因为没有kubeConfig的Kubelet无法访问某个集群的Kube-apiserver。KubeClient, EeventClient, HeartClient都置为nil，不会上报事件、心跳。</p>
-<p>Kubernetes/cmd/kubelet/app/server.go:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// RunKubelet is responsible for setting up and running a kubelet.  It is used in three different applications:</span><br><span class="hljs-comment">//   1 Integration tests</span><br><span class="hljs-comment">//   2 Kubelet binary</span><br><span class="hljs-comment">//   3 Standalone &#x27;kubernetes&#x27; binary</span><br><span class="hljs-comment">// Eventually, #2 will be replaced with instances of #3</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">RunKubelet</span><span class="hljs-params">(kubeServer *options.KubeletServer, kubeDeps *kubelet.Dependencies, runOnce <span class="hljs-keyword">bool</span>)</span> <span class="hljs-title">error</span></span> &#123;<br>	...<br>  k, err := createAndInitKubelet(<br>    ...<br>  )<br>  ...<br>  	startKubelet(k, podCfg, &amp;kubeServer.KubeletConfiguration, kubeDeps, kubeServer.EnableServer)<br>  ...<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createAndInitKubelet</span><span class="hljs-params">(</span></span><br><span class="hljs-function"><span class="hljs-params">  ...</span></span><br><span class="hljs-function"><span class="hljs-params">)</span></span>&#123;<br>  ...<br>  k, err = kubelet.NewMainKubelet(<br>    ...<br>&#125;<br><br><span class="hljs-comment">// NewMainKubelet instantiates a new Kubelet object along with all the required internal modules.</span><br><span class="hljs-comment">// No initialization of Kubelet and its modules should happen here.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewMainKubelet</span><span class="hljs-params">(</span></span><br><span class="hljs-function"><span class="hljs-params">  ...</span></span><br><span class="hljs-function"><span class="hljs-params">)</span></span>&#123;<br>  ...<br>		kubeDeps.PodConfig, err = makePodSourceConfig(kubeCfg, kubeDeps, nodeName, nodeHasSynced)<br>   ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Kubernetes&#x2F;cmd&#x2F;kubelet&#x2F;app&#x2F;server.go:</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RunKubelet is responsible for setting up and running a kubelet.  It is used in three different applications:</span></span><br><span class="line"><span class="comment">//   1 Integration tests</span></span><br><span class="line"><span class="comment">//   2 Kubelet binary</span></span><br><span class="line"><span class="comment">//   3 Standalone &#x27;kubernetes&#x27; binary</span></span><br><span class="line"><span class="comment">// Eventually, #2 will be replaced with instances of #3</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RunKubelet</span><span class="params">(kubeServer *options.KubeletServer, kubeDeps *kubelet.Dependencies, runOnce <span class="keyword">bool</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	...</span><br><span class="line">  k, err := createAndInitKubelet(</span><br><span class="line">    ...</span><br><span class="line">  )</span><br><span class="line">  ...</span><br><span class="line">  	startKubelet(k, podCfg, &amp;kubeServer.KubeletConfiguration, kubeDeps, kubeServer.EnableServer)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createAndInitKubelet</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  ...</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  k, err = kubelet.NewMainKubelet(</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewMainKubelet instantiates a new Kubelet object along with all the required internal modules.</span></span><br><span class="line"><span class="comment">// No initialization of Kubelet and its modules should happen here.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMainKubelet</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  ...</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">		kubeDeps.PodConfig, err = makePodSourceConfig(kubeCfg, kubeDeps, nodeName, nodeHasSynced)</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p>RunKubelet -&gt; createAndInitKubelet -&gt; NewMainKubelet. 在NewMainKubelet中，调用makePodSourceConfig来根据kubeletConfiguration，生成PodConfig，一个struct，能够获取多种取到的Pod配置来源（StaticPodPath/StaticPodURL/Kube-apisever)，并能够分发给不通的Listener处理。PodConfig在源码中的注释说明原文如下：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> PodConfig is a configuration mux that merges many sources of pod configuration into a single<br><span class="hljs-regexp">//</span> consistent structure, and then delivers incremental change notifications to listeners<br><span class="hljs-regexp">//</span> <span class="hljs-keyword">in</span> order.<br></code></pre></td></tr></table></figure>
+<p>RunKubelet -&gt; createAndInitKubelet -&gt; NewMainKubelet. 在NewMainKubelet中，调用makePodSourceConfig来根据kubeletConfiguration，生成PodConfig，一个struct，能够获取多种取到的Pod配置来源（StaticPodPath&#x2F;StaticPodURL&#x2F;Kube-apisever)，并能够分发给不通的Listener处理。PodConfig在源码中的注释说明原文如下：</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; PodConfig is a configuration mux that merges many sources of pod configuration into a single</span><br><span class="line">&#x2F;&#x2F; consistent structure, and then delivers incremental change notifications to listeners</span><br><span class="line">&#x2F;&#x2F; in order.</span><br></pre></td></tr></table></figure></div>
 
 
 
-<p>Kubernetes/pkg/kubelet/kubelet.go</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// makePodSourceConfig creates a config.PodConfig from the given</span><br><span class="hljs-comment">// KubeletConfiguration or returns an error.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makePodSourceConfig</span><span class="hljs-params">(kubeCfg *kubeletconfiginternal.KubeletConfiguration, kubeDeps *Dependencies, nodeName types.NodeName, nodeHasSynced <span class="hljs-keyword">func</span>()</span> <span class="hljs-title">bool</span>) <span class="hljs-params">(*config.PodConfig, error)</span></span> &#123;<br>	...<br>  <span class="hljs-comment">// define file config source</span><br>	<span class="hljs-keyword">if</span> kubeCfg.StaticPodPath != <span class="hljs-string">&quot;&quot;</span> &#123;<br>		klog.InfoS(<span class="hljs-string">&quot;Adding static pod path&quot;</span>, <span class="hljs-string">&quot;path&quot;</span>, kubeCfg.StaticPodPath)<br>		config.NewSourceFile(kubeCfg.StaticPodPath, nodeName, kubeCfg.FileCheckFrequency.Duration, cfg.Channel(kubetypes.FileSource))<br>	&#125;<br><br>	<span class="hljs-comment">// define url config source</span><br>	<span class="hljs-keyword">if</span> kubeCfg.StaticPodURL != <span class="hljs-string">&quot;&quot;</span> &#123;<br>		klog.InfoS(<span class="hljs-string">&quot;Adding pod URL with HTTP header&quot;</span>, <span class="hljs-string">&quot;URL&quot;</span>, kubeCfg.StaticPodURL, <span class="hljs-string">&quot;header&quot;</span>, manifestURLHeader)<br>		config.NewSourceURL(kubeCfg.StaticPodURL, manifestURLHeader, nodeName, kubeCfg.HTTPCheckFrequency.Duration, cfg.Channel(kubetypes.HTTPSource))<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> kubeDeps.KubeClient != <span class="hljs-literal">nil</span> &#123;<br>		klog.InfoS(<span class="hljs-string">&quot;Adding apiserver pod source&quot;</span>)<br>		config.NewSourceApiserver(kubeDeps.KubeClient, nodeName, nodeHasSynced, cfg.Channel(kubetypes.ApiserverSource))<br>	&#125;<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;kubelet.go</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// makePodSourceConfig creates a config.PodConfig from the given</span></span><br><span class="line"><span class="comment">// KubeletConfiguration or returns an error.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">makePodSourceConfig</span><span class="params">(kubeCfg *kubeletconfiginternal.KubeletConfiguration, kubeDeps *Dependencies, nodeName types.NodeName, nodeHasSynced <span class="keyword">func</span>()</span> <span class="title">bool</span>) <span class="params">(*config.PodConfig, error)</span></span> &#123;</span><br><span class="line">	...</span><br><span class="line">  <span class="comment">// define file config source</span></span><br><span class="line">	<span class="keyword">if</span> kubeCfg.StaticPodPath != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		klog.InfoS(<span class="string">&quot;Adding static pod path&quot;</span>, <span class="string">&quot;path&quot;</span>, kubeCfg.StaticPodPath)</span><br><span class="line">		config.NewSourceFile(kubeCfg.StaticPodPath, nodeName, kubeCfg.FileCheckFrequency.Duration, cfg.Channel(kubetypes.FileSource))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// define url config source</span></span><br><span class="line">	<span class="keyword">if</span> kubeCfg.StaticPodURL != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		klog.InfoS(<span class="string">&quot;Adding pod URL with HTTP header&quot;</span>, <span class="string">&quot;URL&quot;</span>, kubeCfg.StaticPodURL, <span class="string">&quot;header&quot;</span>, manifestURLHeader)</span><br><span class="line">		config.NewSourceURL(kubeCfg.StaticPodURL, manifestURLHeader, nodeName, kubeCfg.HTTPCheckFrequency.Duration, cfg.Channel(kubetypes.HTTPSource))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> kubeDeps.KubeClient != <span class="literal">nil</span> &#123;</span><br><span class="line">		klog.InfoS(<span class="string">&quot;Adding apiserver pod source&quot;</span>)</span><br><span class="line">		config.NewSourceApiserver(kubeDeps.KubeClient, nodeName, nodeHasSynced, cfg.Channel(kubetypes.ApiserverSource))</span><br><span class="line">	&#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>再看看makePodSourceConfig函数里面，就是有三种来源的Pod定义信息，分别是StaticPodPath、StaticPodURL和kubeClient。</p>
-<p>再直接查看kubernetes/pkg/kubelet/config/file.go：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go">...<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *sourceFile)</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span> &#123;<br>	listTicker := time.NewTicker(s.period)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		...<br>		<span class="hljs-keyword">for</span> &#123;<br>			<span class="hljs-keyword">select</span> &#123;<br>			<span class="hljs-keyword">case</span> &lt;-listTicker.C:<br>				<span class="hljs-keyword">if</span> err := s.listConfig(); err != <span class="hljs-literal">nil</span> &#123;<br>					klog.ErrorS(err, <span class="hljs-string">&quot;Unable to read config path&quot;</span>, <span class="hljs-string">&quot;path&quot;</span>, s.path)<br>				&#125;<br>			...<br>			&#125;<br>		&#125;<br>	&#125;()<br><br>	s.startWatch()<br>&#125;<br>...<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *sourceFile)</span> <span class="hljs-title">listConfig</span><span class="hljs-params">()</span> <span class="hljs-title">error</span></span> &#123;<br>	...<br>	<span class="hljs-keyword">switch</span> &#123;<br>	<span class="hljs-keyword">case</span> statInfo.Mode().IsDir():<br>		...<br>	<span class="hljs-keyword">case</span> statInfo.Mode().IsRegular():<br>		...<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>再直接查看kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;config&#x2F;file.go：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *sourceFile)</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">	listTicker := time.NewTicker(s.period)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		...</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> &lt;-listTicker.C:</span><br><span class="line">				<span class="keyword">if</span> err := s.listConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">					klog.ErrorS(err, <span class="string">&quot;Unable to read config path&quot;</span>, <span class="string">&quot;path&quot;</span>, s.path)</span><br><span class="line">				&#125;</span><br><span class="line">			...</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	s.startWatch()</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *sourceFile)</span> <span class="title">listConfig</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">switch</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> statInfo.Mode().IsDir():</span><br><span class="line">		...</span><br><span class="line">	<span class="keyword">case</span> statInfo.Mode().IsRegular():</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>可以看到如果StaticPodPath配置了的话，kubelet会启动一个协程，定时watch这个路径下的所有文件，如果是符合Pod定义的文件，则把反序列化出来的Pod对象分发给PodConfig的Listener进行处理。</p>
 <p>Stuct PodConfig的成员updates chan kubetypes.PodUpdate是一个分发需要处理的Pod事件的Channel。</p>
-<p>Kubernetes/pkg/kubelet/kubelet.go</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(kl *Kubelet)</span> <span class="hljs-title">syncLoopIteration</span><span class="hljs-params">(configCh &lt;-<span class="hljs-keyword">chan</span> kubetypes.PodUpdate, handler SyncHandler,</span></span><br><span class="hljs-function"><span class="hljs-params">	syncCh &lt;-<span class="hljs-keyword">chan</span> time.Time, housekeepingCh &lt;-<span class="hljs-keyword">chan</span> time.Time, plegCh &lt;-<span class="hljs-keyword">chan</span> *pleg.PodLifecycleEvent)</span> <span class="hljs-title">bool</span></span> &#123;<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;kubelet.go</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(kl *Kubelet)</span> <span class="title">syncLoopIteration</span><span class="params">(configCh &lt;-<span class="keyword">chan</span> kubetypes.PodUpdate, handler SyncHandler,</span></span></span><br><span class="line"><span class="function"><span class="params">	syncCh &lt;-<span class="keyword">chan</span> time.Time, housekeepingCh &lt;-<span class="keyword">chan</span> time.Time, plegCh &lt;-<span class="keyword">chan</span> *pleg.PodLifecycleEvent)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>在函数syncLoopIteration中，通过读取PodConfig的updates这个Channel，来分发出事件进行处理，主要是由Kubelet按照Pod的定义，调用底层的容器运行时来运行容器。当然，当Kubelet watch到指定路径的Pod定义文件被移除，那它也会停止原本运行的Static pod。后面的实现代码边幅较长不再详细列举。</p>
 <h2 id="Static-pod的典型应用场景"><a href="#Static-pod的典型应用场景" class="headerlink" title="Static pod的典型应用场景"></a>Static pod的典型应用场景</h2><p>Static pod目前使用最广泛的场景，是在Kubeadm中使用使用这一机制来Bootstrap一个Kubernetes集群。</p>
@@ -294,202 +561,389 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文首先介绍了Kubernetes中Static pod机制的原理，并与“常规的”集群中运行的Pod进行了对比。然后说明了如何快速使用Kubelet来部署启动、重启和停止Static pod来实现对一组业务容器的生命周期管理。如果我们需要在Kubernetes中指定每个节点启动特定的Pod，那么建议使用官方的DaemonSet来实现目的。Static pod的使用场景在于无集群时，如何能方便、稳定地管理运行在本节点上的容器。Static pod目前最广泛的应用场景是Kubeadm中利用这一机制来启动Kubernetes集群的Control Plane层面的各个组件。</p>
 <p>Static pod仅仅依赖所在节点的Kubelet即可启动，不需要集群，但也缺少了集群层面的资源调度、自动伸缩等功能。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59612514/whats-the-difference-between-pods-and-static-pods-in-kubernetes-and-when-to">stack overflow: whats-the-difference-between-pods-and-static-pods</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/">https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/</a></li>
-<li><a target="_blank" rel="noopener" href="https://octetz.com/docs/2019/2019-10-12-static-pods/">https://octetz.com/docs/2019/2019-10-12-static-pods/</a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59612514/whats-the-difference-between-pods-and-static-pods-in-kubernetes-and-when-to" >stack overflow: whats-the-difference-between-pods-and-static-pods <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/" >https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/" >https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://octetz.com/docs/2019/2019-10-12-static-pods/" >https://octetz.com/docs/2019/2019-10-12-static-pods/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ol>
 
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Kubernetes中的Static pod实现与使用场景分析</li>
+        <li><strong>作者:</strong> The Redefine Team</li>
+        <li><strong>创建于
+                :</strong> 2021-06-22 12:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-05-01 12:17:38
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2021/06/22/Kubernetes中的static pod实现与使用场景分析/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
             </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
+        
+
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/kubernetes/">kubernetes</a>
-                    
-                  </div>
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Hypervisor介绍</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hypervisor介绍</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/13/ploto-quick-start/">
-                        <span class="hidden-mobile">Ploto quick start</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2021/04/13/ploto-quick-start/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Ploto quick start</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Kubernetes中的Static pod实现与使用场景分析</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E7%9F%A5%E8%AF%86"><span class="nav-text">先决知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-pod%E7%AE%80%E4%BB%8B"><span class="nav-text">Static pod简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E7%9A%84Pod"><span class="nav-text">普通的Pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-pod"><span class="nav-text">Static pod</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Static-pod"><span class="nav-text">为什么需要Static pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-pod%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90"><span class="nav-text">Static pod的实现分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-pod%E7%9A%84%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">Static pod的典型应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
             </div>
 
             
-          </article>
+
         </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
 
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 8 篇文章
+                    </span>
+                    
+                </p>
+            
         </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="http://xawei.xyz" target="_blank" rel="nofollow noopener"><span>xawei</span></a> <i class="iconfont icon-love"></i> <a href="http://xawei.xyz/about/" target="_blank" rel="nofollow noopener"><span>Hello world</span></a> <br> Powered by <a href="https://cloud.tencent.com/document/product/457/57339" target="_blank" rel="nofollow noopener"><span>EKSCI</span></a> <br> 
-  </div>
-  
-
-  
-
-  
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
 </footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
 
 
-  <!-- SCRIPTS -->
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
   
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
+<script src="/js/libs/Typed.min.js"></script>
 
   
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-
-
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      $('#local-search-input').on('click', function() {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      });
-      $('#modalSearch').on('shown.bs.modal', function() {
-        $('#local-search-input').focus();
-      });
-    })()
-  </script>
+<script src="/js/plugins/typed.js" type="module"></script>
 
 
 
@@ -499,14 +953,17 @@
 
 
 
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
 
+<script src="/js/layouts/toc.js" type="module"></script>
 
+<script src="/js/plugins/tabs.js" type="module"></script>
 
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
+    
+</div>
 
 
 </body>
