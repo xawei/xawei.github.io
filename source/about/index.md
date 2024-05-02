@@ -14,8 +14,7 @@ date: 2021-03-02 14:52:41
 
 ## 社交
 
-- <i  class="fa-brands fa-douban"></i>
-<style>.fa-douban:before { content: "豆"; }</style>: [xawei](https://www.douban.com/people/goanda/)
+- douban: [xawei](https://www.douban.com/people/goanda/)
 
 - <i class="fa-brands fa-github"></i>: [xawei](https://github.com/xawei)
 
