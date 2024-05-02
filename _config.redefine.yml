@@ -246,7 +246,7 @@ home:
     limit: 3 # Max number of categories to display
   # Article tags visibility
   tags:
-    enable: true  # Whether to enable
+    enable: false  # Whether to enable
     limit: 3  # Max number of tags to display
 # HOME PAGE ARTICLE SETTINGS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
