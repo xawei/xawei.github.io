@@ -225,7 +225,7 @@ home:
     enable: true # Whether to enable sidebar
     position: left # Sidebar position. left, right
     first_item: menu # First item in sidebar. menu, info
-    announcement: # Announcement text
+    announcement: There's never been a better time to learn # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
       # Archives: 
@@ -374,7 +374,7 @@ footer:
   # Site statistics
   statistics: false # show site statistics or not (total articles, total words)
   # Footer message
-  customize: "There's never been a better time to learn"
+  customize:
   # ICP record number. See https://beian.miit.gov.cn/
   icp:
     enable: false # Whether to enable
