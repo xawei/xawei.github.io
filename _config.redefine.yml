@@ -51,7 +51,7 @@ global:
     # Chinese fonts
     chinese: 
       enable: true # Whether to enable custom chinese fonts
-      family: Microsoft YaHei  # Font family
+      family: Ma Shan Zheng  # Font family
       url:  https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap # Font URL to CSS file
     # English fonts
     english: 
