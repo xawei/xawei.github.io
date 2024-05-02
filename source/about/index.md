@@ -14,7 +14,7 @@ date: 2021-03-02 14:52:41
 
 ## 社交
 
-- 豆瓣：[xawei](https://www.douban.com/people/goanda/)
+- <i  class="fa-brands fa-douban"></i> 豆瓣：[xawei](https://www.douban.com/people/goanda/)
 
 - github：[xawei](https://github.com/xawei)
 
