@@ -189,6 +189,9 @@ navbar:
     Home: 
       path: / 
       icon: fa-regular fa-house # can be empty
+    相册:
+      path: /masonry/
+      icon: fa-solid fa-image 
     Categories:
       path: /categories
       icon: fa-solid fa-list
