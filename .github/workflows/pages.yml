@@ -25,6 +25,9 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Modify Footer in YAML
+        run: |
+          sed -i '/powered_by:/d' ./node_modules/hexo-theme-redefine/languages/zh-CN.yml
       - name: Build
         run: npm run build
       - name: Deploy
