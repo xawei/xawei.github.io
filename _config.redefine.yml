@@ -51,8 +51,8 @@ global:
     # Chinese fonts
     chinese: 
       enable: true # Whether to enable custom chinese fonts
-      family: Liu Jian Mao Cao  # Font family
-      url:  "https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&display=swap" # Font URL to CSS file
+      family: Noto Serif SC  # Font family
+      url:  "https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" # Font URL to CSS file
     # English fonts
     english: 
       enable: true # Whether to enable custom english fonts
