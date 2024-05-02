@@ -25,10 +25,9 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
-      - name: Modify Footer
+      - name: Modify Footer # lines may change in different versions
         run: |
-          sed -i '/<%- __("powered_by"/,/<\/span>/d' ./node_modules/hexo-theme-redefine/layout/_partials/footer.ejs
-          sed -i '/<%- __("theme")/,/Redefine v<%- getThemeVersion() %>"><\/a><\/span>/d' ./node_modules/hexo-theme-redefine/layout/_partials/footer.ejs
+          sed -i '52,55d'  ./node_modules/hexo-theme-redefine/layout/_partials/footer.ejs
       - name: Build
         run: npm run build
       - name: Deploy
