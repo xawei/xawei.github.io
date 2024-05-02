@@ -29,5 +29,4 @@ date: 2021-03-02 14:52:41
 
 ## 联系
 
-- Email: csxawei#foxmail.com(replace # with @)
-- <i class="fa-brands fa-weixin"></i> WeChat: gonginx
+- <i class="fa-solid fa-envelope"></i>: csxawei#foxmail.com(replace # with @)
