@@ -25,9 +25,10 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
-      - name: Modify Footer in YAML
+      - name: Modify Footer
         run: |
-          sed -i '/powered_by:/d' ./node_modules/hexo-theme-redefine/languages/*
+          sed -i '/<%- __("powered_by"/,/<\/span>/d' themes/redefine/layout/_partial/footer.ejs
+          sed -i '/<%- __("theme")/,/Redefine v<%- getThemeVersion() %>"><\/a><\/span>/d' themes/redefine/layout/_partial/footer.ejs
       - name: Build
         run: npm run build
       - name: Deploy
