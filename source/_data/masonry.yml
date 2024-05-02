@@ -1,7 +1,3 @@
-- image: https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/IMG_20230121_202703_1.jpg
-  title: 图片标题
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod
- 
 - image: https://picsum.photos/id/12/2500/1800
   title: Lorem ipsum
   description: Lorem ipsum dolor sit amet
