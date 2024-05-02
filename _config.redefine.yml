@@ -277,7 +277,7 @@ articles:
     min2read: true # Whether to display reading time
   # Author label
   author_label: 
-    enable: true # Whether to enable
+    enable: false # Whether to enable
     auto: false # Whether to automatically add author label, e.g. Lv1, Lv2, Lv3...
     list: []
   # Code block settings
@@ -374,7 +374,7 @@ footer:
   # Site statistics
   statistics: false # show site statistics or not (total articles, total words)
   # Footer message
-  customize:
+  customize: "There's never been a better time to learn"
   # ICP record number. See https://beian.miit.gov.cn/
   icp:
     enable: false # Whether to enable
