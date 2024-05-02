@@ -225,7 +225,7 @@ home:
     enable: true # Whether to enable sidebar
     position: left # Sidebar position. left, right
     first_item: menu # First item in sidebar. menu, info
-    announcement: There's never been a better time to learn # Announcement text
+    announcement: # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
       # Archives: 
