@@ -32,9 +32,7 @@ VPC Endpoints are virtual devices that enable you to connect to AWS services dir
   - Architecture and Use Cases: Gateway Endpoints provide a gateway for traffic destined for S3 and DynamoDB. They integrate with your route tables, allowing traffic to these services to stay within the AWS network.
   - How They Work: When you configure a Gateway Endpoint, you add a route to your route table that directs traffic for S3 or DynamoDB to the endpoint. This configuration avoids the public internet and reduces exposure to potential threats.
 
-## 3. Architecture and Configuration
-### Architecture Diagram
-
+## 3. Configuration
 ### Configuring Interface Endpoints
 
 ### Configuring Gateway Endpoints
