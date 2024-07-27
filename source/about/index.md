@@ -21,7 +21,7 @@ date: 2021-03-02 14:52:41
 
 - Program Language: Golang, C/C++
 - Database: ETCD, MySQL, Redis
-- Other: Kubernetes, Docker, Terraform
+- Other: Kubernetes, Istio, Docker, Terraform
 
 ## 联系
 
