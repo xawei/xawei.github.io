@@ -44,13 +44,7 @@ VPC Endpoints are virtual devices that enable you to connect to AWS services dir
 
 ### Cost Considerations
 
-## 5. Security and Management
-### Configuring Security Groups and Network ACLs
-
-
-### IAM Policies and Access Control
-
-## 6. Conclusion
+## 5. Conclusion
 ### Summary of Benefits
 
 
