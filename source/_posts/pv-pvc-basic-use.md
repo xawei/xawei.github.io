@@ -52,8 +52,7 @@ PVC表达的是用户对存储的请求（persistant volume claim），也是kub
 
 Pod、PVC、PV、StorageClass的关系图可以解释如下：
 
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210511215559.png" style="zoom:67%;" />
-
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411222231691.png)
 
 
 ### Pod中使用持久存储
