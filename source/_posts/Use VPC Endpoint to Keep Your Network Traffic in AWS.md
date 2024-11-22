@@ -23,6 +23,7 @@ They prevent your data from traversing the public internet, thus enhancing secur
 ## 2. In-Depth Look at VPC Endpoints
 ### Detailed Definition
 VPC Endpoints are virtual devices that enable you to connect to AWS services directly from your VPC without using public IP addresses. This connection is made through a private link within the AWS network, enhancing security and performance.
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/20241122221546.png)
 
 ### Types of VPC Endpoints
 - Interface Endpoints (AWS PrivateLink)
