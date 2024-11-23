@@ -91,13 +91,13 @@ spec:
   storageClassName: ebs-sc    # Use the ebs-sc StorageClass
 ```
 
-集群中的Volume Controller发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。Volume Controller寻找PV的条件主要是：
-（1）PVC和PV的spec字段中指定的规格，例如存储（storage）的大小；
+集群中的**Volume Controller**发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。
 
-（2）PVC和PV的storageClassName必须一样。
+Volume Controller寻找PV的条件主要是：
+- PVC和PV的spec字段中指定的规格，例如存储（storage）的大小；
+- PVC和PV的storageClassName必须一样。
 
 如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。
-
 
 3. 创建使用PVC的workload
 ```yaml
