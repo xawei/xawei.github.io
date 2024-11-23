@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231051425.png">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png">
 <meta property="article:published_time" content="2021-01-10T11:10:00.000Z">
-<meta property="article:modified_time" content="2024-11-23T03:49:56.634Z">
+<meta property="article:modified_time" content="2024-11-23T03:52:49.731Z">
 <meta property="article:author" content="xawei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png">
@@ -375,8 +375,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-23 03:49:56</span>
-            <span class="mobile">2024-11-23 03:49:56</span>
+            <span class="desktop">2024-11-23 03:52:49</span>
+            <span class="mobile">2024-11-23 03:52:49</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -450,8 +450,12 @@
 <li><p>创建PVC</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-ebs-pvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span>          <span class="comment"># EBS volumes can only be attached to one node at a time</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">5Gi</span>           <span class="comment"># Request 5Gi of storage</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">ebs-sc</span>    <span class="comment"># Use the ebs-sc StorageClass</span></span><br></pre></td></tr></table></figure></div></li>
 </ol>
-<p>集群中的Volume Controller发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。Volume Controller寻找PV的条件主要是：<br>（1）PVC和PV的spec字段中指定的规格，例如存储（storage）的大小；</p>
-<p>（2）PVC和PV的storageClassName必须一样。</p>
+<p>集群中的<strong>Volume Controller</strong>发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。</p>
+<p>Volume Controller寻找PV的条件主要是：</p>
+<ul>
+<li>PVC和PV的spec字段中指定的规格，例如存储（storage）的大小；</li>
+<li>PVC和PV的storageClassName必须一样。</li>
+</ul>
 <p>如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。</p>
 <ol start="3">
 <li>创建使用PVC的workload<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">app</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span>   <span class="comment"># Mount PVC at this path</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">        <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">          <span class="attr">claimName:</span> <span class="string">my-ebs-pvc</span>             <span class="comment"># Use the PVC created earlier</span></span><br></pre></td></tr></table></figure></div></li>
@@ -477,7 +481,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-11-23 03:49:56
+                    :</strong> 2024-11-23 03:52:49
             </li>
         
         <li>
