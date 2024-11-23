@@ -1,5 +1,5 @@
 ---
-title: PV、PVC
+title: PV和PVC
 categories: kubernetes
 date: 2021-01-10 11:10:00
 ---
