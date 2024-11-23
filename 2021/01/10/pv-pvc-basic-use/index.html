@@ -18,19 +18,20 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="PV和PVC是kubernetes存储管理中的重要概念，在日常生产场景中使用非常广泛。本文主要介绍PV和PVC在kubernetes中的基本概念、使用场景以及实现原理。更多PV和PVC的使用细节问题请参考kubernetes官方文档。">
+        <meta name="description" content="在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PV和PVC的基本概念和使用">
+<meta property="og:title" content="PV、PVC、StorageClass 和 Provisioner">
 <meta property="og:url" content="http://example.com/2021/01/10/pv-pvc-basic-use/index.html">
 <meta property="og:site_name" content="个人日常技术">
-<meta property="og:description" content="PV和PVC是kubernetes存储管理中的重要概念，在日常生产场景中使用非常广泛。本文主要介绍PV和PVC在kubernetes中的基本概念、使用场景以及实现原理。更多PV和PVC的使用细节问题请参考kubernetes官方文档。">
+<meta property="og:description" content="在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411230948322.png">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411222231691.png">
 <meta property="article:published_time" content="2021-01-10T11:10:00.000Z">
-<meta property="article:modified_time" content="2024-11-22T14:31:58.988Z">
+<meta property="article:modified_time" content="2024-11-23T01:52:17.542Z">
 <meta property="article:author" content="xawei">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411222231691.png">
+<meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411230948322.png">
     
     
     <!--- Icon Part-->
@@ -42,7 +43,7 @@
     
     <title>
         
-            PV和PVC的基本概念和使用 | Wei&#39;s Blog
+            PV、PVC、StorageClass 和 Provisioner | Wei&#39;s Blog
         
     </title>
 
@@ -346,7 +347,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">PV和PVC的基本概念和使用</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">PV、PVC、StorageClass 和 Provisioner</h1>
 			</div>
 			
 		</div>
@@ -372,8 +373,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-22 14:31:58</span>
-            <span class="mobile">2024-11-22 14:31:58</span>
+            <span class="desktop">2024-11-23 01:52:17</span>
+            <span class="mobile">2024-11-23 01:52:17</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -412,19 +413,13 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>PV和PVC是kubernetes存储管理中的重要概念，在日常生产场景中使用非常广泛。本文主要介绍PV和PVC在kubernetes中的基本概念、使用场景以及实现原理。更多PV和PVC的使用细节问题请参考kubernetes官方文档。</p>
+			<p>在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。</p>
 <span id="more"></span>
 
 <h2 id="kubernetes存储中的卷"><a href="#kubernetes存储中的卷" class="headerlink" title="kubernetes存储中的卷"></a>kubernetes存储中的卷</h2><p>容器中的文件在磁盘上是临时存放的，也有很多场景下应用程序都需要对某些数据进行持久存储，避免在容器奔溃时造成数据丢失。</p>
 <p>在kubernetes中，提供了挂载卷（Volume）的能力，卷的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/" >官方文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
-<p>主要的常用卷类型包括：</p>
-<p>emptyDir：卷最初是空的，在pod在节点运行时创建，pod删除时数据也会永久删除；</p>
-<p>configMap：可以将configMap中的数据作为卷挂在到pod中；</p>
-<p>secret：可以将secret中的数据作为卷挂载到pod中；</p>
-<p>downwardAPI：将pod的元数据信息注入到pod中；</p>
-<p>hostPath：能将主机节点文件系统上的文件或目录挂载到 Pod 中；</p>
-<p>nfs：将 NFS (网络文件系统) 挂载到 Pod，可以多挂；</p>
-<p>kubernetes的一个重要的基本理念是：<strong>向应用开发者隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换</strong>。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求CPU\MEM等资源一样来向kubernetes集群请求持久存储。</p>
+<p>主要的常用卷类型包括：<br><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411230948322.png"></p>
+<p>kubernetes的一个重要的基本理念是：<strong>向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换</strong>。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。</p>
 <h2 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a>PV和PVC</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。</p>
 <p>PV是集群中的一块存储，一般可以由集群的管理员事先供应，或者使用storage class的方式来动态供应。pv属于集群资源，它们的生命周期跟使用它们的pod时相互独立。</p>
 <p>PVC表达的是用户对存储的请求（persistant volume claim），也是kubernetes中独立存在的API资源。Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU 和内存）；同样PVC也可以请求特定的大小和访问模式。</p>
@@ -462,14 +457,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> PV和PVC的基本概念和使用</li>
+        <li><strong>标题:</strong> PV、PVC、StorageClass 和 Provisioner</li>
         <li><strong>作者:</strong> xawei</li>
         <li><strong>创建于
                 :</strong> 2021-01-10 11:10:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-11-22 14:31:58
+                    :</strong> 2024-11-23 01:52:17
             </li>
         
         <li>
@@ -535,7 +530,7 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">PV和PVC的基本概念和使用</div>
+		<div class="page-title">PV、PVC、StorageClass 和 Provisioner</div>
 		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#kubernetes%E5%AD%98%E5%82%A8%E4%B8%AD%E7%9A%84%E5%8D%B7"><span class="nav-text">kubernetes存储中的卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PV%E5%92%8CPVC"><span class="nav-text">PV和PVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%8C%81%E4%B9%85%E5%AD%98%E5%82%A8"><span class="nav-text">Pod中使用持久存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
 
 	</div>
