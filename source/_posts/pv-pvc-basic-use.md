@@ -47,7 +47,7 @@ PVC表达的是用户对存储的请求，也是kubernetes中独立存在的API�
 
 Pod、PVC、PV、StorageClass的关系图可以解释如下：
 
-![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231041194.png)
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231051425.png)
 
 
 ### Pod中使用持久存储
