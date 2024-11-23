@@ -1,10 +1,10 @@
 ---
-title: PV和PVC的基本概念和使用
+title: PV、PVC、StorageClass 和 Provisioner
 categories: kubernetes
 date: 2021-01-10 11:10:00
 ---
 
-PV和PVC是kubernetes存储管理中的重要概念，在日常生产场景中使用非常广泛。本文主要介绍PV和PVC在kubernetes中的基本概念、使用场景以及实现原理。更多PV和PVC的使用细节问题请参考kubernetes官方文档。
+在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。
 
 <!--more-->
 
@@ -15,21 +15,9 @@ PV和PVC是kubernetes存储管理中的重要概念，在日常生产场景中�
 在kubernetes中，提供了挂载卷（Volume）的能力，卷的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考[官方文档](https://kubernetes.io/docs/concepts/storage/volumes/)。
 
 主要的常用卷类型包括：
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411230948322.png)
 
-emptyDir：卷最初是空的，在pod在节点运行时创建，pod删除时数据也会永久删除；
-
-configMap：可以将configMap中的数据作为卷挂在到pod中；
-
-secret：可以将secret中的数据作为卷挂载到pod中；
-
-downwardAPI：将pod的元数据信息注入到pod中；
-
-hostPath：能将主机节点文件系统上的文件或目录挂载到 Pod 中；
-
-nfs：将 NFS (网络文件系统) 挂载到 Pod，可以多挂；
-
-kubernetes的一个重要的基本理念是：**向应用开发者隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换**。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求CPU\MEM等资源一样来向kubernetes集群请求持久存储。
-
+kubernetes的一个重要的基本理念是：**向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换**。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。
 
 
 ## PV和PVC
