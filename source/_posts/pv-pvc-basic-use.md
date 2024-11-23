@@ -29,25 +29,26 @@ kubernetes的一个重要的基本理念是：**向app developers隐藏真实的
 前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod/Node的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。
 
 PV是集群中的一块存储，可以由集群的administrators事先手动创建外部存储后关联PV，就是所谓的静态供应（static provisioning）。
+
 这个方法很大的一个问题在于，当kubernetes集群规模很大时，需要管理员手工去创建成千上万的PV来对应存储资源，这是很繁琐的。
+
 因此，kubernetes中PV的创建一般会使用动态供应（dynamic provisioning）。
 
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231025304.png)
 
 PV属于集群资源，它们的生命周期跟使用它们的pod时相互独立。
+
 PVC表达的是用户对存储的请求，也是kubernetes中独立存在的API资源。Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU 和内存）；同样PVC也可以请求特定的大小和访问模式。
 
 当用户创建一个PVC，kubernetes中的volume controller会监测到PVC的对象，寻到集群中与之匹配的PV资源，将二者进行绑定。如果没有匹配的PV资源，PVC则会处理未绑定的状态一直持续等待，直到集群中出现满足条件的PV资源后进行绑定。PVC和PV之间的绑定是一种一对一的映射。
 
-而另一个很重要的概念，也是kubernetes的API资源，就是storageClass。storageClass可以说是PV的创建模板。前面提到，
-
-在storageClass中会定义：（1）PV的属性，如存储类型和大小；（2）创建PV需要的存储插件，如NFS。
+而另一个很重要的概念，也是kubernetes的API资源，就是storageClass。storageClass可以说是PV的创建模板。
 
 这样，kubernetes就可以根据PVC指定的storageClass，调用指定的存储插件，创建所需的PV。
 
 Pod、PVC、PV、StorageClass的关系图可以解释如下：
 
-![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411222231691.png)
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231041194.png)
 
 
 ### Pod中使用持久存储
