@@ -1,10 +1,10 @@
 ---
-title: PV、PVC、StorageClass 和 Provisioner
+title: PV、PVC
 categories: kubernetes
 date: 2021-01-10 11:10:00
 ---
 
-在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。
+在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。
 
 <!--more-->
 
@@ -20,7 +20,6 @@ Volume的类型有很多种，例如还有跟云厂商关联的awsElasticBlockSt
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png)
 
 kubernetes的一个重要的基本理念是：**向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换**。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。
-
 
 ## PV和PVC
 
