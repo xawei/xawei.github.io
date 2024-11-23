@@ -26,9 +26,10 @@
 <meta property="og:description" content="在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而持久化存储（PV 和 PVC）是实现有状态应用的核心基础模块。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png">
+<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231025304.png">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411222231691.png">
 <meta property="article:published_time" content="2021-01-10T11:10:00.000Z">
-<meta property="article:modified_time" content="2024-11-23T02:03:28.684Z">
+<meta property="article:modified_time" content="2024-11-23T02:28:37.071Z">
 <meta property="article:author" content="xawei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png">
@@ -373,8 +374,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-23 02:03:28</span>
-            <span class="mobile">2024-11-23 02:03:28</span>
+            <span class="desktop">2024-11-23 02:28:37</span>
+            <span class="mobile">2024-11-23 02:28:37</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -422,10 +423,11 @@
 <p>主要的常用卷类型包括：<br><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png"></p>
 <p>kubernetes的一个重要的基本理念是：<strong>向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换</strong>。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。</p>
 <h2 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a>PV和PVC</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod&#x2F;Node的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。</p>
-<p>PV是集群中的一块存储，一般可以由集群的管理员事先供应，或者使用storage class的方式来动态供应。pv属于集群资源，它们的生命周期跟使用它们的pod时相互独立。</p>
-<p>PVC表达的是用户对存储的请求（persistant volume claim），也是kubernetes中独立存在的API资源。Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU 和内存）；同样PVC也可以请求特定的大小和访问模式。</p>
+<p>PV是集群中的一块存储，可以由集群的administrators事先手动创建外部存储后关联PV，就是所谓的静态供应（static provisioning）。<br>这个方法很大的一个问题在于，当kubernetes集群规模很大时，需要管理员手工去创建成千上万的PV来对应存储资源，这是很繁琐的。<br>因此，kubernetes中PV的创建一般会使用动态供应（dynamic provisioning）。</p>
+<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231025304.png"></p>
+<p>PV属于集群资源，它们的生命周期跟使用它们的pod时相互独立。<br>PVC表达的是用户对存储的请求，也是kubernetes中独立存在的API资源。Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU 和内存）；同样PVC也可以请求特定的大小和访问模式。</p>
 <p>当用户创建一个PVC，kubernetes中的volume controller会监测到PVC的对象，寻到集群中与之匹配的PV资源，将二者进行绑定。如果没有匹配的PV资源，PVC则会处理未绑定的状态一直持续等待，直到集群中出现满足条件的PV资源后进行绑定。PVC和PV之间的绑定是一种一对一的映射。</p>
-<p>而另一个很重要的概念，也是kubernetes的API资源，就是storageClass。storageClass可以说是PV的创建模板。前面提到，PV可以是集群管理员事先供应的，就是所谓的静态供应（static provisioning）。这个方法很大的一个问题在于，当kubernetes集群规模很大时，需要管理员手工去创建成千上万的PV来对应存储资源，这是很繁琐的，因此，kubernetes中PV的创建一般会使用动态供应（dynamic provisioning）。</p>
+<p>而另一个很重要的概念，也是kubernetes的API资源，就是storageClass。storageClass可以说是PV的创建模板。前面提到，</p>
 <p>在storageClass中会定义：（1）PV的属性，如存储类型和大小；（2）创建PV需要的存储插件，如NFS。</p>
 <p>这样，kubernetes就可以根据PVC指定的storageClass，调用指定的存储插件，创建所需的PV。</p>
 <p>Pod、PVC、PV、StorageClass的关系图可以解释如下：</p>
@@ -465,7 +467,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-11-23 02:03:28
+                    :</strong> 2024-11-23 02:28:37
             </li>
         
         <li>
