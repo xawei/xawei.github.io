@@ -52,7 +52,12 @@ Pod、PVC、PV、StorageClass的关系图可以解释如下：
 
 ### Pod中使用持久存储
 
-例如，用户创建一个PVC，如下：
+例如，在AWS上的kubernetes集群，使用PVC声明需要EBS并挂载到Pod中：
+1. 需要在集群中预先部署[aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) （EKS的话，有提供AWS managed Add-on直接支持）
+2. 确保有对应的storageClass
+3. 创建PVC
+4. 在workload中使用PVC作为volume, 并使用volumeMount挂载到pod中
+
 
 ```yaml
 apiVersion: v1
