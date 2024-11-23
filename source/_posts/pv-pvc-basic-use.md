@@ -8,14 +8,16 @@ date: 2021-01-10 11:10:00
 
 <!--more-->
 
-## kubernetes存储中的卷
+## volume和volumeMount
 
 容器中的文件在磁盘上是临时存放的，也有很多场景下应用程序都需要对某些数据进行持久存储，避免在容器奔溃时造成数据丢失。
 
-在kubernetes中，提供了挂载卷（Volume）的能力，卷的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考[官方文档](https://kubernetes.io/docs/concepts/storage/volumes/)。
+Volume 是 Kubernetes 中定义的存储资源，作用是将外部存储或节点上的存储空间与 Pod 关联，用于在容器之间共享数据或提供持久化存储。
+
+Volume的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考[官方文档](https://kubernetes.io/docs/concepts/storage/volumes/)。
 
 主要的常用卷类型包括：
-![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411230948322.png)
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png)
 
 kubernetes的一个重要的基本理念是：**向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换**。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。
 
@@ -24,7 +26,7 @@ kubernetes的一个重要的基本理念是：**向app developers隐藏真实的
 
 ### 基本概念
 
-前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。
+前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod/Node的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。
 
 PV是集群中的一块存储，一般可以由集群的管理员事先供应，或者使用storage class的方式来动态供应。pv属于集群资源，它们的生命周期跟使用它们的pod时相互独立。
 
