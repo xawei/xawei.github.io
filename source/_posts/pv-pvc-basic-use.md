@@ -54,23 +54,41 @@ Pod、PVC、PV、StorageClass的关系图可以解释如下：
 
 例如，在AWS上的kubernetes集群，使用PVC声明需要EBS并挂载到Pod中：
 1. 需要在集群中预先部署[aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) （EKS的话，有提供AWS managed Add-on直接支持）
-2. 确保有对应的storageClass
-3. 创建PVC
-4. 在workload中使用PVC作为volume, 并使用volumeMount挂载到pod中
+2. 创建对应的storageClass, 确保Provisioner backend pods也正常运行
+3. 创建PVC, 在workload中使用PVC作为volume, 并使用volumeMount在pod中声明
+4. aws-ebs-csi-driver创建对应的外部存储EBS和PV，挂载到workload的pod中
 
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png)
 
+#### PVC / PV / SC 等资源
+
+1. 在集群中需要有对应的storageClass
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com  # Specify related provisioner
+parameters:
+  type: gp3                # The type of EBS volume (gp3 for general-purpose SSD)
+  fsType: ext4             # File system type
+reclaimPolicy: Delete       # Automatically delete EBS volume when PVC is deleted
+volumeBindingMode: WaitForFirstConsumer # Volume is provisioned only when a pod uses the PVC
+```
+
+2. 创建PVC
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs
+  name: my-ebs-pvc
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: manual
+    - ReadWriteOnce          # EBS volumes can only be attached to one node at a time
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi           # Request 5Gi of storage
+  storageClassName: ebs-sc    # Use the ebs-sc StorageClass
 ```
 
 集群中的Volume Controller发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。Volume Controller寻找PV的条件主要是：
@@ -78,50 +96,38 @@ spec:
 
 （2）PVC和PV的storageClassName必须一样。
 
-如果集群中存在类型下面这样能满足PVC条件的PV，则可能会被绑定：
+如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。
 
+
+3. 创建使用PVC的workload
 ```yaml
-apiVersion: v1
-kind: PersistentVolume
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nfs
+  name: ebs-pvc-app
 spec:
-  storageclassName: manual
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  nfs:
-    server: 10.0.0.1
-    path: "/"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ebs-pvc-app
+  template:
+    metadata:
+      labels:
+        app: ebs-pvc-app
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html   # Mount PVC at this path
+          name: storage
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: my-ebs-pvc             # Use the PVC created earlier
 ```
 
-用户可以在自己Pod中声明使用这个PVC:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    role: web-frontend
-spec:
-  containers:
-  - name: web
-    image: nginx
-    ports:
-      - name: web
-        containerPort: 80
-    volumeMounts:
-        - name: nfs
-          mountPath: "/usr/share/nginx/html"
-  volumes:
-  - name: nfs
-    persistentVolumeClaim:
-      claimName: nfs
-```
-为什么Pod使用这个PVC就可以实现容器的持久存储呢？其实容器的Volume就是将一个宿主机上的目录跟一个容器里的目录绑定挂载。只要宿主机上的这个路径的目录是”持久“的，那么在容器中的路径Volume也就是”持久”的。
-
-这个准备“持久化”宿主机目录的过程，分为“两阶段处理”。
+对于EBS这样的块存储，分为“两阶段处理”。
 
 （1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要“挂载存储设备到宿主机”）
 
