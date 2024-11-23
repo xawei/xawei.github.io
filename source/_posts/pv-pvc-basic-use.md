@@ -16,7 +16,7 @@ Volume 是 Kubernetes 中定义的存储资源，作用是将外部存储或节�
 
 Volume的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考[官方文档](https://kubernetes.io/docs/concepts/storage/volumes/)。
 
-主要的常用卷类型包括：
+主要的常用volume类型包括：
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png)
 
 kubernetes的一个重要的基本理念是：**向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换**。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。
