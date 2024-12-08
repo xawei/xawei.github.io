@@ -195,9 +195,10 @@ navbar:
     Archives: 
       path: /archives 
       icon: fa-regular fa-archive # can be empty
-    Album:
-      icon: fa-solid fa-image
-      path: /masonry/
+# Todo: use an additional plugin(maybe next) to create a gallery page
+#    Album:
+#      icon: fa-solid fa-image
+#      path: /masonry/
     About: 
       path: /about
       icon: fa-regular fa-user
