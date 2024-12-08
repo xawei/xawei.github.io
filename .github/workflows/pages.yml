@@ -25,6 +25,9 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Remove subtitle
+        run: |
+          sed -i '/subtitle: Redefine Your Hexo Journey/d' ./node_modules/hexo-theme-redefine/_config.yml
 #      - name: Modify Footer # lines may change in different versions
 #        run: |
 #          sed -i '52,55d'  ./node_modules/hexo-theme-redefine/layout/_partials/footer.ejs
