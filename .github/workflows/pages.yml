@@ -25,10 +25,11 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
-      - name: Modify Subtitle and Footer # lines may change in different versions
+      - name: Customize theme # lines may change in different versions
         run: |
           sed -i '/subtitle: Redefine Your Hexo Journey/d' ./node_modules/hexo-theme-redefine/_config.yml
           sed -i '52,55d'  ./node_modules/hexo-theme-redefine/layout/components/footer/footer.ejs
+          echo "album: 相册" >> ./node_modules/hexo-theme-redefine/languages/zh-CN.yml
       - name: Build
         run: npm run build
       - name: Deploy
