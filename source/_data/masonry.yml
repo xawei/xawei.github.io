@@ -1,3 +1,60 @@
 - image: https://picsum.photos/id/12/2500/1800
   title: Lorem ipsum
   description: Lorem ipsum dolor sit amet
+
+# generate multiple items as the one above, use the same image, but with different title and description.
+- image: https://picsum.photos/id/12/2500/1800
+  title: Dolor sit
+  description: Dolor sit amet
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Amet dolor
+  description: Amet dolor sit
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Sit amet
+  description: Sit amet dolor sit amet
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Consectetur adipiscing
+  description: Consectetur adipiscing elit
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Adipiscing elit
+  description: Adipiscing elit sed do eiusmod
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Elit sed
+  description: Elit sed do eiusmod tempor
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Sed do
+  description: Sed do eiusmod tempor incididunt
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Do eiusmod
+  description: Do eiusmod tempor incididunt ut
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Eiusmod tempor
+  description: Eiusmod tempor incididunt ut labore
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Tempor incididunt
+  description: Tempor incididunt ut labore et
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Incididunt ut
+  description: Incididunt ut labore et dolore
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Ut labore
+  description: Ut labore et dolore magna
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Labore et
+  description: Labore et dolore magna aliqua
+
+- image: https://picsum.photos/id/12/2500/1800
+  title: Et dolore
+  description: Et dolore magna aliqua
