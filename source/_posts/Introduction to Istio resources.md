@@ -190,7 +190,7 @@ spec:
 Explanation:
 •	Only requests with user@example.com as JWT claim are allowed.
 
-## Summary of Key Istio CRDs:
+## Summary of Key Istio CRDs
 | CRD                  | Purpose                                                   |
 |----------------------|-----------------------------------------------------------|
 | Gateway              | Defines external entry points (e.g., ingress)             |
