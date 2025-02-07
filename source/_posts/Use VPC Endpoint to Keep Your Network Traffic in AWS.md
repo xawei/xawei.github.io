@@ -33,27 +33,24 @@ VPC Endpoints are virtual devices that enable you to connect to AWS services dir
   - Architecture and Use Cases: Gateway Endpoints provide a gateway for traffic destined for S3 and DynamoDB. They integrate with your route tables, allowing traffic to these services to stay within the AWS network.
   - How They Work: When you configure a Gateway Endpoint, you add a route to your route table that directs traffic for S3 or DynamoDB to the endpoint. This configuration avoids the public internet and reduces exposure to potential threats.
 
-## 3. Configuration
-### Configuring Interface Endpoints
-1.	Create the Endpoint
-- Navigate to the VPC console.
-- Choose “Endpoints” and click “Create Endpoint.”
-- Select the service you want to connect to and choose “Interface” as the endpoint type.
-- Configure the VPC, subnets, and security groups.
-2.	Update Security Groups
-- Ensure that the security group associated with the endpoint allows traffic to and from your application.
-3.	Testing and Validation
-- Verify connectivity by accessing the service from instances in your VPC.
+## 3. Use cases
+### Scenario 1: Access a custom service in another VPC
+If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements.
 
-### Configuring Gateway Endpoints
-1.	Create the Endpoint
-- Go to the VPC console.
-- Select “Endpoints” and click “Create Endpoint.”
-- Choose “Gateway” as the endpoint type and select S3 or DynamoDB as the service.
-2.	Update Route Tables
-- Add a route to your route table that directs traffic to the endpoint.
-- Testing and Validation
-- Ensure that your application can access S3 or DynamoDB without using public IPs.
+#### 🔍 AWS PrivateLink Architecture
+// todo: add a diagram here
+1️⃣ In VPC B (Service Provider)
+•	Deploy the custom service behind an NLB.
+•	Expose it via a VPC Endpoint Service.
+
+2️⃣ In VPC A (Client)
+•	Create an Interface VPC Endpoint in VPC A.
+•	AWS automatically provisions an ENI inside VPC A.
+
+3️⃣ How Traffic Flows
+✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.
+✅ The ENI forwards the request securely to the NLB in VPC B.
+✅ The NLB routes the request to the backend custom service in VPC B.
 
 ## 4. Advanced Use Cases
 ### Securing Private Data Transfers
