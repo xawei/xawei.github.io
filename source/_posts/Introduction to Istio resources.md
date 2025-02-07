@@ -10,12 +10,6 @@ Istio is an open platform that provides a uniform way to connect, manage, and se
 
 <!--more-->
 
-<style>
-img {
-    width: 60%;
-}
-</style>
-
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/istio-explain.svg)
 
 ## Gateway
