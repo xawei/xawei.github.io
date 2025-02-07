@@ -18,10 +18,10 @@ img {
 
 ## Gateway
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/20250207195250.png)
-Purpose:
+**Purpose**:
 Defines an entry point into the service mesh (usually at the edge of the cluster) for external traffic.
 
-Example:
+**Example**:
 This Gateway allows HTTPS traffic on port 443 to a my-app service.
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -45,10 +45,10 @@ spec:
 ```
 
 ## VirtualService
-Purpose:
+**Purpose**:
 Defines rules for routing traffic to services inside the mesh.
 
-Example:
+**Example**:
 This VirtualService directs requests to my-app based on different paths.
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -76,15 +76,15 @@ spec:
             host: my-app
             subset: v2
 ```
-Explanation:
+**Explanation**:
 •	Requests with /v1 go to v1 of my-app.
 •	Requests with /v2 go to v2 of my-app.
 
 ## DestinationRule
-Purpose:
+**Purpose**:
 Defines policies for service subsets, load balancing, and connection settings.
 
-Example:
+**Example**:
 This rule defines subsets for v1 and v2 of my-app.
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -104,15 +104,15 @@ spec:
       labels:
         version: v2
 ```
-Explanation:
+**Explanation**:
 •   Defines subsets v1 and v2, mapped to corresponding pod labels (version: v1 and version: v2).
 •	Uses ROUND_ROBIN load balancing.
 
 ## ServiceEntry
-Purpose:
+**Purpose**:
 Allows Istio to handle services that are external to the mesh.
 
-Example:
+**Example**:
 This ServiceEntry registers api.external.com as an external service.
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -129,15 +129,15 @@ spec:
       protocol: HTTPS
   resolution: DNS
 ```
-Explanation:
+**Explanation**:
 •	Allows traffic to api.external.com (e.g., a SaaS API).
 •	Uses DNS resolution to route traffic.
 
 ## Sidecar
-Purpose:
+**Purpose**:
 Controls egress traffic for a specific namespace or workload.
 
-Example:
+**Example**:
 This Sidecar restricts traffic for workloads in default namespace.
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -150,14 +150,14 @@ spec:
     - hosts:
         - "./*"  # Only allows traffic to services in the same namespace
 ```
-Explanation:
+**Explanation**:
 •	Limits outbound traffic to only services within the default namespace.
 
 ## PeerAuthentication
-Purpose:
+**Purpose**:
 Defines mutual TLS (mTLS) and authentication policies.
 
-Example:
+**Example**:
 This enforces STRICT mTLS for all services in a namespace.
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -169,14 +169,14 @@ spec:
   mtls:
     mode: STRICT
 ```
-Explanation:
+**Explanation**:
 •	All services in default namespace must communicate using mTLS.
 
 ## AuthorizationPolicy
-Purpose:
+**Purpose**:
 Controls access permissions to services within the mesh.
 
-Example:
+**Example**:
 This policy allows only users with a specific JWT claim to access my-app.
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -194,7 +194,7 @@ spec:
         - source:
             requestPrincipals: ["user@example.com"]
 ```
-Explanation:
+**Explanation**:
 •	Only requests with user@example.com as JWT claim are allowed.
 
 ## Summary of Key Istio CRDs
