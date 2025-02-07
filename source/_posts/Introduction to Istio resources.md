@@ -11,6 +11,7 @@ Istio is an open platform that provides a uniform way to connect, manage, and se
 <!--more-->
 
 ## Gateway
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/20250207195250.png)
 Purpose:
 Defines an entry point into the service mesh (usually at the edge of the cluster) for external traffic.
 
