@@ -16,8 +16,9 @@ img {
 }
 </style>
 
-## Gateway
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/istio-explain.svg)
+
+## Gateway
 **Purpose**:
 Defines an entry point into the service mesh (usually at the edge of the cluster) for external traffic.
 
