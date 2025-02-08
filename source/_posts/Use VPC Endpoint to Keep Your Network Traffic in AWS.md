@@ -36,7 +36,7 @@ VPC Endpoints are virtual devices that enable you to connect to AWS services dir
 ## 3. Use cases
 ### Scenario 1: Access a custom service in another VPC
 If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements.
-
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081314005.png)
 #### 🔍 AWS PrivateLink Architecture
 // todo: add a diagram here
 1️⃣ In VPC B (Service Provider)
