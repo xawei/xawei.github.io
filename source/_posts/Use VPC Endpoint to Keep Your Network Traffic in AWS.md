@@ -53,17 +53,11 @@ If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a cust
 ✅ The ENI forwards the request securely to the NLB in VPC B.
 ✅ The NLB routes the request to the backend custom service in VPC B.
 
-## 4. Advanced Use Cases
-### Securing Private Data Transfers
-Interface Endpoints ensure that data transfers between your VPC and AWS services are kept private, reducing the risk of data interception.
-
-### Optimizing Network Performance
-Gateway Endpoints eliminate the need for public internet routes, reducing latency and improving throughput for S3 and DynamoDB operations.
-
-### Cost Considerations
-Using VPC Endpoints can help reduce data transfer costs and potentially lower overall networking costs by avoiding data transfer over the internet.
-
-## 5. Conclusion
+## 4. Conclusion
 ### Summary of Benefits
+- Enhanced Security: VPC Endpoints keep your network traffic within the AWS cloud, reducing exposure to potential threats.
+- Improved Performance: By avoiding the public internet, you can achieve lower latency and higher throughput.
+- Simplified Networking: VPC Endpoints provide a straightforward way to connect to AWS services securely.
+- Cost-Effective: Using VPC Endpoints can help you save on data transfer costs and reduce the need for NAT gateways.
 
 
