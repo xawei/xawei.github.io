@@ -36,8 +36,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/20241122221546.png">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081323392.png">
+<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081331095.png">
 <meta property="article:published_time" content="2024-05-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-02-08T05:24:50.486Z">
+<meta property="article:modified_time" content="2025-02-08T05:33:26.003Z">
 <meta property="article:author" content="xawei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/20241122221546.png">
@@ -366,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-08 05:24:50</span>
-            <span class="mobile">2025-02-08 05:24:50</span>
+            <span class="desktop">2025-02-08 05:33:26</span>
+            <span class="mobile">2025-02-08 05:33:26</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -427,6 +428,7 @@
 <h2 id="3-Use-cases"><a href="#3-Use-cases" class="headerlink" title="3. Use cases"></a>3. Use cases</h2><h3 id="Scenario-1-Access-a-custom-service-in-another-VPC"><a href="#Scenario-1-Access-a-custom-service-in-another-VPC" class="headerlink" title="Scenario 1: Access a custom service in another VPC"></a>Scenario 1: Access a custom service in another VPC</h3><p>If you have two VPCs (VPC A &amp; VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements. Here’s how you can use VPC Endpoints to achieve this securely.<br><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081323392.png"></p>
 <h4 id="🔍-AWS-PrivateLink-Architecture"><a href="#🔍-AWS-PrivateLink-Architecture" class="headerlink" title="🔍 AWS PrivateLink Architecture"></a>🔍 AWS PrivateLink Architecture</h4><p>1️⃣ In VPC B (Service Provider)<br>•	Deploy the custom service behind an NLB.<br>•	Expose it via a VPC Endpoint Service.</p>
 <p>2️⃣ In VPC A (Client)<br>•	Create an Interface VPC Endpoint in VPC A.<br>•	AWS automatically provisions an ENI inside VPC A.</p>
+<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081331095.png"></p>
 <p>3️⃣ How Traffic Flows<br>✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.<br>✅ The ENI forwards the request securely to the NLB in VPC B.<br>✅ The NLB routes the request to the backend custom service in VPC B.</p>
 <h2 id="4-Advanced-Use-Cases"><a href="#4-Advanced-Use-Cases" class="headerlink" title="4. Advanced Use Cases"></a>4. Advanced Use Cases</h2><h3 id="Securing-Private-Data-Transfers"><a href="#Securing-Private-Data-Transfers" class="headerlink" title="Securing Private Data Transfers"></a>Securing Private Data Transfers</h3><p>Interface Endpoints ensure that data transfers between your VPC and AWS services are kept private, reducing the risk of data interception.</p>
 <h3 id="Optimizing-Network-Performance"><a href="#Optimizing-Network-Performance" class="headerlink" title="Optimizing Network Performance"></a>Optimizing Network Performance</h3><p>Gateway Endpoints eliminate the need for public internet routes, reducing latency and improving throughput for S3 and DynamoDB operations.</p>
@@ -445,7 +447,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-02-08 05:24:50
+                    :</strong> 2025-02-08 05:33:26
             </li>
         
         <li>
