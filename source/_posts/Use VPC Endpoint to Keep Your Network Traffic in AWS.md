@@ -35,10 +35,9 @@ VPC Endpoints are virtual devices that enable you to connect to AWS services dir
 
 ## 3. Use cases
 ### Scenario 1: Access a custom service in another VPC
-If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements.
-![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081314005.png)
+If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements. Here’s how you can use VPC Endpoints to achieve this securely.
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081323392.png)
 #### 🔍 AWS PrivateLink Architecture
-// todo: add a diagram here
 1️⃣ In VPC B (Service Provider)
 •	Deploy the custom service behind an NLB.
 •	Expose it via a VPC Endpoint Service.
@@ -46,6 +45,8 @@ If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a cust
 2️⃣ In VPC A (Client)
 •	Create an Interface VPC Endpoint in VPC A.
 •	AWS automatically provisions an ENI inside VPC A.
+
+
 
 3️⃣ How Traffic Flows
 ✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.
