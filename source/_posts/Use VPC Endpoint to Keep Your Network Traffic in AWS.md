@@ -46,7 +46,7 @@ If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a cust
 •	Create an Interface VPC Endpoint in VPC A.
 •	AWS automatically provisions an ENI inside VPC A.
 
-
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081331095.png)
 
 3️⃣ How Traffic Flows
 ✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.
