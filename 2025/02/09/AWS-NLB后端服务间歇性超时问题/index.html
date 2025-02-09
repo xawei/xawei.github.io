@@ -35,8 +35,9 @@
 <meta property="og:description" content="最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和connection reset。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091140278.png">
+<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091319230.png">
 <meta property="article:published_time" content="2025-02-09T10:26:02.000Z">
-<meta property="article:modified_time" content="2025-02-09T05:04:11.194Z">
+<meta property="article:modified_time" content="2025-02-09T05:20:04.499Z">
 <meta property="article:author" content="xawei">
 <meta property="article:tag" content="AWS">
 <meta property="article:tag" content="NLB">
@@ -367,8 +368,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-09 05:04:11</span>
-            <span class="mobile">2025-02-09 05:04:11</span>
+            <span class="desktop">2025-02-09 05:20:04</span>
+            <span class="mobile">2025-02-09 05:20:04</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -442,6 +443,7 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091319230.png"></p>
 <h2 id="调试过程与根本原因"><a href="#调试过程与根本原因" class="headerlink" title="调试过程与根本原因"></a>调试过程与根本原因</h2><ol>
 <li>初步排查<ul>
 <li>检查发现ClusterB的Istio Ingress Gateway只在2个可用区部署，第三个可用区无对应Pod。</li>
@@ -491,7 +493,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-02-09 05:04:11
+                    :</strong> 2025-02-09 05:20:04
             </li>
         
         <li>
