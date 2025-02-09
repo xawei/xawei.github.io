@@ -38,6 +38,9 @@ ClusterA上的服务是通过Route53配置的域名访问ClusterB的服务时，
    - 根据AWS文档，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets
     > When there are only unhealthy registered targets, the Network Load Balancer routes requests to all the registered targets, known as fail-open mode.
     - 因此，DNS解析意外返回了第三个AZ的节点IP，导致部分流量被错误路由到没有部署Istio Ingress Gateway Pod的区域，从而引发超时和连接重置问题。
+
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091921606.png)
+
 ## 解决方案与优化建议
 1. 确保所有Target Group均为健康状态
    - 检查并修复健康检查失败的问题，确保所有listener对应的target group与实际部署状态匹配。
