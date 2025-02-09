@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091140278.png">
 <meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091319230.png">
 <meta property="article:published_time" content="2025-02-09T10:26:02.000Z">
-<meta property="article:modified_time" content="2025-02-09T05:20:04.499Z">
+<meta property="article:modified_time" content="2025-02-09T09:38:32.878Z">
 <meta property="article:author" content="xawei">
 <meta property="article:tag" content="AWS">
 <meta property="article:tag" content="NLB">
@@ -368,8 +368,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-09 05:20:04</span>
-            <span class="mobile">2025-02-09 05:20:04</span>
+            <span class="desktop">2025-02-09 09:38:32</span>
+            <span class="mobile">2025-02-09 09:38:32</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -439,7 +439,7 @@
 <li>用于对外暴露Istio Ingress Gateway。</li>
 <li>未启用cross-zone load balancing（跨AZ负载均衡）。</li>
 <li>开启了multiple-zone feature，使得在所有3个可用区均有节点。</li>
-<li>配置了多个target group，不同listener对应不同target group，其中一个listener的target group在第三个AZ显示unhealthy。</li>
+<li>配置了多个target group，不同listener对应不同target group。</li>
 </ul>
 </li>
 </ul>
@@ -447,11 +447,14 @@
 <h2 id="调试过程与根本原因"><a href="#调试过程与根本原因" class="headerlink" title="调试过程与根本原因"></a>调试过程与根本原因</h2><ol>
 <li>初步排查<ul>
 <li>检查发现ClusterB的Istio Ingress Gateway只在2个可用区部署，第三个可用区无对应Pod。</li>
-<li>分析NLB配置后发现，由于multiple-zone特性，DNS解析返回了所有可用区的节点IP。</li>
+<li>分析NLB配置后发现，由于multiple-zone特性，但是没配置cross-zone，DNS解析NLB的domain返回了所有可用区的节点IP，这样就导致了部分流量被错误路由到没有部署Istio Ingress Gateway Pod的区域。正常情况下，DNS解析应该只有2个可用区的节点IP，会自动根据健康检测的结果，只返回健康的target groups所在的可用区的NLB节点IP。<blockquote>
+<p>After you enable an Availability Zone, the Network Load Balancer starts routing requests to the registered targets in that Availability Zone. Your Network Load Balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target.</p>
+</blockquote>
+</li>
 </ul>
 </li>
 <li>深入调查Target Group健康状态<ul>
-<li>某个listener对应的target group在第三个AZ全部显示unhealthy。</li>
+<li>发现这个NLB，某个listener对应的target group在第三个AZ全部显示unhealthy。</li>
 <li>根据AWS文档，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。<a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets" >https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><blockquote>
 <p>When there are only unhealthy registered targets, the Network Load Balancer routes requests to all the registered targets, known as fail-open mode.</p>
 </blockquote>
@@ -493,7 +496,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-02-09 05:20:04
+                    :</strong> 2025-02-09 09:38:32
             </li>
         
         <li>
