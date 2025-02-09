@@ -10,6 +10,12 @@ categories: [AWS]
 <!--more-->
 
 # 问题描述
+我们在AWS同一Region内部署了两个EKS集群：
+- ClusterA：主要发起请求。
+- ClusterB：提供服务，并在该集群上部署了Istio Ingress Gateway，但replica数是2，所以仅在 2 个可用区内有对应的Pod，第三个可用区未部署。
+ClusterA上的是通过Route53配置的域名访问ClusterB的服务时，部分请求出现了超时与connection reset的错误。
+
+
 
 # 环境架构概览
 
