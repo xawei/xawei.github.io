@@ -36,5 +36,14 @@ ClusterA上的是通过Route53配置的域名访问ClusterB的服务时，部分
     > When there are only unhealthy registered targets, the Network Load Balancer routes requests to all the registered targets, known as fail-open mode.
     - 因此，DNS解析意外返回了第三个AZ的节点IP，导致部分流量被错误路由到没有部署Istio Ingress Gateway Pod的区域，从而引发超时和连接重置问题。
 # 解决方案与优化建议
+1. 确保所有Target Group均为健康状态
+   - 检查并修复健康检查失败的问题，确保所有listener对应的target group与实际部署状态匹配。
+2. 启用Cross-Zone Load Balancing
+   - 开启NLB的跨AZ负载均衡功能，使流量在各AZ之间均衡分布，即使DNS解析返回了第三个AZ的节点IP，也能正确转发至健康Pod。
+3. 在所有可用区部署Istio Ingress Gateway
+   - 考虑在ClusterB的所有3个可用区部署Ingress Gateway Pod，从根本上避免因单个AZ缺少入口而导致的问题。
+4. 实时监控与告警
+   - 对NLB各个target group的健康状态进行实时监控，及时设置告警，以便发现异常后迅速响应。
 
 # 总结
+在云上复杂环境中，细微的配置差异都可能引发问题。此次问题由AWS NLB的multiple-zone配置与部分target group健康状态不一致引起。通过仔细的排查和调整配置，最终找到了问题根源并提出了相应的解决方案。
