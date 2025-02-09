@@ -26,7 +26,7 @@ ClusterA上的服务是通过Route53配置的域名访问ClusterB的服务时，
   - 开启了multiple-zone feature，使得在所有3个可用区均有节点。
   - 配置了多个target group，不同listener对应不同target group。
 
-![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091319230.png)
+![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091926071.png)
 
 ## 调试过程与根本原因
 1. 初步排查
