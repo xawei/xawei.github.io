@@ -19,7 +19,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2021/01/10/pv-pvc-basic-use/"/>
+    <link rel="canonical" href="http://example.com/2025/02/09/aws-nlb后端服务间歇性超时问题/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -27,22 +27,19 @@
     
     
         
-        <meta name="description" content="在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。">
+        <meta name="description" content="问题描述环境架构概览调试过程与根本原因解决方案与优化建议总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PV和PVC">
-<meta property="og:url" content="http://example.com/2021/01/10/pv-pvc-basic-use/index.html">
+<meta property="og:title" content="AWS NLB后端服务间歇性超时问题">
+<meta property="og:url" content="http://example.com/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="个人日常技术">
-<meta property="og:description" content="在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。">
+<meta property="og:description" content="问题描述环境架构概览调试过程与根本原因解决方案与优化建议总结">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png">
-<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231025304.png">
-<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231051425.png">
-<meta property="og:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png">
-<meta property="article:published_time" content="2021-01-10T11:10:00.000Z">
+<meta property="article:published_time" content="2025-02-09T10:26:02.000Z">
 <meta property="article:modified_time" content="2025-02-09T02:28:43.736Z">
 <meta property="article:author" content="xawei">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="NLB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png">
     
     
     <!--- Icon Part-->
@@ -54,7 +51,7 @@
     
     <title>
         
-            PV和PVC | Wei&#39;s Blog
+            AWS NLB后端服务间歇性超时问题 | Wei&#39;s Blog
         
     </title>
 
@@ -342,7 +339,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">PV和PVC</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">AWS NLB后端服务间歇性超时问题</h1>
 			</div>
 			
 		</div>
@@ -361,8 +358,8 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2021-01-10 11:10</span>
-        <span class="mobile">2021-01-10 11:10</span>
+        <span class="desktop">2025-02-09 10:26:02</span>
+        <span class="mobile">2025-02-09 10:26:02</span>
         <span class="hover-info">创建</span>
     </span>
     
@@ -383,7 +380,7 @@
                     
                         
                         <li>
-                            <a href="/categories/kubernetes/">kubernetes</a>&nbsp;
+                            <a href="/categories/AWS/">AWS</a>&nbsp;
                         </li>
                     
                     
@@ -391,6 +388,21 @@
             </ul>
         </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/AWS/">AWS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NLB/">NLB</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -408,69 +420,17 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。</p>
-<span id="more"></span>
-
-<h2 id="volume和volumeMount"><a href="#volume和volumeMount" class="headerlink" title="volume和volumeMount"></a>volume和volumeMount</h2><p>容器中的文件在磁盘上是临时存放的，也有很多场景下应用程序都需要对某些数据进行持久存储，避免在容器奔溃时造成数据丢失。</p>
-<p>Volume 是 Kubernetes 中定义的存储资源，作用是将外部存储或节点上的存储空间与 Pod 关联，用于在容器之间共享数据或提供持久化存储。</p>
-<p>Volume的类型有很多种，例如还有跟云厂商关联的awsElasticBlockStore、azureDisk、azureFile等，具体可以参考<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/" >官方文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
-<p>主要的常用volume类型包括：<br><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231001973.png"></p>
-<p>kubernetes的一个重要的基本理念是：<strong>向app developers隐藏真实的基础设施，使他们不需要关心基础设施的具体状况信息，并使应用程序可以在不同的云服务商之前进行迁移、切换</strong>。因此，kubernetes提出了PV和PVC的概念，使开发人员可以在创建pod需要使用持久化存储时，就像请求 CPU \ Mem 等资源一样来向kubernetes集群请求持久存储。</p>
-<h2 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a>PV和PVC</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>前面提到的emptyDir和hostPath都不是持久化存储，会随着Pod&#x2F;Node的销毁和重建而丢失。而PV和PVC都是kubernetes中定义的API资源，提供一种能持久化存储的能力。</p>
-<p>PV是集群中的一块存储，可以由集群的administrators事先手动创建外部存储后关联PV，就是所谓的静态供应（static provisioning）。</p>
-<p>这个方法很大的一个问题在于，当kubernetes集群规模很大时，需要管理员手工去创建成千上万的PV来对应存储资源，这是很繁琐的。</p>
-<p>因此，kubernetes中PV的创建一般会使用动态供应（dynamic provisioning）。</p>
-<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231025304.png"></p>
-<p>PV属于集群资源，它们的生命周期跟使用它们的pod时相互独立。</p>
-<p>PVC表达的是用户对存储的请求，也是kubernetes中独立存在的API资源。Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU 和内存）；同样PVC也可以请求特定的大小和访问模式。</p>
-<p>当用户创建一个PVC，kubernetes中的volume controller会监测到PVC的对象，寻到集群中与之匹配的PV资源，将二者进行绑定。如果没有匹配的PV资源，PVC则会处理未绑定的状态一直持续等待，直到集群中出现满足条件的PV资源后进行绑定。PVC和PV之间的绑定是一种一对一的映射。</p>
-<p>而另一个很重要的概念，也是kubernetes的API资源，就是storageClass。storageClass可以说是PV的创建模板。</p>
-<p>这样，kubernetes就可以根据PVC指定的storageClass，调用指定的存储插件，创建所需的PV。</p>
-<p>Pod、PVC、PV、StorageClass的关系图可以解释如下：</p>
-<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231051425.png"></p>
-<h3 id="Pod中使用持久存储"><a href="#Pod中使用持久存储" class="headerlink" title="Pod中使用持久存储"></a>Pod中使用持久存储</h3><p>例如，在AWS上的kubernetes集群，使用PVC声明需要EBS并挂载到Pod中：</p>
-<ol>
-<li>需要在集群中预先部署<a class="link"   target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/aws-ebs-csi-driver" >aws-ebs-csi-driver<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （EKS的话，有提供AWS managed Add-on直接支持）</li>
-<li>创建对应的storageClass, 确保Provisioner backend pods也正常运行</li>
-<li>创建PVC, 在workload中使用PVC作为volume, 并使用volumeMount在pod中声明</li>
-<li>aws-ebs-csi-driver创建对应的外部存储EBS和PV，挂载到workload的pod中</li>
-</ol>
-<p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png"></p>
-<h4 id="PVC-PV-SC-等资源"><a href="#PVC-PV-SC-等资源" class="headerlink" title="PVC &#x2F; PV &#x2F; SC 等资源"></a>PVC &#x2F; PV &#x2F; SC 等资源</h4><ol>
-<li><p>在集群中需要有对应的storageClass</p>
-<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ebs-sc</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">ebs.csi.aws.com</span>  <span class="comment"># Specify related provisioner</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">gp3</span>                <span class="comment"># The type of EBS volume (gp3 for general-purpose SSD)</span></span><br><span class="line">  <span class="attr">fsType:</span> <span class="string">ext4</span>             <span class="comment"># File system type</span></span><br><span class="line"><span class="attr">reclaimPolicy:</span> <span class="string">Delete</span>       <span class="comment"># Automatically delete EBS volume when PVC is deleted</span></span><br><span class="line"><span class="attr">volumeBindingMode:</span> <span class="string">WaitForFirstConsumer</span> <span class="comment"># Volume is provisioned only when a pod uses the PVC</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>创建PVC</p>
-<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-ebs-pvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span>          <span class="comment"># EBS volumes can only be attached to one node at a time</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">5Gi</span>           <span class="comment"># Request 5Gi of storage</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">ebs-sc</span>    <span class="comment"># Use the ebs-sc StorageClass</span></span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<p>集群中的<strong>Volume Controller</strong>发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。</p>
-<p>Volume Controller寻找PV的条件主要是：</p>
-<ul>
-<li>PVC和PV的spec字段中指定的规格，例如存储（storage）的大小；</li>
-<li>PVC和PV的storageClassName必须一样。</li>
-</ul>
-<p>如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。</p>
-<ol start="3">
-<li>创建使用PVC的workload<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">app</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span>   <span class="comment"># Mount PVC at this path</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">        <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">          <span class="attr">claimName:</span> <span class="string">my-ebs-pvc</span>             <span class="comment"># Use the PVC created earlier</span></span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<p>对于EBS这样的块存储，分为“两阶段处理”。</p>
-<p>（1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要“挂载存储设备到宿主机”）</p>
-<p>（2）Mount：将远程存储格式化挂载到宿主机的指定目录，对应容器中的Volume。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/" >https://kubernetes.io/docs/concepts/storage/volumes/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201" >https://time.geekbang.org/column/intro/100015201<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-</ol>
-
+			<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><h1 id="环境架构概览"><a href="#环境架构概览" class="headerlink" title="环境架构概览"></a>环境架构概览</h1><h1 id="调试过程与根本原因"><a href="#调试过程与根本原因" class="headerlink" title="调试过程与根本原因"></a>调试过程与根本原因</h1><h1 id="解决方案与优化建议"><a href="#解决方案与优化建议" class="headerlink" title="解决方案与优化建议"></a>解决方案与优化建议</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> PV和PVC</li>
+        <li><strong>标题:</strong> AWS NLB后端服务间歇性超时问题</li>
         <li><strong>作者:</strong> xawei</li>
         <li><strong>创建于
-                :</strong> 2021-01-10 11:10:00</li>
+                :</strong> 2025-02-09 10:26:02</li>
         
             <li>
                 <strong>更新于
@@ -478,7 +438,7 @@
             </li>
         
         <li>
-            <strong>链接:</strong> https://xawei.xyz/2021/01/10/pv-pvc-basic-use/
+            <strong>链接:</strong> https://xawei.xyz/2025/02/09/AWS-NLB后端服务间歇性超时问题/
         </li>
         <li>
             <strong>
@@ -497,29 +457,29 @@
 		
 
 		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/AWS/">#AWS</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/NLB/">#NLB</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
 		
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2021/03/05/%E4%BD%BF%E7%94%A8CRD%E5%92%8CAggregated%20Server%E6%89%A9%E5%B1%95Kubernetes/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">使用CRD和Aggregated Server扩展Kubernetes</span>
-						<span class="post-nav-item">上一篇</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/">
+				<a class="next" rel="next" href="/2025/01/21/Introduction%20to%20Istio%20resources/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">几种常见的发布策略</span>
+						<span class="post-nav-title-item">Introduction to Istio Resources</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -540,8 +500,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">PV和PVC</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#volume%E5%92%8CvolumeMount"><span class="nav-text">volume和volumeMount</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PV%E5%92%8CPVC"><span class="nav-text">PV和PVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%8C%81%E4%B9%85%E5%AD%98%E5%82%A8"><span class="nav-text">Pod中使用持久存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+		<div class="page-title">AWS NLB后端服务间歇性超时问题</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="nav-text">环境架构概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%8E%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0"><span class="nav-text">调试过程与根本原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%8E%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-text">解决方案与优化建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
 
 	</div>
 </div>
