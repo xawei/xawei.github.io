@@ -13,7 +13,7 @@ categories: [AWS]
 我们在AWS同一Region内部署了两个EKS集群：
 - ClusterA：主要发起请求。
 - ClusterB：提供服务，并在该集群上部署了Istio Ingress Gateway。
-ClusterA上的是通过Route53配置的域名访问ClusterB的服务时，部分请求出现了超时与connection reset的错误。
+ClusterA上的服务是通过Route53配置的域名访问ClusterB的服务时，部分请求出现了超时与connection reset的错误。
 
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502091140278.png)
 
