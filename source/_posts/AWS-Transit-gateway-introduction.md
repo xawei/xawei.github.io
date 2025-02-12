@@ -5,7 +5,7 @@ categories: [AWS]
 tags: [AWS, TGW]
 ---
 
-AWS Transit Gateway is a service that enables customers to connect their Amazon Virtual Private Clouds (VPCs) and their on-premises networks to a single gateway. This simplifies the management of network connectivity and routing, and reduces the number of connections that you need to configure and maintain.
+AWS Transit Gateway provides a **centralized, scalable** solution for managing multi-VPC networking, overcoming the limitations of VPC peering. This article explores why Transit Gateway is necessary, how it works, and a real-world example of its benefits.
 
 <!--more-->
 
