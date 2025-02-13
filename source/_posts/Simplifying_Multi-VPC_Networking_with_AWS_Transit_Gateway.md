@@ -62,3 +62,46 @@ A company is using AWS to manage its infrastructure with the following VPCs:
 - **VPC-C (Shared Services)** – Logging, monitoring, and authentication.
 - **VPC-D (Security & Compliance)** – Security and compliance tools.
 - **VPC-E (New Team/Feature VPC)** – A future expansion VPC.
+
+### **Networking Goals**
+- **Dev (VPC-A) and Prod (VPC-B) must remain fully isolated**.
+- **Both Dev and Prod must access Shared Services (VPC-C)**.
+- **Security tools in VPC-D must monitor both Dev and Prod environments**.
+- **Any future VPC (e.g., VPC-E) should easily integrate into the network**.
+
+### **Why AWS Transit Gateway is the Best Fit**
+| Feature | VPC Peering | AWS Transit Gateway |
+|---------|------------|----------------|
+| **Scalability** | Becomes unmanageable with multiple VPCs | Easily scales with thousands of connections |
+| **Transitive Routing** | ❌ Not supported | ✅ Fully supported |
+| **Multi-Account Support** | ❌ Hard to manage across accounts | ✅ Works across AWS Organizations |
+| **Hybrid Connectivity** | Requires separate VPNs or Direct Connect | ✅ Centralized VPN or Direct Connect integration |
+| **Centralized Management** | ❌ Route tables must be updated in each VPC | ✅ Managed centrally via Transit Gateway route tables |
+
+### **Final Network Design with AWS Transit Gateway**
+Instead of creating direct peering connections, each VPC is **attached once** to the Transit Gateway. **Routing rules control who can talk to whom**:
+
+| VPC | Purpose | Connection Rules |
+|------|------------|----------------|
+| **VPC-A (Dev/Testing)** | Developer environment | ✅ Can access Shared Services (VPC-C) |
+| **VPC-B (Prod)** | Live customer applications | ✅ Can access Shared Services (VPC-C) |
+| **VPC-C (Shared Services)** | Centralized logging, monitoring, IAM | ✅ Accessible to Dev & Prod |
+| **VPC-D (Security & Compliance)** | Security tools (e.g., SIEM, WAF, IDS) | ✅ Monitors Dev & Prod, but no mutual access |
+| **VPC-E (New Team / Future VPCs)** | New team or region expansion | ✅ Simply attach to Transit Gateway |
+
+#### **Diagram Placeholder:**
+(*Insert a diagram illustrating the architecture with Transit Gateway acting as a hub connecting all VPCs.*)
+
+This setup ensures:
+- **Isolation between Dev and Prod** for security.
+- **Shared access to centralized services** without unnecessary VPC peering.
+- **Future scalability**, as adding new VPCs only requires an attachment to the Transit Gateway.
+
+---
+## Conclusion
+AWS Transit Gateway simplifies **multi-VPC networking**, offering scalability, transitive routing, and centralized management. By adopting Transit Gateway, organizations can:
+- **Reduce the complexity** of VPC peering.
+- **Improve security** by segmenting environments with clear routing policies.
+- **Scale efficiently** as their AWS environment grows.
+
+For enterprises with **multiple VPCs or hybrid cloud setups**, **AWS Transit Gateway is a must-have for modern AWS networking**.
