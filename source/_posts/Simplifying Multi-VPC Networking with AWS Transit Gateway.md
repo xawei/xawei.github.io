@@ -1,5 +1,5 @@
 ---
-title: AWS Transit gateway introduction
+title: Simplifying Multi-VPC Networking with AWS Transit Gateway
 date: 2025-02-12 20:30:09
 categories: [AWS]
 tags: [AWS, TGW]
