@@ -35,7 +35,7 @@
 <meta property="og:description" content="AWS Transit Gateway provides a centralized, scalable solution for managing multi-VPC networking, overcoming the limitations of VPC peering. This article explores why Transit Gateway is necessary, how">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-12T20:30:09.000Z">
-<meta property="article:modified_time" content="2025-02-13T09:09:18.381Z">
+<meta property="article:modified_time" content="2025-02-13T09:49:40.002Z">
 <meta property="article:author" content="xawei">
 <meta property="article:tag" content="AWS">
 <meta property="article:tag" content="TGW">
@@ -365,8 +365,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-13 09:09:18</span>
-            <span class="mobile">2025-02-13 09:09:18</span>
+            <span class="desktop">2025-02-13 09:49:40</span>
+            <span class="mobile">2025-02-13 09:49:40</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -470,6 +470,96 @@
 <li><strong>VPC-D (Security &amp; Compliance)</strong> – Security and compliance tools.</li>
 <li><strong>VPC-E (New Team&#x2F;Feature VPC)</strong> – A future expansion VPC.</li>
 </ul>
+<h3 id="Networking-Goals"><a href="#Networking-Goals" class="headerlink" title="Networking Goals"></a><strong>Networking Goals</strong></h3><ul>
+<li><strong>Dev (VPC-A) and Prod (VPC-B) must remain fully isolated</strong>.</li>
+<li><strong>Both Dev and Prod must access Shared Services (VPC-C)</strong>.</li>
+<li><strong>Security tools in VPC-D must monitor both Dev and Prod environments</strong>.</li>
+<li><strong>Any future VPC (e.g., VPC-E) should easily integrate into the network</strong>.</li>
+</ul>
+<h3 id="Why-AWS-Transit-Gateway-is-the-Best-Fit"><a href="#Why-AWS-Transit-Gateway-is-the-Best-Fit" class="headerlink" title="Why AWS Transit Gateway is the Best Fit"></a><strong>Why AWS Transit Gateway is the Best Fit</strong></h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>VPC Peering</th>
+<th>AWS Transit Gateway</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Scalability</strong></td>
+<td>Becomes unmanageable with multiple VPCs</td>
+<td>Easily scales with thousands of connections</td>
+</tr>
+<tr>
+<td><strong>Transitive Routing</strong></td>
+<td>❌ Not supported</td>
+<td>✅ Fully supported</td>
+</tr>
+<tr>
+<td><strong>Multi-Account Support</strong></td>
+<td>❌ Hard to manage across accounts</td>
+<td>✅ Works across AWS Organizations</td>
+</tr>
+<tr>
+<td><strong>Hybrid Connectivity</strong></td>
+<td>Requires separate VPNs or Direct Connect</td>
+<td>✅ Centralized VPN or Direct Connect integration</td>
+</tr>
+<tr>
+<td><strong>Centralized Management</strong></td>
+<td>❌ Route tables must be updated in each VPC</td>
+<td>✅ Managed centrally via Transit Gateway route tables</td>
+</tr>
+</tbody></table>
+<h3 id="Final-Network-Design-with-AWS-Transit-Gateway"><a href="#Final-Network-Design-with-AWS-Transit-Gateway" class="headerlink" title="Final Network Design with AWS Transit Gateway"></a><strong>Final Network Design with AWS Transit Gateway</strong></h3><p>Instead of creating direct peering connections, each VPC is <strong>attached once</strong> to the Transit Gateway. <strong>Routing rules control who can talk to whom</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>VPC</th>
+<th>Purpose</th>
+<th>Connection Rules</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>VPC-A (Dev&#x2F;Testing)</strong></td>
+<td>Developer environment</td>
+<td>✅ Can access Shared Services (VPC-C)</td>
+</tr>
+<tr>
+<td><strong>VPC-B (Prod)</strong></td>
+<td>Live customer applications</td>
+<td>✅ Can access Shared Services (VPC-C)</td>
+</tr>
+<tr>
+<td><strong>VPC-C (Shared Services)</strong></td>
+<td>Centralized logging, monitoring, IAM</td>
+<td>✅ Accessible to Dev &amp; Prod</td>
+</tr>
+<tr>
+<td><strong>VPC-D (Security &amp; Compliance)</strong></td>
+<td>Security tools (e.g., SIEM, WAF, IDS)</td>
+<td>✅ Monitors Dev &amp; Prod, but no mutual access</td>
+</tr>
+<tr>
+<td><strong>VPC-E (New Team &#x2F; Future VPCs)</strong></td>
+<td>New team or region expansion</td>
+<td>✅ Simply attach to Transit Gateway</td>
+</tr>
+</tbody></table>
+<h4 id="Diagram-Placeholder"><a href="#Diagram-Placeholder" class="headerlink" title="Diagram Placeholder:"></a><strong>Diagram Placeholder:</strong></h4><p>(<em>Insert a diagram illustrating the architecture with Transit Gateway acting as a hub connecting all VPCs.</em>)</p>
+<p>This setup ensures:</p>
+<ul>
+<li><strong>Isolation between Dev and Prod</strong> for security.</li>
+<li><strong>Shared access to centralized services</strong> without unnecessary VPC peering.</li>
+<li><strong>Future scalability</strong>, as adding new VPCs only requires an attachment to the Transit Gateway.</li>
+</ul>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>AWS Transit Gateway simplifies <strong>multi-VPC networking</strong>, offering scalability, transitive routing, and centralized management. By adopting Transit Gateway, organizations can:</p>
+<ul>
+<li><strong>Reduce the complexity</strong> of VPC peering.</li>
+<li><strong>Improve security</strong> by segmenting environments with clear routing policies.</li>
+<li><strong>Scale efficiently</strong> as their AWS environment grows.</li>
+</ul>
+<p>For enterprises with <strong>multiple VPCs or hybrid cloud setups</strong>, <strong>AWS Transit Gateway is a must-have for modern AWS networking</strong>.</p>
 
 		</div>
 
@@ -484,7 +574,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-02-13 09:09:18
+                    :</strong> 2025-02-13 09:49:40
             </li>
         
         <li>
@@ -551,7 +641,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">Simplifying Multi-VPC Networking with AWS Transit Gateway</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Challenge-Managing-Multiple-VPCs"><span class="nav-text">The Challenge: Managing Multiple VPCs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Problem-with-VPC-Peering"><span class="nav-text">The Problem with VPC Peering</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-AWS-Transit-Gateway"><span class="nav-text">Solution: AWS Transit Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-AWS-Transit-Gateway-Works"><span class="nav-text">How AWS Transit Gateway Works</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Real-World-Example-Multi-VPC-Architecture-with-AWS-Transit-Gateway"><span class="nav-text">Real-World Example: Multi-VPC Architecture with AWS Transit Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scenario-Large-Organization-with-Multiple-Teams"><span class="nav-text">Scenario: Large Organization with Multiple Teams</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Challenge-Managing-Multiple-VPCs"><span class="nav-text">The Challenge: Managing Multiple VPCs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Problem-with-VPC-Peering"><span class="nav-text">The Problem with VPC Peering</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-AWS-Transit-Gateway"><span class="nav-text">Solution: AWS Transit Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-AWS-Transit-Gateway-Works"><span class="nav-text">How AWS Transit Gateway Works</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Real-World-Example-Multi-VPC-Architecture-with-AWS-Transit-Gateway"><span class="nav-text">Real-World Example: Multi-VPC Architecture with AWS Transit Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scenario-Large-Organization-with-Multiple-Teams"><span class="nav-text">Scenario: Large Organization with Multiple Teams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Networking-Goals"><span class="nav-text">Networking Goals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-AWS-Transit-Gateway-is-the-Best-Fit"><span class="nav-text">Why AWS Transit Gateway is the Best Fit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-Network-Design-with-AWS-Transit-Gateway"><span class="nav-text">Final Network Design with AWS Transit Gateway</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li></ol>
 
 	</div>
 </div>
