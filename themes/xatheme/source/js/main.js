@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update toggle icon based on theme
     const toggleIcon = document.querySelector('.theme-toggle i');
     if (toggleIcon) {
-        toggleIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        toggleIcon.className = savedTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
     }
     
     // Handle theme toggle click
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update theme toggle icon
             const themeIcon = themeToggle.querySelector('i');
             if (themeIcon) {
-                themeIcon.className = newTheme === 'light' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+                themeIcon.className = newTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
             }
         });
     }
