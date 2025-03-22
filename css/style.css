@@ -1243,9 +1243,22 @@ h6:target {
     }
     
     .post-meta {
-        flex-direction: column;
-        gap: 5px;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    /* Make date and categories appear on same line */
+    .post-meta span:nth-child(1),
+    .post-meta span:nth-child(2) {
+        display: inline-flex;
+        margin-right: 10px;
+    }
+    
+    /* Hide tags on mobile */
+    .post-meta span:nth-child(3) {
+        display: none;
     }
     
     .post-title {
