@@ -15,11 +15,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Introduction to Istio Resources">
 <meta property="og:description" content="&lt;p&gt;Istio is an open platform that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic, enforcing access policies, and aggregating telemetry data, all without requiring changes to the actual services. This article will introduce the basic resources of Istio, including &lt;code&gt;Gateway&lt;/code&gt;, &lt;code&gt;VirtualService&lt;/code&gt;, &lt;code&gt;DestinationRule&lt;/code&gt;, &lt;code&gt;ServiceEntry&lt;/code&gt;, &lt;code&gt;Sidecar&lt;/code&gt;, and &lt;code&gt;AuthorizationPolicy&lt;/code&gt;.&lt;/p&gt;">
-<meta property="og:url" content="http://example.com/2025/01/21/Introduction%20to%20Istio%20resources/">
+<meta property="og:url" content="https://xawei.xyz/2025/01/21/Introduction%20to%20Istio%20resources/">
 <meta property="og:site_name" content="个人日常技术">
 
 <!-- Canonical -->
-<link rel="canonical" href="http://example.com/2025/01/21/Introduction%20to%20Istio%20resources/" 
+<link rel="canonical" href="https://xawei.xyz/2025/01/21/Introduction%20to%20Istio%20resources/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
@@ -164,7 +164,7 @@
 <h2 id="AuthorizationPolicy"><a href="#AuthorizationPolicy" class="headerlink" title="AuthorizationPolicy"></a>AuthorizationPolicy</h2><p><strong>Purpose</strong>:<br>Controls access permissions to services within the mesh.</p>
 <p><strong>Example</strong>:<br>This policy allows only users with a specific JWT claim to access my-app.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">security.istio.io/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">AuthorizationPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-app-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">my-app</span></span><br><span class="line">  <span class="attr">action:</span> <span class="string">ALLOW</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">source:</span></span><br><span class="line">            <span class="attr">requestPrincipals:</span> [<span class="string">&quot;user@example.com&quot;</span>]</span><br></pre></td></tr></table></figure>
-<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#x75;&#115;&#101;&#114;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#x75;&#115;&#101;&#114;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#99;&#x6f;&#x6d;</a> as JWT claim are allowed.</p>
+<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#x75;&#x73;&#x65;&#x72;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#46;&#x63;&#111;&#x6d;">&#x75;&#x73;&#x65;&#x72;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#46;&#x63;&#111;&#x6d;</a> as JWT claim are allowed.</p>
 <h2 id="Summary-of-Key-Istio-CRDs"><a href="#Summary-of-Key-Istio-CRDs" class="headerlink" title="Summary of Key Istio CRDs"></a>Summary of Key Istio CRDs</h2><table>
 <thead>
 <tr>
@@ -214,7 +214,7 @@
                 </div>
                 <div class="copyright-info-item">
                     <span>链接:</span>
-                    <a href="http://example.com/2025/01/21/Introduction%20to%20Istio%20resources/">http://example.com/2025/01/21/Introduction%20to%20Istio%20resources/</a>
+                    <a href="https://xawei.xyz/2025/01/21/Introduction%20to%20Istio%20resources/">https://xawei.xyz/2025/01/21/Introduction%20to%20Istio%20resources/</a>
                 </div>
                 <div class="copyright-info-item">
                     <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>

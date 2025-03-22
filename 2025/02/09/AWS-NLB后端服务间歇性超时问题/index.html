@@ -15,11 +15,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="AWS NLB后端服务间歇性超时问题">
 <meta property="og:description" content="&lt;p&gt;最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和&lt;code&gt;connection reset&lt;/code&gt;。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。&lt;/p&gt;">
-<meta property="og:url" content="http://example.com/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">
+<meta property="og:url" content="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">
 <meta property="og:site_name" content="个人日常技术">
 
 <!-- Canonical -->
-<link rel="canonical" href="http://example.com/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" 
+<link rel="canonical" href="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
@@ -162,7 +162,7 @@
 </li>
 <li>深入调查Target Group健康状态<ul>
 <li>发现这个NLB，某个listener对应的target group在第三个AZ全部显示unhealthy。</li>
-<li>根据AWS文档，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets">https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets</a><blockquote>
+<li>根据<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets">AWS文档</a>，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。<blockquote>
 <p>When there are only unhealthy registered targets, the Network Load Balancer routes requests to all the registered targets, known as fail-open mode.</p>
 </blockquote>
 </li>
@@ -203,7 +203,7 @@
                 </div>
                 <div class="copyright-info-item">
                     <span>链接:</span>
-                    <a href="http://example.com/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">http://example.com/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</a>
+                    <a href="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</a>
                 </div>
                 <div class="copyright-info-item">
                     <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>

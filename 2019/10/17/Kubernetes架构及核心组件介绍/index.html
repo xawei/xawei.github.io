@@ -15,11 +15,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes架构及核心组件介绍">
 <meta property="og:description" content="&lt;p&gt;Kubernets是一个容器编排平台，本文主要介绍其整体架构，以及各个核心组件之间是如何协作完成容器的各项编排工作。&lt;/p&gt;">
-<meta property="og:url" content="http://example.com/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">
+<meta property="og:url" content="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">
 <meta property="og:site_name" content="个人日常技术">
 
 <!-- Canonical -->
-<link rel="canonical" href="http://example.com/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/" 
+<link rel="canonical" href="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
@@ -139,7 +139,7 @@
 </ul>
 <h3 id="cloud-controller-manager"><a href="#cloud-controller-manager" class="headerlink" title="cloud-controller-manager"></a>cloud-controller-manager</h3><p>我们可以在Kubernetes中添加特定云服务的控制逻辑。这些cloud controller与Kubernets中只与内部交互的controller不同，会与云厂商的API进行交互，管理云基础设置。</p>
 <h2 id="Worker节点上的组件"><a href="#Worker节点上的组件" class="headerlink" title="Worker节点上的组件"></a>Worker节点上的组件</h2><p>kubelet和kube-proxy运行在每个节点上，负责维护运行的pod和Kubernetes的运行时环境。</p>
-<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>kueblet是一个运行在节点上的agent，通过kube-apiserver监听分配到该节点上的pod，然后根据pod的定义，调用容器运行时，确保pod的容器业务运行起来。（当然还有特殊的static pod了，可以参考：<a target="_blank" rel="noopener" href="http://xawei.xyz/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/">Kubernetes中的Static pod实现与使用场景分析</a>）</p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>kueblet是一个运行在节点上的agent，通过kube-apiserver监听分配到该节点上的pod，然后根据pod的定义，调用容器运行时，确保pod的容器业务运行起来。（当然还有特殊的static pod了，可以参考：<a href="http://xawei.xyz/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/">Kubernetes中的Static pod实现与使用场景分析</a>）</p>
 <h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>Kube-proxy是每个节点上都运行的network proxy，负责实现Kubernetes中的Service的概念。Kube-proxy维护节点上的网络路由规则，让集群上同节点或不同节点的pod可以通信。</p>
 <p>如果操作系统支持包过滤层（packet filtering layer），那么kube-proxy会使用这一方式实现它的功能，否则kube-proxy会自己来进行流量转发。</p>
 <h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>容器运行时是负责实际运行容器的组件，如containerd、CRI-O等，任意使用了<a target="_blank" rel="noopener" href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md">Kuberntes CRI协议</a>的服务都可以作为Kuberntes的容器运行时。</p>
@@ -160,7 +160,7 @@
                 </div>
                 <div class="copyright-info-item">
                     <span>链接:</span>
-                    <a href="http://example.com/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">http://example.com/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</a>
+                    <a href="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</a>
                 </div>
                 <div class="copyright-info-item">
                     <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
