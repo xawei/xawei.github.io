@@ -357,6 +357,9 @@ function processCodeBlocks() {
  * Process heading links in the article to add URL copy functionality
  */
 function processHeadingLinks() {
+    // Check if we're on the About page
+    const isAboutPage = window.location.pathname.includes('/about/');
+    
     // Select all headings in the post content
     const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
     
@@ -374,6 +377,11 @@ function processHeadingLinks() {
                 .replace(/-+$/, '');
             
             heading.id = headingId;
+        }
+        
+        // Skip adding copy buttons on the About page
+        if (isAboutPage) {
+            return;
         }
         
         // Create anchor link wrapper
