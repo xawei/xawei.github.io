@@ -39,9 +39,9 @@ Kubernetes官方提供了两种常用的方式让开发者可以方便地进行�
 
 ### CRD
 
-在kubernetes中管理有状态应用，是比较复杂的，而一个相对灵活、编程友好的管理“有状态应用”的解决方案就是Operator，依赖CRD和Controller进行实现。
+在kubernetes中管理有状态应用，是比较复杂的，而一个相对灵活、编程友好的管理"有状态应用"的解决方案就是Operator，依赖CRD和Controller进行实现。
 
-Operator的工作原理，实际上是利用Kubernetes的CRD来描述我们想要部署的“有状态应用”或想要得到的资源，然后再自定义Controller中根据自定义API对象的变化，完成具体的部署和维护工作。
+Operator的工作原理，实际上是利用Kubernetes的CRD来描述我们想要部署的"有状态应用"或想要得到的资源，然后再自定义Controller中根据自定义API对象的变化，完成具体的部署和维护工作。
 
 例如Kubernetes的子项目Cluster API，也是使用Operator模式，在Management Cluster中通过应用CRD来定义集群、机器等资源模板，额外部署的各种Controller，则是负责读取相关的CRD实例信息，对集群、机器等资源进行生命周期的管理，包括创建、更新、删除等。
 
@@ -61,8 +61,8 @@ Metric server采集进行autoscaling所需的指标数据：CPU & Memory。Metri
 
 ## 参考资料
 
-1. https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
-2. https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/
-3. https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
-4. https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/
-5. https://cloud.redhat.com/blog/kubernetes-operators-best-practices
+1. [Kubernetes Docs - Configuring the Aggregation Layer](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+2. [Kubernetes Docs - Setup an Extension API Server](https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/)
+3. [Kubernetes Docs - APIServer Aggregation](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+4. [Kubernetes Docs - Resource Metrics Pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
+5. [Red Hat - Kubernetes Operators Best Practices](https://cloud.redhat.com/blog/kubernetes-operators-best-practices)

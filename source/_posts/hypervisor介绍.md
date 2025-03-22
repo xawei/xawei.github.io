@@ -58,7 +58,7 @@ KVM是目前最为流行的一种开源的type 1 hypervisor技术，在2006年�
 
 ## 参考资料
 
-1. https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor
-2. https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558
-3. https://www.redhat.com/en/topics/virtualization/what-is-KVM
-4. https://www.redhat.com/en/topics/containers/containers-vs-vms
+1. [Red Hat - What is a hypervisor?](https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor)
+2. [VMware - What is a Hypervisor?](https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558)
+3. [Red Hat - What is KVM?](https://www.redhat.com/en/topics/virtualization/what-is-KVM)
+4. [Red Hat - Containers vs. Virtual Machines](https://www.redhat.com/en/topics/containers/containers-vs-vms)

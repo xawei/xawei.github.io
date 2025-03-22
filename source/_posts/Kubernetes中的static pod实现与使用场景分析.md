@@ -277,7 +277,7 @@ Static pod目前使用最广泛的场景，是在Kubeadm中使用使用这一机
 
 ## 总结
 
-本文首先介绍了Kubernetes中Static pod机制的原理，并与“常规的”集群中运行的Pod进行了对比。然后说明了如何快速使用Kubelet来部署启动、重启和停止Static pod来实现对一组业务容器的生命周期管理。如果我们需要在Kubernetes中指定每个节点启动特定的Pod，那么建议使用官方的DaemonSet来实现目的。Static pod的使用场景在于无集群时，如何能方便、稳定地管理运行在本节点上的容器。Static pod目前最广泛的应用场景是Kubeadm中利用这一机制来启动Kubernetes集群的Control Plane层面的各个组件。
+本文首先介绍了Kubernetes中Static pod机制的原理，并与"常规的"集群中运行的Pod进行了对比。然后说明了如何快速使用Kubelet来部署启动、重启和停止Static pod来实现对一组业务容器的生命周期管理。如果我们需要在Kubernetes中指定每个节点启动特定的Pod，那么建议使用官方的DaemonSet来实现目的。Static pod的使用场景在于无集群时，如何能方便、稳定地管理运行在本节点上的容器。Static pod目前最广泛的应用场景是Kubeadm中利用这一机制来启动Kubernetes集群的Control Plane层面的各个组件。
 
 Static pod仅仅依赖所在节点的Kubelet即可启动，不需要集群，但也缺少了集群层面的资源调度、自动伸缩等功能。
 
@@ -286,7 +286,7 @@ Static pod仅仅依赖所在节点的Kubelet即可启动，不需要集群，但
 ## 参考资料
 
 1. [stack overflow: whats-the-difference-between-pods-and-static-pods](https://stackoverflow.com/questions/59612514/whats-the-difference-between-pods-and-static-pods-in-kubernetes-and-when-to)
-2. https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/
-3. https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/
-4. https://octetz.com/docs/2019/2019-10-12-static-pods/
+2. [Kubernetes Docs - Static Pods](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/)
+3. [Kubernetes Docs - High Availability Topology](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/)
+4. [Octetz - Static Pods](https://octetz.com/docs/2019/2019-10-12-static-pods/)
 

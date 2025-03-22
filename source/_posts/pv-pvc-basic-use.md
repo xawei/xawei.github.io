@@ -127,14 +127,14 @@ spec:
           claimName: my-ebs-pvc             # Use the PVC created earlier
 ```
 
-对于EBS这样的块存储，分为“两阶段处理”。
+对于EBS这样的块存储，分为"两阶段处理"。
 
-（1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要“挂载存储设备到宿主机”）
+（1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要"挂载存储设备到宿主机"）
 
 （2）Mount：将远程存储格式化挂载到宿主机的指定目录，对应容器中的Volume。
 
 
 ## 参考资料
 
-1. https://kubernetes.io/docs/concepts/storage/volumes/
-2. https://time.geekbang.org/column/intro/100015201
+1. [Kubernetes Docs - Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
+2. [极客时间专栏 - Kubernetes入门实战课](https://time.geekbang.org/column/intro/100015201)

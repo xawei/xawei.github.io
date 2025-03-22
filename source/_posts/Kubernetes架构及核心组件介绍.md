@@ -75,6 +75,6 @@ Kube-proxy是每个节点上都运行的network proxy，负责实现Kubernetes�
 
 ## 参考资料
 
-1. https://kubernetes.io/docs/concepts/overview/components/
-1. https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/
+1. [Kubernetes Docs - Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
+2. [Kubernetes Docs - Control Plane-Node Communication](https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/)
 
