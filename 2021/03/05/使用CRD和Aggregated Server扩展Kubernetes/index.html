@@ -131,19 +131,19 @@
 <p>通过APIService对象可以注册API：使用APIService声明一个在Kubernetes API中的URL路径。这样，当访问这个URL路径时，Kube-apiserver中的Aggregation layer就会把请求代理转发到对应的APIService对象。</p>
 <p>最常见的使用APService的方式，是在Kubernetes集群中启动Pod(s)来作为扩展的API Server。而一般情况下，使用Aggreated  Server来管理资源，都会配套相应的一个或多个Controller在集群中。使用apiserver-builder库可以生成扩展的Aggreated Server和对应Controller的基本工程框架。</p>
 <p><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101324436.png"></p>
-<h2 id="使用场景分析"><a href="#使用场景分析" class="headerlink" title="使用场景分析"></a>使用场景分析</h2><h3 id="CRD"><a href="#CRD" class="headerlink" title="CRD"></a>CRD</h3><p>在kubernetes中管理有状态应用，是比较复杂的，而一个相对灵活、编程友好的管理“有状态应用”的解决方案就是Operator，依赖CRD和Controller进行实现。</p>
-<p>Operator的工作原理，实际上是利用Kubernetes的CRD来描述我们想要部署的“有状态应用”或想要得到的资源，然后再自定义Controller中根据自定义API对象的变化，完成具体的部署和维护工作。</p>
+<h2 id="使用场景分析"><a href="#使用场景分析" class="headerlink" title="使用场景分析"></a>使用场景分析</h2><h3 id="CRD"><a href="#CRD" class="headerlink" title="CRD"></a>CRD</h3><p>在kubernetes中管理有状态应用，是比较复杂的，而一个相对灵活、编程友好的管理”有状态应用”的解决方案就是Operator，依赖CRD和Controller进行实现。</p>
+<p>Operator的工作原理，实际上是利用Kubernetes的CRD来描述我们想要部署的”有状态应用”或想要得到的资源，然后再自定义Controller中根据自定义API对象的变化，完成具体的部署和维护工作。</p>
 <p>例如Kubernetes的子项目Cluster API，也是使用Operator模式，在Management Cluster中通过应用CRD来定义集群、机器等资源模板，额外部署的各种Controller，则是负责读取相关的CRD实例信息，对集群、机器等资源进行生命周期的管理，包括创建、更新、删除等。</p>
 <p><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101325491.png"></p>
 <h3 id="Aggregated-Server"><a href="#Aggregated-Server" class="headerlink" title="Aggregated Server"></a>Aggregated Server</h3><p>一个典型的通过APIService方式配置Aggregated Server来扩展Kube-apisever的项目，则是Metric server了。</p>
 <p>Metric server采集进行autoscaling所需的指标数据：CPU &amp; Memory。Metric server本身并不会计算指标数值，而是Kubelet计算的。Metric server采集Kubelet所暴露的指标数据，进行聚集后，通过API的形式暴露出来，进行autoscaling。</p>
 <p><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101327905.png"></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/">https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/">https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/">https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/</a></li>
-<li><a target="_blank" rel="noopener" href="https://cloud.redhat.com/blog/kubernetes-operators-best-practices">https://cloud.redhat.com/blog/kubernetes-operators-best-practices</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/">Kubernetes Docs - Configuring the Aggregation Layer</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/">Kubernetes Docs - Setup an Extension API Server</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/">Kubernetes Docs - APIServer Aggregation</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">Kubernetes Docs - Resource Metrics Pipeline</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.redhat.com/blog/kubernetes-operators-best-practices">Red Hat - Kubernetes Operators Best Practices</a></li>
 </ol>
 
     </div>

@@ -145,10 +145,10 @@
 <p>正如前文所说，所有的hypervisor都需要一些操作系统层面的组件来运行虚拟机（memory manager, process scheduler, input&#x2F;output (I&#x2F;O) stack, device drivers, security manager, a network stack）。而KVM已经是Linux内核的一部分，那么它天然地就已经具有这种组件和能力了。这些KVM之上的虚拟机，都被实现为普通的Linux进程，被Linux调度器调度，使用专有的虚拟化硬件设备（CPU&#x2F;显卡&#x2F;内存&#x2F;磁盘等）。</p>
 <p>值得一提的是，AWS开源的专门用于容器场景的虚拟化技术Firecracker，正是使用KVM相关技术来创建microVM的。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor">https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558">https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/virtualization/what-is-KVM">https://www.redhat.com/en/topics/virtualization/what-is-KVM</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/containers/containers-vs-vms">https://www.redhat.com/en/topics/containers/containers-vs-vms</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor">Red Hat - What is a hypervisor?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558">VMware - What is a Hypervisor?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/virtualization/what-is-KVM">Red Hat - What is KVM?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/containers/containers-vs-vms">Red Hat - Containers vs. Virtual Machines</a></li>
 </ol>
 
     </div>

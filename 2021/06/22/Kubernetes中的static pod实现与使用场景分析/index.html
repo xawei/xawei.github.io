@@ -195,13 +195,13 @@
 <p>使用Kubernetes集群前，需要把管控面的组件先部署好。这些管控组件可以二进制部署，也可以容器化部署。二进制部署的方式稍显繁琐，且容易出错，升级也不方便，容器化部署这些管控组件的好处显而易见。</p>
 <p>这是最典型的先有鸡还是先有蛋的问题。在没有Kubernetes集群的时候，我们如何把这些管控组件以容器化的形式启动起来？官方部署工具Kubeadm给出的解决方法就是使用Static pod。</p>
 <p>在使用Kubeadm部署集群时，首先需要安装好kubelet、容器运行时等组件，Kubeadm会根据指定配置文件，生成Kube-apiserver, Kube-controller-manager, Kube-proxy等组件的Pod定义文件，放置在Master节点的指定Static Pod path下，让Kubelet接管这些Static pod的生命周期管理。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文首先介绍了Kubernetes中Static pod机制的原理，并与“常规的”集群中运行的Pod进行了对比。然后说明了如何快速使用Kubelet来部署启动、重启和停止Static pod来实现对一组业务容器的生命周期管理。如果我们需要在Kubernetes中指定每个节点启动特定的Pod，那么建议使用官方的DaemonSet来实现目的。Static pod的使用场景在于无集群时，如何能方便、稳定地管理运行在本节点上的容器。Static pod目前最广泛的应用场景是Kubeadm中利用这一机制来启动Kubernetes集群的Control Plane层面的各个组件。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文首先介绍了Kubernetes中Static pod机制的原理，并与”常规的”集群中运行的Pod进行了对比。然后说明了如何快速使用Kubelet来部署启动、重启和停止Static pod来实现对一组业务容器的生命周期管理。如果我们需要在Kubernetes中指定每个节点启动特定的Pod，那么建议使用官方的DaemonSet来实现目的。Static pod的使用场景在于无集群时，如何能方便、稳定地管理运行在本节点上的容器。Static pod目前最广泛的应用场景是Kubeadm中利用这一机制来启动Kubernetes集群的Control Plane层面的各个组件。</p>
 <p>Static pod仅仅依赖所在节点的Kubelet即可启动，不需要集群，但也缺少了集群层面的资源调度、自动伸缩等功能。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59612514/whats-the-difference-between-pods-and-static-pods-in-kubernetes-and-when-to">stack overflow: whats-the-difference-between-pods-and-static-pods</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/">https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/</a></li>
-<li><a target="_blank" rel="noopener" href="https://octetz.com/docs/2019/2019-10-12-static-pods/">https://octetz.com/docs/2019/2019-10-12-static-pods/</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/">Kubernetes Docs - Static Pods</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/">Kubernetes Docs - High Availability Topology</a></li>
+<li><a target="_blank" rel="noopener" href="https://octetz.com/docs/2019/2019-10-12-static-pods/">Octetz - Static Pods</a></li>
 </ol>
 
     </div>
