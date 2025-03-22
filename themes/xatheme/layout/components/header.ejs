@@ -1,0 +1,47 @@
+<!-- Header & Logo -->
+<div class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <a href="<%= url_for('/') %>" class="title">
+                <% if (theme.defaults.logo) { %>
+                    <img src="<%= theme.defaults.logo %>" alt="<%= theme.info.title || config.title %>" class="logo-image">
+                <% } else { %>
+                    <%= theme.info.title || config.title %>
+                <% } %>
+            </a>
+        </div>
+        
+        <nav class="menu-container">
+            <ul class="menu">
+                <% for (const name in theme.menu) { %>
+                    <li class="menu-item">
+                        <a class="menu-link" href="<%= url_for(theme.menu[name]) %>">
+                            <% if (name === 'Home') { %>
+                                <i class="fa-solid fa-house"></i>
+                            <% } else if (name === 'Categories') { %>
+                                <i class="fa-solid fa-folder"></i>
+                            <% } else if (name === 'Archives') { %>
+                                <i class="fa-solid fa-box-archive"></i>
+                            <% } else if (name === 'Tags') { %>
+                                <i class="fa-solid fa-tags"></i>
+                            <% } else if (name === 'About') { %>
+                                <i class="fa-solid fa-user"></i>
+                            <% } else { %>
+                                <i class="fa-solid fa-circle-info"></i>
+                            <% } %>
+                            <%= __('nav.' + name.toLowerCase()) || name %>
+                        </a>
+                    </li>
+                <% } %>
+                
+                <% if (theme.features.dark_mode_toggle) { %>
+                    <li class="menu-item theme-item">
+                        <div class="theme-toggle">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+</div> 

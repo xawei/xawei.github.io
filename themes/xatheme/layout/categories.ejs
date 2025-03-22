@@ -1,0 +1,20 @@
+<div class="categories-page">
+    <div class="page-header">
+        <h1 class="page-title"><%= __('nav.categories') %></h1>
+    </div>
+    
+    <div class="categories-list">
+        <% if (site.categories.length) { %>
+            <ul class="category-list">
+                <% site.categories.sort('name').map(function(category) { %>
+                    <li class="category-list-item">
+                        <a href="<%= url_for(category.path) %>" class="category-link">
+                            <span class="category-name"><%= category.name %></span>
+                            <span class="category-count">(<%= category.length %>)</span>
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </div>
+</div> 

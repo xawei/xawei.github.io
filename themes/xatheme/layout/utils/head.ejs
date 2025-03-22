@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= page.title ? page.title + ' - ' + config.title : config.title %></title>
+<% if (theme.defaults.favicon) { %>
+<link rel="icon" href="<%= theme.defaults.favicon %>" />
+<% } %>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="<%= page.layout === 'post' ? 'article' : 'website' %>">
+<meta property="og:title" content="<%= page.title || config.title %>">
+<meta property="og:description" content="<%= page.description || page.excerpt || config.description %>">
+<meta property="og:url" content="<%= page.permalink || config.url %>">
+<meta property="og:site_name" content="<%= config.title %>">
+
+<!-- Canonical -->
+<link rel="canonical" href="<%= page.permalink || config.url %>" 

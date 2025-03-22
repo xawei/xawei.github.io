@@ -1,0 +1,42 @@
+# Navigation
+nav:
+  home: 首页
+  about: 关于
+  categories: 分类
+  tags: 标签
+  archives: 归档
+
+# Sidebar
+sidebar:
+  overview: 概览
+  toc: 目录
+
+# Post
+post:
+  created: 创建于
+  updated: 更新于
+  word_count: 字数
+  reading_time: 阅读时长
+  minutes: 分钟
+  read_more: 阅读全文
+  copyright:
+    author: 作者
+    link: 链接
+    license_title: 版权声明
+    license_content: 本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。
+
+# Footer
+footer:
+  powered: 由 %s 强力驱动
+  theme: 主题 %s
+  total_views: 总访问量
+  total_visitors: 总访客数
+
+# Search
+search:
+  title: 搜索
+  placeholder: 搜索文章或页面...
+
+# Date / Time Format
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss 

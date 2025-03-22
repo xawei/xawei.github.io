@@ -1,0 +1,72 @@
+<% if (page.total > 1) { %>
+<nav class="pagination">
+    <% if (page.prev) { %>
+    <a class="extend prev" rel="prev" href="<%- url_for(page.prev_link) %>"><i class="fa-solid fa-angle-left"></i></a>
+    <% } %>
+    
+    <% 
+    var current = page.current;
+    var total = page.total;
+    var base = page.base;
+    
+    function pagination(current, total, space) {
+        var result = [];
+        var start = 1;
+        var end = total;
+        var startPage = current - space;
+        var endPage = current + space;
+        
+        if (startPage < 1) {
+            startPage = 1;
+            endPage = space * 2 + 1;
+        }
+        
+        if (endPage > total) {
+            endPage = total;
+            startPage = total - space * 2;
+            startPage = startPage < 1 ? 1 : startPage;
+        }
+        
+        // Handle first page
+        if (startPage === 1) {
+            for (var i = 1; i <= endPage; i++) {
+                result.push(i);
+            }
+        } else {
+            result.push(1);
+            if (startPage > 2) {
+                result.push('...');
+            }
+            for (var i = startPage; i <= endPage; i++) {
+                result.push(i);
+            }
+        }
+        
+        // Handle last page
+        if (endPage < total) {
+            if (endPage < total - 1) {
+                result.push('...');
+            }
+            result.push(total);
+        }
+        
+        return result;
+    }
+    
+    var pages = pagination(current, total, 2);
+    for (var i = 0; i < pages.length; i++) {
+        var p = pages[i];
+        if (p === '...') {
+    %>
+    <span class="space">…</span>
+    <% } else if (p === current) { %>
+    <span class="page-number current"><%= p %></span>
+    <% } else { %>
+    <a class="page-number" href="<%- url_for(p === 1 ? page.base : page.base + '/page/' + p + '/') %>"><%= p %></a>
+    <% } } %>
+    
+    <% if (page.next) { %>
+    <a class="extend next" rel="next" href="<%- url_for(page.next_link) %>"><i class="fa-solid fa-angle-right"></i></a>
+    <% } %>
+</nav>
+<% } %> 

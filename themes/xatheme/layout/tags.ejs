@@ -1,0 +1,15 @@
+<div class="tags-page">
+    <div class="page-header">
+        <h1 class="page-title"><%= __('nav.tags') %></h1>
+    </div>
+    
+    <div class="tags-cloud">
+        <% if (site.tags.length) { %>
+            <% site.tags.sort('name').map(function(tag) { %>
+                <a href="<%= url_for(tag.path) %>" class="tag-item" style="font-size: <%= Math.random() * 0.7 + 0.8 %>em; opacity: <%= Math.random() * 0.5 + 0.5 %>;">
+                    <%= tag.name %> (<%= tag.length %>)
+                </a>
+            <% }) %>
+        <% } %>
+    </div>
+</div> 

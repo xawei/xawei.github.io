@@ -1,0 +1,56 @@
+# XATheme Configuration
+
+# Basic Information
+info:
+  title: Wei's Blog
+  author: xawei
+  url: https://xawei.xyz
+
+# Colors
+colors:
+  primary: "#A31F34"  # MIT red color
+  dark_primary: "#C02D43"  # Slightly lighter for dark mode
+  light_bg: "#FFFFFF"  # White background for content in light mode
+  dark_bg: "#1A1A1A"  # Dark background for content in dark mode
+  light_text: "#333333"  # Dark text for light mode
+  dark_text: "#EEEEEE"  # Light text for dark mode
+  default_mode: light  # light, dark
+
+# Banner
+banner:
+  enabled: true
+  background:
+    gradient_start: "#D4F1F9"  # Light blue
+    gradient_end: "#E1F8DC"    # Light green
+    dark_gradient_start: "#0F2D40"  # Dark blue
+    dark_gradient_end: "#1F3624"    # Dark green
+
+# Image Configuration
+defaults:
+  favicon: https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png
+  logo: 
+  avatar: https://img9.doubanio.com/icon/ul52829878-16.jpg
+
+# Navigation Menu
+menu:
+  Home: /
+  Categories: /categories
+  Archives: /archives
+  About: /about
+
+# Social Links
+socials:
+  github: https://github.com/xawei
+  douban: https://www.douban.com/people/xawei/
+
+# Other Settings
+article:
+  excerpt_length: 300
+  copyright: true
+
+# Enable/Disable Features
+features:
+  toc: true  # Table of Contents enabled
+  back_to_top: true
+  code_copy: true
+  dark_mode_toggle: true  # Enable dark mode toggle 

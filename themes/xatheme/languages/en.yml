@@ -1,0 +1,42 @@
+# Navigation
+nav:
+  home: Home
+  about: About
+  categories: Categories
+  tags: Tags
+  archives: Archives
+
+# Sidebar
+sidebar:
+  overview: Overview
+  toc: Table of Contents
+
+# Post
+post:
+  created: Created
+  updated: Updated
+  word_count: Words
+  reading_time: Reading Time
+  minutes: min
+  read_more: Read More
+  copyright:
+    author: Author
+    link: Link
+    license_title: Copyright Notice
+    license_content: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.
+
+# Footer
+footer:
+  powered: Powered by %s
+  theme: Theme %s
+  total_views: Total Views
+  total_visitors: Total Visitors
+
+# Search
+search:
+  title: Search
+  placeholder: Search for posts or pages...
+
+# Date / Time Format
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss 
