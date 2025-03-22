@@ -4,7 +4,7 @@
 info:
   title: Wei's Blog
   author: xawei
-  url: https://xawei.xyz
+  url: ${config.url} # Use the URL from main config
 
 # Colors
 colors:

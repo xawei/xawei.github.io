@@ -35,7 +35,7 @@ ClusterA上的服务是通过Route53配置的域名访问ClusterB的服务时，
     > After you enable an Availability Zone, the Network Load Balancer starts routing requests to the registered targets in that Availability Zone. Your Network Load Balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target.
 2. 深入调查Target Group健康状态
    - 发现这个NLB，某个listener对应的target group在第三个AZ全部显示unhealthy。
-   - 根据AWS文档，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets
+   - 根据[AWS文档](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#no-healthy-targets)，当target group的所有节点都unhealthy时，NLB的domain name system (DNS)解析会返回所有节点的IP地址。
     > When there are only unhealthy registered targets, the Network Load Balancer routes requests to all the registered targets, known as fail-open mode.
     - 因此，DNS解析意外返回了第三个AZ的节点IP，导致部分流量被错误路由到没有部署Istio Ingress Gateway Pod的区域，从而引发超时和连接重置问题。
 
