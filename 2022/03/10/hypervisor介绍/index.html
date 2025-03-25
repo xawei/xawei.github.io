@@ -127,11 +127,18 @@
 <p>Hypervisor 的核心功能是将宿主机的硬件资源（如 CPU、内存、磁盘存储等）虚拟化为一个资源池，然后根据需求分配给各个虚拟机。为了实现这一点，hypervisor 需要依赖操作系统层面的组件，包括内存管理器（memory manager）、进程调度器（process scheduler）、输入&#x2F;输出栈（I&#x2F;O stack）、设备驱动（device drivers）、安全管理器（security manager）和网络栈（network stack）等。</p>
 <h2 id="Hypervisor的类型"><a href="#Hypervisor的类型" class="headerlink" title="Hypervisor的类型"></a>Hypervisor的类型</h2><p>Hypervisor 主要分为两种类型：Type 1（裸金属） 和 Type 2（托管型）。这两种类型的架构和应用场景各有不同，下文将详细说明。<br><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101021997.png" style="zoom: 33%;" /></p>
 <h3 id="Type-1-hypervisor-Bare-metal"><a href="#Type-1-hypervisor-Bare-metal" class="headerlink" title="Type 1 hypervisor - Bare-metal"></a>Type 1 hypervisor - Bare-metal</h3><p>Type 1 hypervisor（裸金属 hypervisor）直接运行在宿主机的硬件上，负责管理虚拟机并分配硬件资源。它不需要依赖宿主机的操作系统，而是自己充当一个轻量级的操作系统。这种类型的 hypervisor 以高性能和安全性著称，因此广泛应用于企业的数据中心（IDC）。</p>
-<p>常见的 Type 1 hypervisor 包括：</p>
-<p>KVM：一个开源 hypervisor，已集成到 Linux 内核（2007 年版本起）。如果你使用的是较新版本的 Linux，KVM 已内置其中。<br>Microsoft Hyper-V：微软推出的虚拟化平台，常见于 Windows 服务器环境。<br>VMware vSphere：VMware 的旗舰产品，用于构建和管理大规模虚拟化基础设施。</p>
+<p>常见的 Type 1 hypervisor 包括： </p>
+<ul>
+<li>KVM：一个开源 hypervisor，已集成到 Linux 内核（2007 年版本起）。如果你使用的是较新版本的 Linux，KVM 已内置其中。</li>
+<li>Microsoft Hyper-V：微软推出的虚拟化平台，常见于 Windows 服务器环境。</li>
+<li>VMware vSphere：VMware 的旗舰产品，用于构建和管理大规模虚拟化基础设施。</li>
+</ul>
 <h3 id="Type-2-hypervisor-Hosted"><a href="#Type-2-hypervisor-Hosted" class="headerlink" title="Type 2 hypervisor - Hosted"></a>Type 2 hypervisor - Hosted</h3><p>Type 2 hypervisor（托管型 hypervisor）作为应用程序运行在宿主机的操作系统之上。它通过宿主机的操作系统访问硬件资源，再将这些资源分配给虚拟机。相比 Type 1，它多了一层操作系统中介，因此性能稍逊，但安装和使用更简单，常用于个人用户或开发测试场景。</p>
-<p>常见的 Type 2 hypervisor 包括：</p>
-<p>VMware Workstation：VMware 的桌面虚拟化产品，支持 Windows 和 Linux。<br>Oracle VirtualBox：免费开源的虚拟化工具，支持多种操作系统。</p>
+<p>常见的 Type 2 hypervisor 包括： </p>
+<ul>
+<li>VMware Workstation：VMware 的桌面虚拟化产品，支持 Windows 和 Linux。</li>
+<li>Oracle VirtualBox：免费开源的虚拟化工具，支持多种操作系统。</li>
+</ul>
 <h2 id="KVM介绍"><a href="#KVM介绍" class="headerlink" title="KVM介绍"></a>KVM介绍</h2><p>KVM（Kernel-based Virtual Machine，基于内核的虚拟机）是一种广受欢迎的开源 Type 1 hypervisor。它于 2006 年首次发布，并在 2007 年正式合并到 Linux 内核中，成为 Linux 的一部分。这意味着，使用较新版本的 Linux 系统时，你无需额外安装即可使用 KVM。</p>
 <p>KVM 的独特之处在于它将 Linux 内核转变为一个 hypervisor，允许用户在 Linux 上创建和管理虚拟机。每个虚拟机都被视为一个普通的 Linux 进程，由 Linux 的调度器管理，并使用虚拟化的硬件设备（如 CPU、内存、磁盘等）。KVM 充分利用了 Linux 内核现有的组件（如内存管理、进程调度、I&#x2F;O 栈等），因此运行高效且稳定。</p>
 <p>此外，KVM 支持硬件辅助虚拟化技术，如 Intel 的 VT-x 和 AMD 的 AMD-V，进一步提升了虚拟化性能。一个有趣的例子是，AWS 开源的 Firecracker 项目基于 KVM 技术开发，专门用于容器场景，创建轻量级的 microVM。</p>
