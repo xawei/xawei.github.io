@@ -139,10 +139,23 @@
 </li>
 </ul>
 <h2 id="3-Use-cases"><a href="#3-Use-cases" class="headerlink" title="3. Use cases"></a>3. Use cases</h2><h3 id="Scenario-1-Access-a-custom-service-in-another-VPC"><a href="#Scenario-1-Access-a-custom-service-in-another-VPC" class="headerlink" title="Scenario 1: Access a custom service in another VPC"></a>Scenario 1: Access a custom service in another VPC</h3><p>If you have two VPCs (VPC A &amp; VPC B), and you want EKS in VPC A to access a custom service running in VPC B, you have multiple options depending on your security and networking requirements. Here’s how you can use VPC Endpoints to achieve this securely.<br><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081323392.png"></p>
-<h4 id="🔍-AWS-PrivateLink-Architecture"><a href="#🔍-AWS-PrivateLink-Architecture" class="headerlink" title="🔍 AWS PrivateLink Architecture"></a>🔍 AWS PrivateLink Architecture</h4><p>1️⃣ In VPC B (Service Provider)<br>•	Deploy the custom service behind an NLB.<br>•	Expose it via a VPC Endpoint Service.</p>
-<p>2️⃣ In VPC A (Client)<br>•	Create an Interface VPC Endpoint in VPC A.<br>•	AWS automatically provisions an ENI inside VPC A.</p>
+<h4 id="🔍-AWS-PrivateLink-Architecture"><a href="#🔍-AWS-PrivateLink-Architecture" class="headerlink" title="🔍 AWS PrivateLink Architecture"></a>🔍 AWS PrivateLink Architecture</h4><p>1️⃣ In VPC B (Service Provider)</p>
+<ul>
+<li>Deploy the custom service behind an NLB.</li>
+<li>Expose it via a VPC Endpoint Service.</li>
+</ul>
+<p>2️⃣ In VPC A (Client)</p>
+<ul>
+<li>Create an Interface VPC Endpoint in VPC A.</li>
+<li>AWS automatically provisions an ENI inside VPC A.</li>
+</ul>
 <p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081331095.png"></p>
-<p>3️⃣ How Traffic Flows<br>✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.<br>✅ The ENI forwards the request securely to the NLB in VPC B.<br>✅ The NLB routes the request to the backend custom service in VPC B.</p>
+<p>3️⃣ How Traffic Flows</p>
+<ol>
+<li>EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.</li>
+<li>The ENI forwards the request securely to the NLB in VPC B.</li>
+<li>The NLB routes the request to the backend custom service in VPC B.</li>
+</ol>
 <h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h2><h3 id="Summary-of-Benefits"><a href="#Summary-of-Benefits" class="headerlink" title="Summary of Benefits"></a>Summary of Benefits</h3><ul>
 <li>Enhanced Security: VPC Endpoints keep your network traffic within the AWS cloud, reducing exposure to potential threats.</li>
 <li>Improved Performance: By avoiding the public internet, you can achieve lower latency and higher throughput.</li>
