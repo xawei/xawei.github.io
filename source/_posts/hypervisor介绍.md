@@ -25,21 +25,19 @@ Hypervisor 主要分为两种类型：Type 1（裸金属） 和 Type 2（托管�
 
 Type 1 hypervisor（裸金属 hypervisor）直接运行在宿主机的硬件上，负责管理虚拟机并分配硬件资源。它不需要依赖宿主机的操作系统，而是自己充当一个轻量级的操作系统。这种类型的 hypervisor 以高性能和安全性著称，因此广泛应用于企业的数据中心（IDC）。
 
-常见的 Type 1 hypervisor 包括：
-
-KVM：一个开源 hypervisor，已集成到 Linux 内核（2007 年版本起）。如果你使用的是较新版本的 Linux，KVM 已内置其中。
-Microsoft Hyper-V：微软推出的虚拟化平台，常见于 Windows 服务器环境。
-VMware vSphere：VMware 的旗舰产品，用于构建和管理大规模虚拟化基础设施。
+常见的 Type 1 hypervisor 包括： 
+- KVM：一个开源 hypervisor，已集成到 Linux 内核（2007 年版本起）。如果你使用的是较新版本的 Linux，KVM 已内置其中。
+- Microsoft Hyper-V：微软推出的虚拟化平台，常见于 Windows 服务器环境。
+- VMware vSphere：VMware 的旗舰产品，用于构建和管理大规模虚拟化基础设施。
 
 
 ### Type 2 hypervisor - Hosted
 
 Type 2 hypervisor（托管型 hypervisor）作为应用程序运行在宿主机的操作系统之上。它通过宿主机的操作系统访问硬件资源，再将这些资源分配给虚拟机。相比 Type 1，它多了一层操作系统中介，因此性能稍逊，但安装和使用更简单，常用于个人用户或开发测试场景。
 
-常见的 Type 2 hypervisor 包括：
-
-VMware Workstation：VMware 的桌面虚拟化产品，支持 Windows 和 Linux。
-Oracle VirtualBox：免费开源的虚拟化工具，支持多种操作系统。
+常见的 Type 2 hypervisor 包括： 
+- VMware Workstation：VMware 的桌面虚拟化产品，支持 Windows 和 Linux。
+- Oracle VirtualBox：免费开源的虚拟化工具，支持多种操作系统。
 
 
 ## KVM介绍
