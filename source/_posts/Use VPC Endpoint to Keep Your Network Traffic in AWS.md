@@ -39,19 +39,19 @@ If you have two VPCs (VPC A & VPC B), and you want EKS in VPC A to access a cust
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081323392.png)
 #### 🔍 AWS PrivateLink Architecture
 1️⃣ In VPC B (Service Provider)
-•	Deploy the custom service behind an NLB.
-•	Expose it via a VPC Endpoint Service.
+- Deploy the custom service behind an NLB.
+- Expose it via a VPC Endpoint Service.
 
 2️⃣ In VPC A (Client)
-•	Create an Interface VPC Endpoint in VPC A.
-•	AWS automatically provisions an ENI inside VPC A.
+- Create an Interface VPC Endpoint in VPC A.
+- AWS automatically provisions an ENI inside VPC A.
 
 ![](https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202502081331095.png)
 
 3️⃣ How Traffic Flows
-✅ EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.
-✅ The ENI forwards the request securely to the NLB in VPC B.
-✅ The NLB routes the request to the backend custom service in VPC B.
+1. EKS pods in VPC A send traffic to the ENI (Interface Endpoint) inside VPC A.
+2. The ENI forwards the request securely to the NLB in VPC B.
+3. The NLB routes the request to the backend custom service in VPC B.
 
 ## 4. Conclusion
 ### Summary of Benefits
