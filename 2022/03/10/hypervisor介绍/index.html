@@ -97,7 +97,7 @@
         <div class="post-meta">
             <span><i class="fa-regular fa-calendar"></i> 2022-03-10</span>
             
-                <span><i class="fa-regular fa-calendar-plus"></i> 2025-03-22</span>
+                <span><i class="fa-regular fa-calendar-plus"></i> 2025-03-25</span>
             
             
                 <span><i class="fa-regular fa-folder"></i>
@@ -123,27 +123,18 @@
         <p>hypervisor作用、类型和实现简介。</p>
 <span id="more"></span>
 
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>hypervisor又称VMM（virtual machine monitor），是一种用来创建、管理虚拟机的软件程序。运行hypervisor的硬件设施被称为宿主机（母机），在这之上可以使用hypervisor虚拟出来更多的子机，每个子机都有自己独立的操作系统（guest os）。</p>
-<p>hypervisor把它管理的宿主机硬件设施资源如CPU、内存、磁盘存储等当做一个资源池子，按照一定策略分配给运行在其上的虚拟机。hypervisor要做到这一点，需要一些操作系统层面的管理组件，例如memory manager, process scheduler, input&#x2F;output (I&#x2F;O) stack, device drivers, security manager, a network stack等。</p>
-<h2 id="Hypervisor的类型"><a href="#Hypervisor的类型" class="headerlink" title="Hypervisor的类型"></a>Hypervisor的类型</h2><p>总的来说，hypervisor可以分为两种类型，type 1 hypervisor和type 2 hypervisor，如下图所示。</p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101021997.png" style="zoom: 33%;" />
-
-<h3 id="Type-1-hypervisor-Bare-metal"><a href="#Type-1-hypervisor-Bare-metal" class="headerlink" title="Type 1 hypervisor - Bare-metal"></a>Type 1 hypervisor - Bare-metal</h3><p>第一种类型的hypervisor叫做Bare-metal hypervisor（裸金属），直接运行宿主机的硬件之上来管理guest os（虚拟子机的操作系统），代替了宿主机本身操作系统的功能，直接给虚拟机调度规划硬件资源。在企业的IDC中，使用这种类型的hypervisor技术最为常见。</p>
-<p>下面列举一些主流常见的type 1 hypervisor实现：</p>
-<ul>
-<li>KVM（合入了Linux的2007发行版内核中，如果你正在使用最近的Linux，那么你已经拥有使用KVM的能力了:) ）</li>
-<li>Microsoft Hyper-V</li>
-<li>VMware vSphere</li>
-</ul>
-<h3 id="Type-2-hypervisor-Hosted"><a href="#Type-2-hypervisor-Hosted" class="headerlink" title="Type 2 hypervisor - Hosted"></a>Type 2 hypervisor - Hosted</h3><p>第二种类型的hypervisor是Hosted类型的，就称之为托管型的hypervisor吧。这种hypervisor作为软件应用层运行在普通的操作系统之上，来虚拟化出多个guest os给子机使用，因此虚拟子机的资源规划是经过宿主机的操作系统再到底层硬件资源的，跟type 1 hypervisor相比，它需要多经过宿主机的操作系统。这种类型的hypervisor一般是个人用户使用较多，使用起来比较方便。</p>
-<p>下面列举一些主流常见的type 2 hypervisor实现：</p>
-<ul>
-<li>VMware Workstation</li>
-<li>Oracle VirtualBox</li>
-</ul>
-<h2 id="KVM介绍"><a href="#KVM介绍" class="headerlink" title="KVM介绍"></a>KVM介绍</h2><p>KVM是目前最为流行的一种开源的type 1 hypervisor技术，在2006年第一次发布，并在一年后正式合入了Linux内核版本中。KVM已经成为了Linux中的一部分，KVM能让我们把Linux当做hypervisor运行在宿主机之上，虚拟化出多个独立运行的虚拟计算环境，也就是常说的虚拟机了。</p>
-<p>正如前文所说，所有的hypervisor都需要一些操作系统层面的组件来运行虚拟机（memory manager, process scheduler, input&#x2F;output (I&#x2F;O) stack, device drivers, security manager, a network stack）。而KVM已经是Linux内核的一部分，那么它天然地就已经具有这种组件和能力了。这些KVM之上的虚拟机，都被实现为普通的Linux进程，被Linux调度器调度，使用专有的虚拟化硬件设备（CPU&#x2F;显卡&#x2F;内存&#x2F;磁盘等）。</p>
-<p>值得一提的是，AWS开源的专门用于容器场景的虚拟化技术Firecracker，正是使用KVM相关技术来创建microVM的。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>你是否想过如何在一台计算机上同时运行多个操作系统？或者如何让服务器更高效地利用硬件资源？答案就在于 hypervisor 技术。Hypervisor，又称虚拟机监视器（Virtual Machine Monitor，简称 VMM），是一种强大的软件程序，它允许你在单一硬件平台上创建和管理多个虚拟机（VM）。每个虚拟机都可以运行独立的操作系统（称为 Guest OS），就像它们运行在独立的物理机器上一样。</p>
+<p>Hypervisor 的核心功能是将宿主机的硬件资源（如 CPU、内存、磁盘存储等）虚拟化为一个资源池，然后根据需求分配给各个虚拟机。为了实现这一点，hypervisor 需要依赖操作系统层面的组件，包括内存管理器（memory manager）、进程调度器（process scheduler）、输入&#x2F;输出栈（I&#x2F;O stack）、设备驱动（device drivers）、安全管理器（security manager）和网络栈（network stack）等。</p>
+<h2 id="Hypervisor的类型"><a href="#Hypervisor的类型" class="headerlink" title="Hypervisor的类型"></a>Hypervisor的类型</h2><p>Hypervisor 主要分为两种类型：Type 1（裸金属） 和 Type 2（托管型）。这两种类型的架构和应用场景各有不同，下文将详细说明。<br><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/03101021997.png" style="zoom: 33%;" /></p>
+<h3 id="Type-1-hypervisor-Bare-metal"><a href="#Type-1-hypervisor-Bare-metal" class="headerlink" title="Type 1 hypervisor - Bare-metal"></a>Type 1 hypervisor - Bare-metal</h3><p>Type 1 hypervisor（裸金属 hypervisor）直接运行在宿主机的硬件上，负责管理虚拟机并分配硬件资源。它不需要依赖宿主机的操作系统，而是自己充当一个轻量级的操作系统。这种类型的 hypervisor 以高性能和安全性著称，因此广泛应用于企业的数据中心（IDC）。</p>
+<p>常见的 Type 1 hypervisor 包括：</p>
+<p>KVM：一个开源 hypervisor，已集成到 Linux 内核（2007 年版本起）。如果你使用的是较新版本的 Linux，KVM 已内置其中。<br>Microsoft Hyper-V：微软推出的虚拟化平台，常见于 Windows 服务器环境。<br>VMware vSphere：VMware 的旗舰产品，用于构建和管理大规模虚拟化基础设施。</p>
+<h3 id="Type-2-hypervisor-Hosted"><a href="#Type-2-hypervisor-Hosted" class="headerlink" title="Type 2 hypervisor - Hosted"></a>Type 2 hypervisor - Hosted</h3><p>Type 2 hypervisor（托管型 hypervisor）作为应用程序运行在宿主机的操作系统之上。它通过宿主机的操作系统访问硬件资源，再将这些资源分配给虚拟机。相比 Type 1，它多了一层操作系统中介，因此性能稍逊，但安装和使用更简单，常用于个人用户或开发测试场景。</p>
+<p>常见的 Type 2 hypervisor 包括：</p>
+<p>VMware Workstation：VMware 的桌面虚拟化产品，支持 Windows 和 Linux。<br>Oracle VirtualBox：免费开源的虚拟化工具，支持多种操作系统。</p>
+<h2 id="KVM介绍"><a href="#KVM介绍" class="headerlink" title="KVM介绍"></a>KVM介绍</h2><p>KVM（Kernel-based Virtual Machine，基于内核的虚拟机）是一种广受欢迎的开源 Type 1 hypervisor。它于 2006 年首次发布，并在 2007 年正式合并到 Linux 内核中，成为 Linux 的一部分。这意味着，使用较新版本的 Linux 系统时，你无需额外安装即可使用 KVM。</p>
+<p>KVM 的独特之处在于它将 Linux 内核转变为一个 hypervisor，允许用户在 Linux 上创建和管理虚拟机。每个虚拟机都被视为一个普通的 Linux 进程，由 Linux 的调度器管理，并使用虚拟化的硬件设备（如 CPU、内存、磁盘等）。KVM 充分利用了 Linux 内核现有的组件（如内存管理、进程调度、I&#x2F;O 栈等），因此运行高效且稳定。</p>
+<p>此外，KVM 支持硬件辅助虚拟化技术，如 Intel 的 VT-x 和 AMD 的 AMD-V，进一步提升了虚拟化性能。一个有趣的例子是，AWS 开源的 Firecracker 项目基于 KVM 技术开发，专门用于容器场景，创建轻量级的 microVM。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor">Red Hat - What is a hypervisor?</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.vmware.com/topics/glossary/content/hypervisor.html?resource=cat-1299087558#cat-1299087558">VMware - What is a Hypervisor?</a></li>
