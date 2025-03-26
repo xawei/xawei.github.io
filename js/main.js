@@ -137,6 +137,49 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return; // Skip empty anchors
             
+            // For TOC links, we need to find the heading with matching text instead of ID
+            if (this.classList.contains('toc-link')) {
+                const linkText = this.textContent.trim();
+                // Find all headings in the document
+                const allHeadings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
+                
+                // Find the heading with matching text
+                let targetElement = null;
+                for (const heading of allHeadings) {
+                    if (heading.textContent.trim() === linkText) {
+                        targetElement = heading;
+                        break;
+                    }
+                }
+                
+                if (targetElement) {
+                    // Get height of fixed header for offset
+                    const headerHeight = document.querySelector('.banner').offsetHeight || 80;
+                    
+                    // Calculate position with offset
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Highlight target temporarily
+                    targetElement.classList.add('anchor-highlight');
+                    setTimeout(() => {
+                        targetElement.classList.remove('anchor-highlight');
+                    }, 2000);
+                    
+                    // Update URL hash to reflect the clicked section
+                    if (targetElement.id) {
+                        history.pushState(null, null, '#' + targetElement.id);
+                    }
+                }
+                return;
+            }
+            
+            // Regular anchor links
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 // Get height of fixed header for offset
@@ -368,13 +411,16 @@ function processHeadingLinks() {
         if (!heading.id) {
             // Generate an ID if it doesn't have one
             const headingText = heading.textContent;
-            const headingId = headingText
+            
+            // Use encodeURIComponent for all characters including Chinese
+            const headingId = encodeURIComponent(headingText.trim())
                 .toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^\w\-]+/g, '')
-                .replace(/\-\-+/g, '-')
-                .replace(/^-+/, '')
-                .replace(/-+$/, '');
+                .replace(/%20/g, '-')     // Replace spaces (encoded as %20) with hyphens
+                .replace(/%[0-9a-f]{2}/g, '') // Remove percent encodings
+                .replace(/[^\w\-]+/g, '')  // Remove any remaining non-word chars
+                .replace(/\-\-+/g, '-')    // Replace multiple hyphens with single
+                .replace(/^-+/, '')        // Trim hyphens from start
+                .replace(/-+$/, '');       // Trim hyphens from end
             
             heading.id = headingId;
         }
