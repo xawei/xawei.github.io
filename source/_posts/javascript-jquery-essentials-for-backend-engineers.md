@@ -320,7 +320,24 @@ In JavaScript, you'll need to adapt to:
 
 ## Real-World Example: Task Management Widget
 
-Let's build a simple task manager widget that uses both JavaScript and jQuery features. This example demonstrates variable handling, DOM manipulation, event handling, and AJAX:
+Let's build a simple task manager widget that uses both JavaScript and jQuery features. This example demonstrates variable handling, DOM manipulation, event handling, and AJAX. Follow these step-by-step instructions to set it up and test it on your local machine.
+
+### Step 1: Set Up Your Project Structure
+
+1. Create a new folder for your project:
+   ```bash
+   mkdir task-manager-example
+   cd task-manager-example
+   ```
+
+2. Create a new file called `index.html` in this folder:
+   ```bash
+   touch index.html
+   ```
+
+### Step 2: Copy the HTML Code
+
+Open the `index.html` file in your favorite code editor and paste the following code:
 
 ```html
 <!DOCTYPE html>
@@ -542,14 +559,112 @@ Let's build a simple task manager widget that uses both JavaScript and jQuery fe
 </html>
 ```
 
-This example demonstrates:
+### Step 3: Run and Test Your Application
 
-1. **DOM Manipulation**: Adding, updating, and removing task elements
-2. **Event Handling**: Click events, keyboard events, and event delegation
-3. **AJAX Requests**: GET, POST, PUT, and DELETE HTTP methods
-4. **Asynchronous Patterns**: Both jQuery AJAX and Fetch API with async/await
-5. **State Management**: Keeping track of tasks array and syncing with UI
-6. **ES6+ Features**: Arrow functions, template literals, destructuring, and spread operators
+There are several ways to serve and test your HTML file:
+
+#### Option 1: Open Directly in Browser
+
+Simply double-click the `index.html` file to open it in your default web browser.
+
+> **Note:** In modern browsers, some features might not work correctly when opening files directly due to security restrictions. If you encounter issues (especially with AJAX calls), try one of the other options below.
+
+#### Option 2: Use a Local Server (Recommended)
+
+For proper testing of AJAX functionality, it's best to serve your file through a local web server.
+
+If you have Python installed:
+
+```bash
+# For Python 3
+python -m http.server 8000
+
+# For Python 2
+python -m SimpleHTTPServer 8000
+```
+
+Then open your browser and navigate to: `http://localhost:8000`
+
+If you have Node.js installed, you can use:
+
+```bash
+# Install serve globally (one-time setup)
+npm install -g serve
+
+# Start the server in your project directory
+serve .
+```
+
+Then open the URL displayed in your terminal (usually `http://localhost:3000`).
+
+### Step 4: Interacting with the Task Manager
+
+Once your application is running, you should be able to:
+
+1. **View Tasks**: The application will automatically load 5 sample tasks from the JSONPlaceholder API.
+
+2. **Add a Task**: Type a task in the input field and click "Add Task" or press Enter. This demonstrates:
+   - jQuery event handling
+   - Form data processing
+   - AJAX POST requests
+   - DOM updates
+
+3. **Complete a Task**: Click the "Complete" button on any task to toggle its completion status. This demonstrates:
+   - Event delegation
+   - Fetch API with async/await
+   - State management
+   - Visual feedback through CSS classes
+
+4. **Delete a Task**: Click the "Delete" button on any task to remove it. This demonstrates:
+   - AJAX DELETE requests
+   - Array manipulation
+   - DOM element removal
+
+### Step 5: Exploring the Code
+
+Once you have the application running, try the following to better understand how it works:
+
+1. Open your browser's developer tools (F12 or Right-click → Inspect)
+2. Go to the "Network" tab to observe the AJAX requests being made
+3. Go to the "Console" tab and try running some commands:
+   ```javascript
+   // View the current tasks array
+   console.log(tasks);
+   
+   // Try manually adding a task
+   addNewTask({value: () => "Learn JavaScript", val: () => "Learn JavaScript"});
+   
+   // Try the jQuery selector to see elements
+   console.log($('#task-list').html());
+   ```
+
+### Understanding the Core Concepts
+
+This example demonstrates many key concepts:
+
+1. **DOM Manipulation**: Adding, updating, and removing task elements using both vanilla JavaScript and jQuery methods.
+
+2. **Event Handling**: Using jQuery's `.on()` method for attaching events and implementing event delegation for dynamically created elements.
+
+3. **AJAX Requests**: Using both jQuery's `$.ajax()` and the native Fetch API to make HTTP requests (GET, POST, PUT, DELETE).
+
+4. **Asynchronous Patterns**: Working with callbacks, promises, and async/await syntax.
+
+5. **State Management**: Keeping UI in sync with data by updating the DOM when the tasks array changes.
+
+6. **ES6+ Features**: Using modern JavaScript features like arrow functions, template literals, destructuring, and the spread operator.
+
+### Troubleshooting
+
+If you encounter issues:
+
+1. **CORS Errors**: If you see "Cross-Origin Request Blocked" in the console, make sure you're running the file through a web server as described in Step 3.
+
+2. **jQuery Not Loading**: Check your internet connection, as this example loads jQuery from a CDN.
+
+3. **API Not Responding**: The JSONPlaceholder API is a free service that might occasionally be down. Check if you can access https://jsonplaceholder.typicode.com/todos in your browser.
+
+This example provides a practical application of the JavaScript and jQuery concepts covered earlier in this blog post. By building and interacting with this task manager, you'll gain hands-on experience with frontend development patterns that will be useful in your journey from backend to frontend development.
 
 ## When to Use jQuery in 2025
 
