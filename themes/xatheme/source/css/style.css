@@ -2299,4 +2299,42 @@ h6:target {
     .skill-category {
         width: 100%;
     }
+}
+
+/* Expand button at the bottom of folded code blocks */
+.expand-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 5px 15px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.expand-button i {
+    margin-right: 5px;
+}
+
+.expand-button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .expand-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .expand-button:hover {
+    background: rgba(255, 255, 255, 0.2);
 } 

@@ -300,6 +300,21 @@ function processCodeBlocks() {
             figure.classList.add('folded');
             foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             foldButton.title = 'Unfold Code';
+            
+            // Add expand button at the bottom of the code block
+            const expandButton = document.createElement('button');
+            expandButton.className = 'expand-button';
+            expandButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Show more';
+            expandButton.title = 'Expand Code';
+            figure.appendChild(expandButton);
+            
+            // Set up expand button functionality
+            expandButton.addEventListener('click', function() {
+                figure.classList.remove('folded');
+                expandButton.style.display = 'none';
+                foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+                foldButton.title = 'Fold Code';
+            });
         }
     });
     
@@ -392,6 +407,21 @@ function processCodeBlocks() {
             wrapper.classList.add('folded');
             foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             foldButton.title = 'Unfold Code';
+            
+            // Add expand button at the bottom of the code block
+            const expandButton = document.createElement('button');
+            expandButton.className = 'expand-button';
+            expandButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Show more';
+            expandButton.title = 'Expand Code';
+            wrapper.appendChild(expandButton);
+            
+            // Set up expand button functionality
+            expandButton.addEventListener('click', function() {
+                wrapper.classList.remove('folded');
+                expandButton.style.display = 'none';
+                foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+                foldButton.title = 'Fold Code';
+            });
         }
     });
 }
