@@ -53,4 +53,4 @@ features:
   toc: true  # Table of Contents enabled
   back_to_top: true
   code_copy: true
-  dark_mode_toggle: true  # Enable dark mode toggle 
+  dark_mode_toggle: false  # Enable dark mode toggle 
