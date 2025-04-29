@@ -339,39 +339,38 @@ Let's build a simple task manager widget that uses both JavaScript and jQuery fe
 
 Open the `index.html` file in your favorite code editor and paste the following code:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager</title>
-  <style>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Task Manager&lt;/title&gt;
+  &lt;style&gt;
     body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
     .task-item { display: flex; justify-content: space-between; padding: 10px; margin: 5px 0; background-color: #f5f5f5; border-radius: 4px; }
     .completed { text-decoration: line-through; background-color: #e8f5e9; }
     .task-actions button { margin-left: 5px; }
     .loading { opacity: 0.5; pointer-events: none; }
     #error-message { color: red; margin: 10px 0; }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-</head>
-<body>
-  <h1>Task Manager</h1>
+  &lt;/style&gt;
+  &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Task Manager&lt;/h1&gt;
   
-  <div id="task-form">
-    <input type="text" id="new-task" placeholder="Add a new task">
-    <button id="add-task">Add Task</button>
-  </div>
+  &lt;div id="task-form"&gt;
+    &lt;input type="text" id="new-task" placeholder="Add a new task"&gt;
+    &lt;button id="add-task"&gt;Add Task&lt;/button&gt;
+  &lt;/div&gt;
   
-  <div id="error-message"></div>
+  &lt;div id="error-message"&gt;&lt;/div&gt;
   
-  <div id="tasks-container">
-    <h2>Your Tasks <span id="task-count">(0)</span></h2>
-    <div id="task-list"></div>
-  </div>
+  &lt;div id="tasks-container"&gt;
+    &lt;h2&gt;Your Tasks &lt;span id="task-count"&gt;(0)&lt;/span&gt;&lt;/h2&gt;
+    &lt;div id="task-list"&gt;&lt;/div&gt;
+  &lt;/div&gt;
 
-  <script>
+  &lt;script&gt;
     // Constants and state management (ES6 features)
     const API_URL = 'https://jsonplaceholder.typicode.com/todos';
     let tasks = [];
@@ -429,13 +428,13 @@ Open the `index.html` file in your favorite code editor and paste the following 
       tasks.forEach(task => {
         // Create element with template literals (ES6 feature)
         const taskElement = $(`
-          <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
-            <div class="task-text">${task.title}</div>
-            <div class="task-actions">
-              <button class="complete-task">${task.completed ? 'Undo' : 'Complete'}</button>
-              <button class="delete-task">Delete</button>
-            </div>
-          </div>
+          &lt;div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}"&gt;
+            &lt;div class="task-text"&gt;${task.title}&lt;/div&gt;
+            &lt;div class="task-actions"&gt;
+              &lt;button class="complete-task"&gt;${task.completed ? 'Undo' : 'Complete'}&lt;/button&gt;
+              &lt;button class="delete-task"&gt;Delete&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
         `);
         
         taskList.append(taskElement);
@@ -554,48 +553,13 @@ Open the `index.html` file in your favorite code editor and paste the following 
         $('#tasks-container').removeClass('loading');
       }
     }
-  </script>
-</body>
-</html>
-```
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
 ### Step 3: Run and Test Your Application
 
-There are several ways to serve and test your HTML file:
-
-#### Option 1: Open Directly in Browser
-
-Simply double-click the `index.html` file to open it in your default web browser.
-
-> **Note:** In modern browsers, some features might not work correctly when opening files directly due to security restrictions. If you encounter issues (especially with AJAX calls), try one of the other options below.
-
-#### Option 2: Use a Local Server (Recommended)
-
-For proper testing of AJAX functionality, it's best to serve your file through a local web server.
-
-If you have Python installed:
-
-```bash
-# For Python 3
-python -m http.server 8000
-
-# For Python 2
-python -m SimpleHTTPServer 8000
-```
-
-Then open your browser and navigate to: `http://localhost:8000`
-
-If you have Node.js installed, you can use:
-
-```bash
-# Install serve globally (one-time setup)
-npm install -g serve
-
-# Start the server in your project directory
-serve .
-```
-
-Then open the URL displayed in your terminal (usually `http://localhost:3000`).
+Simply double-click the `index.html` file to open it in your default web browser. You should see the Task Manager interface with sample tasks loaded from the example API.
 
 ### Step 4: Interacting with the Task Manager
 
