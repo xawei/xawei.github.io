@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EJS Template Engine Guide for Backend Engineers - 个人日常技术</title>
+
+<link rel="icon" href="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png" />
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJS Template Engine Guide for Backend Engineers">
+<meta property="og:description" content="">
+<meta property="og:url" content="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/">
+<meta property="og:site_name" content="个人日常技术">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/" 
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
+        <div class="banner-content">
+            <!-- Header & Logo -->
+<div class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <a href="/" class="title">
+                
+                    Wei&#39;s Blog
+                
+            </a>
+        </div>
+        
+        <nav class="menu-container">
+            <ul class="menu">
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/">
+                            
+                                <i class="fa-solid fa-house"></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/categories">
+                            
+                                <i class="fa-solid fa-folder"></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/archives">
+                            
+                                <i class="fa-solid fa-box-archive"></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/about">
+                            
+                                <i class="fa-solid fa-user"></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                
+                
+            </ul>
+        </nav>
+    </div>
+</div> 
+        </div>
+    </div>
+    <div class="background-wrapper"></div>
+    <div class="container">
+        <div class="main-content">
+            <article class="post">
+    <div class="post-header">
+        <h1 class="post-title">EJS Template Engine Guide for Backend Engineers</h1>
+        <div class="post-meta">
+            <span><i class="fa-regular fa-calendar"></i> 2025-05-03</span>
+            
+                <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-03</span>
+            
+            
+                <span><i class="fa-regular fa-folder"></i>
+                    
+                        <a href="/categories/Frontend/">Frontend</a>
+                        
+                    
+                </span>
+            
+            
+                <span><i class="fa-solid fa-tags"></i>
+                    
+                        <a href="/tags/JavaScript/" class="post-tag">JavaScript</a>
+                        , 
+                    
+                        <a href="/tags/Node-js/" class="post-tag">Node.js</a>
+                        
+                    
+                </span>
+            
+        </div>
+    </div>
+    
+    
+        <div class="toc">
+            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> 目录</div>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><span class="toc-text">Understanding EJS: A Comprehensive Guide for Backend Engineers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-EJS"><span class="toc-text">What is EJS?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Tags"><span class="toc-text">EJS Tags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Scriptlet-Tag"><span class="toc-text">1. &lt;% %&gt; (Scriptlet Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Output-Tag-HTML-Escaped"><span class="toc-text">2. &lt;%&#x3D; %&gt; (Output Tag - HTML Escaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Output-Tag-Unescaped"><span class="toc-text">3. &lt;%- %&gt; (Output Tag - Unescaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Comment-Tag"><span class="toc-text">4. &lt;%# %&gt; (Comment Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Additional-Tags"><span class="toc-text">5. Additional Tags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Passing-Data-to-EJS-Templates"><span class="toc-text">Passing Data to EJS Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-to-EJS"><span class="toc-text">Server to EJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Missing-Data-Safely"><span class="toc-text">Handling Missing Data Safely</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EJS-to-Server-Form-Submission"><span class="toc-text">EJS to Server (Form Submission)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Partials-and-Layouts"><span class="toc-text">EJS Partials and Layouts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partials"><span class="toc-text">Partials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layouts"><span class="toc-text">Layouts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-EJS-to-Generate-a-Static-Website"><span class="toc-text">Using EJS to Generate a Static Website</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Static-Site-Generation"><span class="toc-text">Basic Static Site Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Features-for-Static-Site-Generation"><span class="toc-text">Advanced Features for Static Site Generation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol></div>
+        </div>
+    
+    
+    <div class="post-content">
+        
+        <h1 id="Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><a href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers" class="headerlink" title="Understanding EJS: A Comprehensive Guide for Backend Engineers"></a>Understanding EJS: A Comprehensive Guide for Backend Engineers</h1><h2 id="What-is-EJS"><a href="#What-is-EJS" class="headerlink" title="What is EJS?"></a>What is EJS?</h2><p>EJS (Embedded JavaScript Templates) is a simple yet powerful templating language that lets you generate HTML markup with plain JavaScript. The “E” can stand for “Embedded,” “Effective,” “Elegant,” or simply “Easy” - all of which describe this lightweight templating engine.</p>
+<blockquote>
+<p><strong>EJS follows a simple philosophy: use JavaScript for template logic without inventing a new syntax.</strong></p>
+</blockquote>
+<p>As a backend engineer, you’ll appreciate EJS for its simplicity and flexibility. Unlike other templating engines that require learning a new syntax, EJS uses plain JavaScript, making it immediately accessible to anyone familiar with JS.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Simple EJS example</span></span><br><span class="line"><span class="keyword">const</span> ejs = <span class="built_in">require</span>(<span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> template = <span class="string">&#x27;&lt;h1&gt;Hello, &lt;%= name %&gt;!&lt;/h1&gt;&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> html = ejs.<span class="title function_">render</span>(template, &#123; <span class="attr">name</span>: <span class="string">&#x27;World&#x27;</span> &#125;);</span><br><span class="line"><span class="comment">// Output: &lt;h1&gt;Hello, World!&lt;/h1&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>EJS is particularly useful when:</p>
+<ul>
+<li>You need to <strong>dynamically generate HTML</strong> from data on the server</li>
+<li>You want to avoid reinventing control flow structures</li>
+<li>You prefer to work directly with JavaScript rather than learn a new templating language</li>
+<li>You want a straightforward way to include <strong>partials and layouts</strong> for code reuse</li>
+</ul>
+<h2 id="EJS-Tags"><a href="#EJS-Tags" class="headerlink" title="EJS Tags"></a>EJS Tags</h2><p>EJS provides a variety of tags for different templating needs:</p>
+<h3 id="1-Scriptlet-Tag"><a href="#1-Scriptlet-Tag" class="headerlink" title="1. &lt;% %&gt; (Scriptlet Tag)"></a>1. <code>&lt;% %&gt;</code> (Scriptlet Tag)</h3><p>Used for control flows and JavaScript logic without outputting anything.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (user) &#123; %&gt;</span><br><span class="line">  &lt;h2&gt;Welcome, &lt;%= user.name %&gt;&lt;/h2&gt;</span><br><span class="line">&lt;% &#125; else &#123; %&gt;</span><br><span class="line">  &lt;h2&gt;Please log in&lt;/h2&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Output-Tag-HTML-Escaped"><a href="#2-Output-Tag-HTML-Escaped" class="headerlink" title="2. &lt;%= %&gt; (Output Tag - HTML Escaped)"></a>2. <code>&lt;%= %&gt;</code> (Output Tag - HTML Escaped)</h3><p>Outputs the value into the template, <strong>escaping any HTML characters to prevent XSS attacks</strong>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;User input: &lt;%= userComment %&gt;&lt;/p&gt;</span><br><span class="line">&lt;!-- If userComment contains &quot;&lt;script&gt;&quot;, it will be rendered as &quot;&amp;lt;script&amp;gt;&quot; --&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Output-Tag-Unescaped"><a href="#3-Output-Tag-Unescaped" class="headerlink" title="3. &lt;%- %&gt; (Output Tag - Unescaped)"></a>3. <code>&lt;%- %&gt;</code> (Output Tag - Unescaped)</h3><p>Outputs the unescaped value. Useful for including HTML content or partials.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- include(&#x27;partials/header&#x27;) %&gt;</span><br><span class="line">&lt;p&gt;Main content here&lt;/p&gt;</span><br><span class="line">&lt;%- include(&#x27;partials/footer&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Comment-Tag"><a href="#4-Comment-Tag" class="headerlink" title="4. &lt;%# %&gt; (Comment Tag)"></a>4. <code>&lt;%# %&gt;</code> (Comment Tag)</h3><p>Used for comments that won’t be included in the output.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%# This comment won&#x27;t appear in the rendered HTML %&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Additional-Tags"><a href="#5-Additional-Tags" class="headerlink" title="5. Additional Tags"></a>5. Additional Tags</h3><ul>
+<li><code>&lt;%_</code> and <code>_%&gt;</code>: “Whitespace Slurping” tags that remove whitespace</li>
+<li><code>&lt;%%</code>: Outputs a literal ‘&lt;%’</li>
+<li><code>-%&gt;</code> and <code>_%&gt;</code>: Trim-mode tags that control whitespace</li>
+</ul>
+<blockquote>
+<p><strong>Security Tip:</strong> Always use <code>&lt;%= %&gt;</code> (escaped output) when rendering user-provided data to prevent XSS attacks.</p>
+</blockquote>
+<h2 id="Passing-Data-to-EJS-Templates"><a href="#Passing-Data-to-EJS-Templates" class="headerlink" title="Passing Data to EJS Templates"></a>Passing Data to EJS Templates</h2><h3 id="Server-to-EJS"><a href="#Server-to-EJS" class="headerlink" title="Server to EJS"></a>Server to EJS</h3><p>A key part of using EJS is passing data from your server to your templates. This is typically done with an object passed as the second parameter to the <code>render</code> function.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In Express.js</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;Home Page&#x27;</span>,</span><br><span class="line">    <span class="attr">user</span>: &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span>,</span><br><span class="line">      <span class="attr">isAdmin</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">items</span>: [<span class="string">&#x27;Item 1&#x27;</span>, <span class="string">&#x27;Item 2&#x27;</span>, <span class="string">&#x27;Item 3&#x27;</span>]</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Then in your EJS template:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;% if (user &amp;&amp; user.isAdmin) &#123; %&gt;</span><br><span class="line">  &lt;div class=&quot;admin-panel&quot;&gt;</span><br><span class="line">    &lt;h2&gt;Admin Panel&lt;/h2&gt;</span><br><span class="line">    &lt;!-- Admin content here --&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;% for (let i = 0; i &lt; items.length; i++) &#123; %&gt;</span><br><span class="line">    &lt;li&gt;&lt;%= items[i] %&gt;&lt;/li&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Handling-Missing-Data-Safely"><a href="#Handling-Missing-Data-Safely" class="headerlink" title="Handling Missing Data Safely"></a>Handling Missing Data Safely</h3><p>When working with data that might not be available, it’s good practice to check for its existence to avoid errors. There are several approaches:</p>
+<ol>
+<li><strong>Using conditional checks</strong>:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (locals.user) &#123; %&gt;</span><br><span class="line">  &lt;h2&gt;Welcome, &lt;%= user.name %&gt;&lt;/h2&gt;</span><br><span class="line">&lt;% &#125; else &#123; %&gt;</span><br><span class="line">  &lt;h2&gt;Welcome, Guest&lt;/h2&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>Using the <code>locals</code> object</strong>:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Welcome, &lt;%= locals.user ? user.name : &#x27;Guest&#x27; %&gt;&lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+
+<p>The <code>locals</code> object contains all variables passed to the template, so <code>locals.user</code> will be <code>undefined</code> if no user was passed rather than throwing an error.</p>
+<ol start="3">
+<li><strong>Using optional chaining (ES2020)</strong>:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Welcome, &lt;%= user?.name || &#x27;Guest&#x27; %&gt;&lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Best Practice:</strong> The <code>locals</code> approach is preferred for robust templates as it prevents “variable is not defined” errors that might crash your application.</p>
+</blockquote>
+<h3 id="EJS-to-Server-Form-Submission"><a href="#EJS-to-Server-Form-Submission" class="headerlink" title="EJS to Server (Form Submission)"></a>EJS to Server (Form Submission)</h3><p>Data can flow back to the server through HTML forms:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;/submit&quot; method=&quot;post&quot;&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; name=&quot;username&quot; required&gt;</span><br><span class="line">  &lt;textarea name=&quot;comment&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>On the server with Express:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Don&#x27;t forget to include body-parser middleware</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/submit&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; username, comment &#125; = req.<span class="property">body</span>;</span><br><span class="line">  <span class="comment">// Process the data</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Received comment from <span class="subst">$&#123;username&#125;</span>: <span class="subst">$&#123;comment&#125;</span>`</span>);</span><br><span class="line">  <span class="comment">// Respond or redirect</span></span><br><span class="line">  res.<span class="title function_">redirect</span>(<span class="string">&#x27;/thank-you&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="EJS-Partials-and-Layouts"><a href="#EJS-Partials-and-Layouts" class="headerlink" title="EJS Partials and Layouts"></a>EJS Partials and Layouts</h2><p><strong>Partials and layouts</strong> allow you to organize and reuse code across multiple pages, which is crucial for maintaining consistent design and reducing duplication.</p>
+<h3 id="Partials"><a href="#Partials" class="headerlink" title="Partials"></a>Partials</h3><p>Partials are reusable template fragments that can be included in other templates:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- views/partials/header.ejs --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/style.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1&gt;My Website&lt;/h1&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;</span><br><span class="line">      &lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">  &lt;/header&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- views/partials/footer.ejs --&gt;</span><br><span class="line">  &lt;footer&gt;</span><br><span class="line">    &lt;p&gt;&amp;copy; &lt;%= new Date().getFullYear() %&gt; My Website&lt;/p&gt;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Then include them in your main template:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- views/index.ejs --&gt;</span><br><span class="line">&lt;%- include(&#x27;partials/header&#x27;) %&gt;</span><br><span class="line"></span><br><span class="line">&lt;main&gt;</span><br><span class="line">  &lt;h2&gt;Welcome to my site!&lt;/h2&gt;</span><br><span class="line">  &lt;p&gt;This is the homepage content.&lt;/p&gt;</span><br><span class="line">&lt;/main&gt;</span><br><span class="line"></span><br><span class="line">&lt;%- include(&#x27;partials/footer&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Note:</strong> When including partials, use the <code>&lt;%-</code> tag to ensure the HTML isn’t escaped.</p>
+</blockquote>
+<h3 id="Layouts"><a href="#Layouts" class="headerlink" title="Layouts"></a>Layouts</h3><p>While EJS doesn’t have built-in layout support like some template engines, you can implement layouts using partials:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- views/layouts/main.ejs --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/style.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1&gt;My Website&lt;/h1&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;</span><br><span class="line">      &lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;%- body %&gt;</span><br><span class="line">  &lt;/main&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;footer&gt;</span><br><span class="line">    &lt;p&gt;&amp;copy; &lt;%= new Date().getFullYear() %&gt; My Website&lt;/p&gt;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>To use this layout, you can create a wrapper function:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In your Express app setup</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="property">renderWithLayout</span> = <span class="function">(<span class="params">view, options</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> mainContent = ejs.<span class="title function_">renderFile</span>(<span class="string">`./views/<span class="subst">$&#123;view&#125;</span>.ejs`</span>, options);</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">&#x27;layouts/main&#x27;</span>, &#123; </span><br><span class="line">      ...options, </span><br><span class="line">      <span class="attr">body</span>: mainContent </span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Then in your routes</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">renderWithLayout</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;Home&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Alternatively, you can use the <strong><code>express-ejs-layouts</code></strong> package for more streamlined layout support.</p>
+<h2 id="Using-EJS-to-Generate-a-Static-Website"><a href="#Using-EJS-to-Generate-a-Static-Website" class="headerlink" title="Using EJS to Generate a Static Website"></a>Using EJS to Generate a Static Website</h2><p>EJS isn’t just useful for dynamic web applications; it can also be used to <strong>generate static websites</strong>. Here’s how:</p>
+<h3 id="Basic-Static-Site-Generation"><a href="#Basic-Static-Site-Generation" class="headerlink" title="Basic Static Site Generation"></a>Basic Static Site Generation</h3><ol>
+<li>Create a project structure:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/static-site-generator</span><br><span class="line">  /templates</span><br><span class="line">    layout.ejs</span><br><span class="line">    index.ejs</span><br><span class="line">    about.ejs</span><br><span class="line">  /data</span><br><span class="line">    site.json</span><br><span class="line">  /public</span><br><span class="line">    /css</span><br><span class="line">    /js</span><br><span class="line">  generator.js</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Define your data:</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data/site.json</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;My Static Site&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Home&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Welcome to my static site generated with EJS!&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;About&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;about.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;This is a static site generator using EJS templates.&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Create your templates:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- templates/layout.ejs --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;&lt;%= site.title %&gt; - &lt;%= page.name %&gt;&lt;/title&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/style.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1&gt;&lt;%= site.title %&gt;&lt;/h1&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;% for(let i = 0; i &lt; site.pages.length; i++) &#123; %&gt;</span><br><span class="line">        &lt;a href=&quot;/&lt;%= site.pages[i].path %&gt;&quot;&gt;&lt;%= site.pages[i].name %&gt;&lt;/a&gt;</span><br><span class="line">      &lt;% &#125; %&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;%- content %&gt;</span><br><span class="line">  &lt;/main&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;footer&gt;</span><br><span class="line">    &lt;p&gt;&amp;copy; &lt;%= new Date().getFullYear() %&gt; &lt;%= site.title %&gt;&lt;/p&gt;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Create the generator script:</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generator.js</span></span><br><span class="line"><span class="keyword">const</span> ejs = <span class="built_in">require</span>(<span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Load site data</span></span><br><span class="line"><span class="keyword">const</span> siteData = <span class="built_in">require</span>(<span class="string">&#x27;./data/site.json&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create output directory if it doesn&#x27;t exist</span></span><br><span class="line"><span class="keyword">const</span> outputDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;output&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(outputDir)) &#123;</span><br><span class="line">  fs.<span class="title function_">mkdirSync</span>(outputDir);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate each page</span></span><br><span class="line">siteData.<span class="property">pages</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">page</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Render page content first</span></span><br><span class="line">  <span class="keyword">const</span> pageContent = fs.<span class="title function_">readFileSync</span>(<span class="string">`./templates/<span class="subst">$&#123;page.path.replace(<span class="string">&#x27;.html&#x27;</span>, <span class="string">&#x27;.ejs&#x27;</span>)&#125;</span>`</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> renderedContent = ejs.<span class="title function_">render</span>(pageContent, &#123; <span class="attr">site</span>: siteData, page &#125;);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Then render the layout with the content</span></span><br><span class="line">  <span class="keyword">const</span> layoutTemplate = fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;./templates/layout.ejs&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> renderedPage = ejs.<span class="title function_">render</span>(layoutTemplate, &#123;</span><br><span class="line">    <span class="attr">site</span>: siteData,</span><br><span class="line">    page,</span><br><span class="line">    <span class="attr">content</span>: renderedContent</span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Write the rendered page to the output directory</span></span><br><span class="line">  fs.<span class="title function_">writeFileSync</span>(path.<span class="title function_">join</span>(outputDir, page.<span class="property">path</span>), renderedPage);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Generated <span class="subst">$&#123;page.path&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Copy static assets</span></span><br><span class="line"><span class="keyword">const</span> staticDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;public&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(staticDir)) &#123;</span><br><span class="line">  <span class="comment">// You&#x27;d need a function to copy directories recursively here</span></span><br><span class="line">  <span class="comment">// For simplicity, we&#x27;ll just note that you should copy your static assets</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Copying static assets...&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Static site generation complete!&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>Run the generator:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node generator.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="Advanced-Features-for-Static-Site-Generation"><a href="#Advanced-Features-for-Static-Site-Generation" class="headerlink" title="Advanced Features for Static Site Generation"></a>Advanced Features for Static Site Generation</h3><p>For a more robust static site generator with EJS, you might want to:</p>
+<ol>
+<li>Add support for <strong>Markdown content</strong> using a package like <code>marked</code></li>
+<li>Implement a blog with automatic post listing and pagination</li>
+<li>Create an <strong>asset pipeline</strong> for preprocessing CSS and JavaScript</li>
+<li>Add a dev server for local development with <strong>live reloading</strong></li>
+<li>Implement a build process for optimizing images and other assets</li>
+</ol>
+<p>Here’s an example of converting Markdown to HTML with EJS:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ejs = <span class="built_in">require</span>(<span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> marked = <span class="built_in">require</span>(<span class="string">&#x27;marked&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Read a markdown file</span></span><br><span class="line"><span class="keyword">const</span> markdownContent = fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;./content/blog-post.md&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Convert to HTML</span></span><br><span class="line"><span class="keyword">const</span> htmlContent = <span class="title function_">marked</span>(markdownContent);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Use EJS to render the full page</span></span><br><span class="line"><span class="keyword">const</span> template = fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;./templates/blog-post.ejs&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> renderedPage = ejs.<span class="title function_">render</span>(template, &#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;My Blog Post&#x27;</span>,</span><br><span class="line">  <span class="attr">content</span>: htmlContent,</span><br><span class="line">  <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">toLocaleDateString</span>()</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Write the output</span></span><br><span class="line">fs.<span class="title function_">writeFileSync</span>(<span class="string">&#x27;./output/blog-post.html&#x27;</span>, renderedPage);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><strong>EJS is a flexible, approachable templating engine</strong> that brings the familiarity of JavaScript to server-side HTML generation. For backend engineers, it provides a straightforward way to create dynamic content without the overhead of learning a complex templating language.</p>
+<p>Whether you’re building a traditional server-rendered application, creating reusable components through partials, or generating a static site, EJS offers a set of simple but powerful tools to get the job done efficiently.</p>
+<p>By leveraging JavaScript’s expressiveness within HTML templates, <strong>EJS strikes a balance between flexibility and simplicity</strong> that makes it a solid choice for many projects. </p>
+
+    </div>
+    
+    
+        <div class="post-copyright">
+            <div class="copyright-title">版权声明</div>
+            <div class="copyright-info">
+                <div class="copyright-info-item">
+                    <span>作者:</span>
+                    <span>xawei</span>
+                </div>
+                <div class="copyright-info-item">
+                    <span>链接:</span>
+                    <a href="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/">https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/</a>
+                </div>
+                <div class="copyright-info-item">
+                    <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                </div>
+            </div>
+        </div>
+    
+    
+    <div class="post-navigation">
+        <div class="post-nav-prev">
+            
+        </div>
+        <div class="post-nav-next">
+            
+                <a href="/2025/04/29/javascript-jquery-essentials-for-backend-engineers/" class="post-nav-link">
+                    <span class="post-nav-title">JavaScript and jQuery Essentials for Backend Engineers</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            
+        </div>
+    </div>
+</article> 
+        </div>
+    </div>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright">
+            © 2025 <i class="fa-solid fa-heart"></i> xawei
+        </div>
+    </div>
+</footer> 
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<!-- Theme scripts -->
+<script src="/js/main.js"></script> 
+</body>
+</html> 
