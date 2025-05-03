@@ -287,10 +287,28 @@ function processCodeBlocks() {
                 figure.classList.remove('folded');
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
                 foldButton.title = 'Fold Code';
+                // Hide the expand button wrapper
+                const expandButtonWrapper = figure.querySelector('.expand-button-wrapper');
+                if (expandButtonWrapper) {
+                    expandButtonWrapper.style.display = 'none';
+                }
+                // Show show less button
+                if (figure.querySelector('.collapse-button')) {
+                    figure.querySelector('.collapse-button').style.display = 'flex';
+                }
             } else {
                 figure.classList.add('folded');
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
                 foldButton.title = 'Unfold Code';
+                // Show the expand button wrapper
+                const expandButtonWrapper = figure.querySelector('.expand-button-wrapper');
+                if (expandButtonWrapper) {
+                    expandButtonWrapper.style.display = 'block';
+                }
+                // Hide show less button
+                if (figure.querySelector('.collapse-button')) {
+                    figure.querySelector('.collapse-button').style.display = 'none';
+                }
             }
         });
         
@@ -301,19 +319,51 @@ function processCodeBlocks() {
             foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             foldButton.title = 'Unfold Code';
             
-            // Add expand button at the bottom of the code block
+            // Create a wrapper for the "Show more" button with a background
+            const expandButtonWrapper = document.createElement('div');
+            expandButtonWrapper.className = 'expand-button-wrapper';
+            expandButtonWrapper.style.position = 'absolute';
+            expandButtonWrapper.style.bottom = '0';
+            expandButtonWrapper.style.left = '0';
+            expandButtonWrapper.style.width = '100%';
+            expandButtonWrapper.style.textAlign = 'center';
+            expandButtonWrapper.style.zIndex = '7';
+            
+            // Add expand button
             const expandButton = document.createElement('button');
             expandButton.className = 'expand-button';
             expandButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Show more';
             expandButton.title = 'Expand Code';
-            figure.appendChild(expandButton);
+            expandButton.style.display = 'flex';
+            
+            // Add the button to the wrapper, then add wrapper to figure
+            expandButtonWrapper.appendChild(expandButton);
+            figure.appendChild(expandButtonWrapper);
+            
+            // Add collapse button
+            const collapseButton = document.createElement('button');
+            collapseButton.className = 'collapse-button';
+            collapseButton.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Show less';
+            collapseButton.title = 'Collapse Code';
+            collapseButton.style.display = 'none';
+            figure.appendChild(collapseButton);
             
             // Set up expand button functionality
             expandButton.addEventListener('click', function() {
                 figure.classList.remove('folded');
-                expandButton.style.display = 'none';
+                expandButtonWrapper.style.display = 'none';
+                collapseButton.style.display = 'flex';
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
                 foldButton.title = 'Fold Code';
+            });
+            
+            // Set up collapse button functionality
+            collapseButton.addEventListener('click', function() {
+                figure.classList.add('folded');
+                expandButtonWrapper.style.display = 'block';
+                collapseButton.style.display = 'none';
+                foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+                foldButton.title = 'Unfold Code';
             });
         }
     });
@@ -394,10 +444,28 @@ function processCodeBlocks() {
                 wrapper.classList.remove('folded');
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
                 foldButton.title = 'Fold Code';
+                // Hide the expand button wrapper
+                const expandButtonWrapper = wrapper.querySelector('.expand-button-wrapper');
+                if (expandButtonWrapper) {
+                    expandButtonWrapper.style.display = 'none';
+                }
+                // Show show less button
+                if (wrapper.querySelector('.collapse-button')) {
+                    wrapper.querySelector('.collapse-button').style.display = 'flex';
+                }
             } else {
                 wrapper.classList.add('folded');
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
                 foldButton.title = 'Unfold Code';
+                // Show the expand button wrapper
+                const expandButtonWrapper = wrapper.querySelector('.expand-button-wrapper');
+                if (expandButtonWrapper) {
+                    expandButtonWrapper.style.display = 'block';
+                }
+                // Hide show less button
+                if (wrapper.querySelector('.collapse-button')) {
+                    wrapper.querySelector('.collapse-button').style.display = 'none';
+                }
             }
         });
         
@@ -408,19 +476,51 @@ function processCodeBlocks() {
             foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             foldButton.title = 'Unfold Code';
             
-            // Add expand button at the bottom of the code block
+            // Create a wrapper for the "Show more" button with a background
+            const expandButtonWrapper = document.createElement('div');
+            expandButtonWrapper.className = 'expand-button-wrapper';
+            expandButtonWrapper.style.position = 'absolute';
+            expandButtonWrapper.style.bottom = '0';
+            expandButtonWrapper.style.left = '0';
+            expandButtonWrapper.style.width = '100%';
+            expandButtonWrapper.style.textAlign = 'center';
+            expandButtonWrapper.style.zIndex = '7';
+            
+            // Add expand button
             const expandButton = document.createElement('button');
             expandButton.className = 'expand-button';
             expandButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Show more';
             expandButton.title = 'Expand Code';
-            wrapper.appendChild(expandButton);
+            expandButton.style.display = 'flex';
+            
+            // Add the button to the wrapper, then add wrapper to figure
+            expandButtonWrapper.appendChild(expandButton);
+            wrapper.appendChild(expandButtonWrapper);
+            
+            // Add collapse button
+            const collapseButton = document.createElement('button');
+            collapseButton.className = 'collapse-button';
+            collapseButton.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Show less';
+            collapseButton.title = 'Collapse Code';
+            collapseButton.style.display = 'none';
+            wrapper.appendChild(collapseButton);
             
             // Set up expand button functionality
             expandButton.addEventListener('click', function() {
                 wrapper.classList.remove('folded');
-                expandButton.style.display = 'none';
+                expandButtonWrapper.style.display = 'none';
+                collapseButton.style.display = 'flex';
                 foldButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
                 foldButton.title = 'Fold Code';
+            });
+            
+            // Set up collapse button functionality
+            collapseButton.addEventListener('click', function() {
+                wrapper.classList.add('folded');
+                expandButtonWrapper.style.display = 'block';
+                collapseButton.style.display = 'none';
+                foldButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+                foldButton.title = 'Unfold Code';
             });
         }
     });

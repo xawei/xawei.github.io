@@ -548,28 +548,58 @@ a:hover {
     border-radius: 0;
 }
 
+/* Button wrapper styling */
+.expand-button-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background: linear-gradient(to bottom, 
+        rgba(246, 248, 250, 0) 0%,
+        rgba(246, 248, 250, 0.9) 20%, 
+        rgba(246, 248, 250, 1) 60%
+    );
+    z-index: 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-theme="dark"] .expand-button-wrapper {
+    background: linear-gradient(to bottom, 
+        rgba(45, 45, 45, 0) 0%,
+        rgba(45, 45, 45, 0.9) 20%, 
+        rgba(45, 45, 45, 1) 60%
+    );
+}
+
+/* Remove the solid background from expand button since it's now in the wrapper */
+.post-content figure.highlight.folded .expand-button,
+.code-block-wrapper.folded .expand-button {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .post-content figure.highlight.folded .expand-button,
+[data-theme="dark"] .code-block-wrapper.folded .expand-button {
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Folded state */
 .post-content figure.highlight.folded,
 .code-block-wrapper.folded {
-    max-height: 250px;
+    max-height: 200px; /* Reduce max height to show fewer lines */
     overflow: hidden;
+    position: relative;
+    padding-bottom: 0; /* Remove bottom padding since wrapper handles spacing */
 }
 
 .post-content figure.highlight.folded:after,
 .code-block-wrapper.folded:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    background: linear-gradient(transparent, #f6f8fa);
-    pointer-events: none;
-}
-
-[data-theme="dark"] .post-content figure.highlight.folded:after,
-[data-theme="dark"] .code-block-wrapper.folded:after {
-    background: linear-gradient(transparent, #2d2d2d);
+    content: none; /* Remove the gradient overlay as wrapper handles it now */
 }
 
 /* Syntax highlighting - Light theme */
@@ -2109,7 +2139,7 @@ h6:target {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--primary-color);
+    background-color: var(--primary-color);
     border: 2px solid var(--card-background);
 }
 
@@ -2301,40 +2331,88 @@ h6:target {
     }
 }
 
-/* Expand button at the bottom of folded code blocks */
+/* Expand/collapse button styling */
 .expand-button {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    padding: 5px 15px;
-    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
-    transition: background-color 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto;
+    min-width: 120px;
+    padding: 6px 16px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .expand-button i {
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 .expand-button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .expand-button {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-color-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .expand-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Collapse button (Show less) styling */
+.collapse-button {
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 120px;
+    padding: 6px 16px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    margin: 10px auto;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.collapse-button i {
+    margin-right: 8px;
+}
+
+.collapse-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .collapse-button {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-color-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .collapse-button:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Make sure the buttons don't overlap with code content */
+figure.highlight,
+.code-block-wrapper {
+    position: relative;
+    margin-bottom: 30px;
 } 
