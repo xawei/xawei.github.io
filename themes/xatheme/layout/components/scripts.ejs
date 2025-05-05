@@ -5,4 +5,9 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 <!-- Theme scripts -->
-<script src="<%- url_for('js/main.js') %>"></script> 
+<script src="<%- url_for('js/main.js') %>"></script>
+
+<% if (is_post() && theme.features.toc !== false) { %>
+<!-- TOC functionality -->
+<script src="<%- url_for('js/toc.js') %>"></script>
+<% } %> 

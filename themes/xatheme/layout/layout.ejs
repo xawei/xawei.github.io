@@ -3,7 +3,7 @@
 <head>
     <%- partial('utils/head') %>
 </head>
-<body>
+<body class="<%= is_post() ? 'post-page' : '' %>">
     <div class="banner" <% if (theme.banner && theme.banner.background) { %>style="--gradient-start: <%= theme.banner.background.gradient_start || '#E6F2F2' %>; --gradient-end: <%= theme.banner.background.gradient_end || '#D9EEFA' %>;"<% } %>>
         <div class="banner-content">
             <%- partial('components/header') %>

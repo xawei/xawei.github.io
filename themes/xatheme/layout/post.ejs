@@ -25,58 +25,72 @@
         </div>
     </div>
     
-    <% if (theme.features.toc && page.toc !== false) { %>
-        <div class="toc">
-            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <%= __('sidebar.toc') %></div>
-            <div class="toc-content"><%- toc(page.content, {list_number: false}) %></div>
+    <div class="post-content-wrapper">
+        <div class="post-content">
+            <% 
+            /* Remove any TOC headers from content */
+            let processedContent = page.content;
+            /* Replace any headers with ID containing "目录" or "table-of-contents" with empty string */
+            processedContent = processedContent.replace(/<h[1-6][^>]*id=["']([^"']*目录[^"']*|[^"']*table-of-contents[^"']*|[^"']*toc[^"']*)["'][^>]*>.*?<\/h[1-6]>/gi, '');
+            %>
+            <%- processedContent %>
         </div>
-    <% } %>
-    
-    <div class="post-content">
-        <% 
-        /* Remove any TOC headers from content */
-        let processedContent = page.content;
-        /* Replace any headers with ID containing "目录" or "table-of-contents" with empty string */
-        processedContent = processedContent.replace(/<h[1-6][^>]*id=["']([^"']*目录[^"']*|[^"']*table-of-contents[^"']*|[^"']*toc[^"']*)["'][^>]*>.*?<\/h[1-6]>/gi, '');
-        %>
-        <%- processedContent %>
-    </div>
-    
-    <% if (theme.article.copyright) { %>
-        <div class="post-copyright">
-            <div class="copyright-title"><%= __('post.copyright.license_title') %></div>
-            <div class="copyright-info">
-                <div class="copyright-info-item">
-                    <span><%= __('post.copyright.author') %>:</span>
-                    <span><%= config.author || theme.info.author %></span>
-                </div>
-                <div class="copyright-info-item">
-                    <span><%= __('post.copyright.link') %>:</span>
-                    <a href="<%= page.permalink %>"><%= page.permalink %></a>
-                </div>
-                <div class="copyright-info-item">
-                    <span><%= __('post.copyright.license_content') %></span>
+        
+        <% if (theme.article.copyright) { %>
+            <div class="post-copyright">
+                <div class="copyright-title"><%= __('post.copyright.license_title') %></div>
+                <div class="copyright-info">
+                    <div class="copyright-info-item">
+                        <span><%= __('post.copyright.author') %>:</span>
+                        <span><%= config.author || theme.info.author %></span>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span><%= __('post.copyright.link') %>:</span>
+                        <a href="<%= page.permalink %>"><%= page.permalink %></a>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span><%= __('post.copyright.license_content') %></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    <% } %>
-    
-    <div class="post-navigation">
-        <div class="post-nav-prev">
-            <% if (page.prev) { %>
-                <a href="<%= url_for(page.prev.path) %>" class="post-nav-link">
-                    <i class="fa-solid fa-angle-left"></i>
-                    <span class="post-nav-title"><%= page.prev.title %></span>
-                </a>
-            <% } %>
-        </div>
-        <div class="post-nav-next">
-            <% if (page.next) { %>
-                <a href="<%= url_for(page.next.path) %>" class="post-nav-link">
-                    <span class="post-nav-title"><%= page.next.title %></span>
-                    <i class="fa-solid fa-angle-right"></i>
-                </a>
-            <% } %>
+        <% } %>
+        
+        <div class="post-navigation">
+            <div class="post-nav-prev">
+                <% if (page.prev) { %>
+                    <a href="<%= url_for(page.prev.path) %>" class="post-nav-link">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <span class="post-nav-title"><%= page.prev.title %></span>
+                    </a>
+                <% } %>
+            </div>
+            <div class="post-nav-next">
+                <% if (page.next) { %>
+                    <a href="<%= url_for(page.next.path) %>" class="post-nav-link">
+                        <span class="post-nav-title"><%= page.next.title %></span>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                <% } %>
+            </div>
         </div>
     </div>
-</article> 
+</article>
+
+<% if (theme.features.toc && page.toc !== false) { %>
+    <div class="toc-container">
+        <div class="toc-sticky">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span><%= __('sidebar.toc') %></span></div>
+                <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="toc-content">
+                <%- toc(page.content, {list_number: false}) %>
+            </div>
+            <div class="toc-progress">
+                <div class="toc-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+<% } %> 
