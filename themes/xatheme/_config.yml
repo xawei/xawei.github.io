@@ -2,7 +2,7 @@
 
 # Basic Information
 info:
-  title: Wei's Blog
+  title: MyCatalog
   author: xawei
   url: ${config.url} # Use the URL from main config
 
@@ -20,7 +20,7 @@ colors:
 sidebar:
   enabled: true
   site_info:
-    title: "Wei's Blog"
+    title: "MyCatalog"
     subtitle: "Stay hungry, stay foolish"
   stats:
     show_counts: true
