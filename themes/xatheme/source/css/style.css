@@ -68,7 +68,7 @@ a:hover {
 /* Content Wrapper - For Sidebar Layout */
 .content-wrapper {
     display: flex;
-    gap: 40px; /* Increased from 20px for larger screens */
+    gap: 60px;
 }
 
 /* Media queries for responsive layout */
