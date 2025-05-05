@@ -21,7 +21,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
-<body>
+<body class="post-page">
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
         <div class="banner-content">
             <!-- Header & Logo -->
@@ -116,16 +116,10 @@
         </div>
     </div>
     
-    
-        <div class="toc">
-            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> 目录</div>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><span class="toc-text">Understanding EJS: A Comprehensive Guide for Backend Engineers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-EJS"><span class="toc-text">What is EJS?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Tags"><span class="toc-text">EJS Tags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Scriptlet-Tag"><span class="toc-text">1. &lt;% %&gt; (Scriptlet Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Output-Tag-HTML-Escaped"><span class="toc-text">2. &lt;%&#x3D; %&gt; (Output Tag - HTML Escaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Output-Tag-Unescaped"><span class="toc-text">3. &lt;%- %&gt; (Output Tag - Unescaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Comment-Tag"><span class="toc-text">4. &lt;%# %&gt; (Comment Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Additional-Tags"><span class="toc-text">5. Additional Tags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Passing-Data-to-EJS-Templates"><span class="toc-text">Passing Data to EJS Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-to-EJS"><span class="toc-text">Server to EJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Missing-Data-Safely"><span class="toc-text">Handling Missing Data Safely</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EJS-to-Server-Form-Submission"><span class="toc-text">EJS to Server (Form Submission)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Partials-and-Layouts"><span class="toc-text">EJS Partials and Layouts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partials"><span class="toc-text">Partials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layouts"><span class="toc-text">Layouts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-EJS-to-Generate-a-Static-Website"><span class="toc-text">Using EJS to Generate a Static Website</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Static-Site-Generation"><span class="toc-text">Basic Static Site Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Features-for-Static-Site-Generation"><span class="toc-text">Advanced Features for Static Site Generation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol></div>
-        </div>
-    
-    
-    <div class="post-content">
-        
-        <h1 id="Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><a href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers" class="headerlink" title="Understanding EJS: A Comprehensive Guide for Backend Engineers"></a>Understanding EJS: A Comprehensive Guide for Backend Engineers</h1><h2 id="What-is-EJS"><a href="#What-is-EJS" class="headerlink" title="What is EJS?"></a>What is EJS?</h2><p>EJS (Embedded JavaScript Templates) is a simple yet powerful templating language that lets you generate HTML markup with plain JavaScript. The “E” can stand for “Embedded,” “Effective,” “Elegant,” or simply “Easy” - all of which describe this lightweight templating engine.</p>
+    <div class="post-content-wrapper">
+        <div class="post-content">
+            
+            <h1 id="Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><a href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers" class="headerlink" title="Understanding EJS: A Comprehensive Guide for Backend Engineers"></a>Understanding EJS: A Comprehensive Guide for Backend Engineers</h1><h2 id="What-is-EJS"><a href="#What-is-EJS" class="headerlink" title="What is EJS?"></a>What is EJS?</h2><p>EJS (Embedded JavaScript Templates) is a simple yet powerful templating language that lets you generate HTML markup with plain JavaScript. The “E” can stand for “Embedded,” “Effective,” “Elegant,” or simply “Easy” - all of which describe this lightweight templating engine.</p>
 <blockquote>
 <p><strong>EJS follows a simple philosophy: use JavaScript for template logic without inventing a new syntax.</strong></p>
 </blockquote>
@@ -252,41 +246,61 @@
 <p>Whether you’re building a traditional server-rendered application, creating reusable components through partials, or generating a static site, EJS offers a set of simple but powerful tools to get the job done efficiently.</p>
 <p>By leveraging JavaScript’s expressiveness within HTML templates, <strong>EJS strikes a balance between flexibility and simplicity</strong> that makes it a solid choice for many projects. </p>
 
-    </div>
-    
-    
-        <div class="post-copyright">
-            <div class="copyright-title">版权声明</div>
-            <div class="copyright-info">
-                <div class="copyright-info-item">
-                    <span>作者:</span>
-                    <span>xawei</span>
-                </div>
-                <div class="copyright-info-item">
-                    <span>链接:</span>
-                    <a href="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/">https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/</a>
-                </div>
-                <div class="copyright-info-item">
-                    <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+        </div>
+        
+        
+            <div class="post-copyright">
+                <div class="copyright-title">版权声明</div>
+                <div class="copyright-info">
+                    <div class="copyright-info-item">
+                        <span>作者:</span>
+                        <span>xawei</span>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>链接:</span>
+                        <a href="https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/">https://xawei.xyz/2025/05/03/ejs-template-engine-guide-for-backend-engineers/</a>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-    
-    <div class="post-navigation">
-        <div class="post-nav-prev">
-            
-        </div>
-        <div class="post-nav-next">
-            
-                <a href="/2025/04/29/javascript-jquery-essentials-for-backend-engineers/" class="post-nav-link">
-                    <span class="post-nav-title">JavaScript and jQuery Essentials for Backend Engineers</span>
-                    <i class="fa-solid fa-angle-right"></i>
-                </a>
-            
+        
+        
+        <div class="post-navigation">
+            <div class="post-nav-prev">
+                
+            </div>
+            <div class="post-nav-next">
+                
+                    <a href="/2025/04/29/javascript-jquery-essentials-for-backend-engineers/" class="post-nav-link">
+                        <span class="post-nav-title">JavaScript and jQuery Essentials for Backend Engineers</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                
+            </div>
         </div>
     </div>
-</article> 
+</article>
+
+
+    <div class="toc-container">
+        <div class="toc-sticky">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="toc-content">
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><span class="toc-text">Understanding EJS: A Comprehensive Guide for Backend Engineers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-EJS"><span class="toc-text">What is EJS?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Tags"><span class="toc-text">EJS Tags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Scriptlet-Tag"><span class="toc-text">1. &lt;% %&gt; (Scriptlet Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Output-Tag-HTML-Escaped"><span class="toc-text">2. &lt;%&#x3D; %&gt; (Output Tag - HTML Escaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Output-Tag-Unescaped"><span class="toc-text">3. &lt;%- %&gt; (Output Tag - Unescaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Comment-Tag"><span class="toc-text">4. &lt;%# %&gt; (Comment Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Additional-Tags"><span class="toc-text">5. Additional Tags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Passing-Data-to-EJS-Templates"><span class="toc-text">Passing Data to EJS Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-to-EJS"><span class="toc-text">Server to EJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Missing-Data-Safely"><span class="toc-text">Handling Missing Data Safely</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EJS-to-Server-Form-Submission"><span class="toc-text">EJS to Server (Form Submission)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Partials-and-Layouts"><span class="toc-text">EJS Partials and Layouts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partials"><span class="toc-text">Partials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layouts"><span class="toc-text">Layouts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-EJS-to-Generate-a-Static-Website"><span class="toc-text">Using EJS to Generate a Static Website</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Static-Site-Generation"><span class="toc-text">Basic Static Site Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Features-for-Static-Site-Generation"><span class="toc-text">Advanced Features for Static Site Generation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+            </div>
+            <div class="toc-progress">
+                <div class="toc-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+ 
         </div>
         
     </div>
@@ -308,6 +322,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 <!-- Theme scripts -->
-<script src="/js/main.js"></script> 
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+ 
 </body>
 </html> 

@@ -511,8 +511,9 @@ a:hover {
 /* Post content */
 .post-content {
     line-height: 1.8;
-    position: relative; /* Add position relative */
-    margin-left: -10px; /* Pull content slightly to the left to offset the padding */
+    position: relative;
+    margin-left: -10px;
+    width: 100%;
 }
 
 .post-content h1, 
@@ -1910,7 +1911,7 @@ h6:target {
 }
 
 .toc-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 15px;
@@ -1945,7 +1946,7 @@ h6:target {
 }
 
 .toc-content .toc-item {
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
   line-height: 1.4 !important;
   counter-increment: none !important;
   background-color: transparent !important;
@@ -1959,26 +1960,26 @@ h6:target {
 }
 
 .toc-content .toc-level-2 {
-  margin-left: 15px !important;
+  margin-left: 12px !important;
   padding-left: 0 !important;
   border: none !important;
 }
 
 .toc-content .toc-level-3 {
-  margin-left: 30px !important;
+  margin-left: 24px !important;
   padding-left: 0 !important;
   border: none !important;
 }
 
 .toc-content .toc-level-4 {
-  margin-left: 45px !important;
+  margin-left: 36px !important;
   padding-left: 0 !important;
   border: none !important;
 }
 
 .toc-content .toc-level-5, 
 .toc-content .toc-level-6 {
-  margin-left: 60px !important;
+  margin-left: 48px !important;
   padding-left: 0 !important;
   border: none !important;
 }
@@ -1986,16 +1987,19 @@ h6:target {
 /* Style the links */
 .toc-content .toc-link {
   position: relative;
-  display: inline-block;
+  display: block;
   color: var(--text-color);
   text-decoration: none;
-  font-size: 15px;
-  padding-left: 18px;
+  font-size: 14px;
+  padding-left: 16px;
   transition: all 0.2s ease;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .toc-content .toc-level-2 .toc-link,
@@ -2003,13 +2007,13 @@ h6:target {
 .toc-content .toc-level-4 .toc-link,
 .toc-content .toc-level-5 .toc-link,
 .toc-content .toc-level-6 .toc-link {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-color-light);
 }
 
 .toc-content .toc-link:hover {
   color: var(--primary-color);
-  transform: translateX(2px);
+  background-color: var(--hover-color);
 }
 
 /* Add bullet points instead of toggle indicators */
@@ -2017,7 +2021,7 @@ h6:target {
   content: "•";
   position: absolute;
   left: 0;
-  top: 0;
+  top: 4px;
   font-size: 16px;
   color: var(--primary-color);
   transition: all 0.2s ease;
@@ -2036,6 +2040,7 @@ h6:target {
 .toc-content .toc-link.active {
   color: var(--primary-color);
   font-weight: 500;
+  background-color: var(--hover-color);
 }
 
 .toc-content .toc-link.active::before {
@@ -2645,4 +2650,239 @@ figure.highlight,
         gap: 15px;
         padding-top: 0;
     }
-} 
+}
+
+/* Remove post-wrapper styles since we're not using it anymore */
+.post-content-wrapper {
+  width: 100%;
+  min-width: 0; /* Fix for flexbox content overflow */
+}
+
+/* Post content - adjust width to leave space for TOC */
+.post-content {
+  line-height: 1.8;
+  position: relative;
+  margin-left: -10px;
+  width: 100%;
+}
+
+/* TOC Container Styling - fixed position on the right */
+.toc-container {
+  position: fixed;
+  top: 90px; /* Adjusted to account for fixed header */
+  right: 30px; /* Slightly moved to the right */
+  width: 260px;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.toc-sticky {
+  position: relative;
+  max-height: calc(100vh - 120px); /* Limit height for scrolling */
+  overflow-y: auto;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  border-left: 4px solid var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/* Add right padding to post container to make room for TOC */
+body.post-page .container {
+  padding-right: 310px; /* Make room for TOC */
+}
+
+/* TOC Header styling */
+.toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background-color: var(--card-background);
+  z-index: 10;
+}
+
+.toc-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toc-title i {
+  margin-right: 8px;
+  color: var(--primary-color);
+}
+
+.toc-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.toc-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .toc-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* TOC Content styling */
+.toc-content {
+  padding: 15px 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+.toc-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 6px;
+  border: 2px solid transparent;
+}
+
+/* Collapsed state */
+.toc-sticky.collapsed {
+  width: 50px;
+  border-width: 4px;
+  border-radius: 12px;
+  border-left-color: var(--primary-color);
+}
+
+.toc-sticky.collapsed .toc-title span {
+  display: none;
+}
+
+.toc-sticky.collapsed .toc-content {
+  display: none;
+}
+
+.toc-sticky.collapsed .toc-toggle i {
+  transform: rotate(180deg);
+}
+
+.toc-sticky.collapsed .toc-toggle {
+  margin-left: auto;
+}
+
+/* TOC Progress Indicator */
+.toc-progress {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--border-color);
+  opacity: 0.3;
+}
+
+.toc-progress-bar {
+  position: absolute;
+  width: 4px;
+  background-color: var(--primary-color);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 0%;
+  transition: height 0.1s ease;
+}
+
+/* Media Queries */
+/* Adjust for medium screens */
+@media (max-width: 1280px) {
+  body.post-page .container {
+    padding-right: 20px; /* Reset the padding */
+    max-width: 800px; /* Make the container narrower */
+  }
+  
+  .toc-container {
+    right: 20px;
+  }
+}
+
+/* Responsive behavior - on small screens show TOC below content */
+@media (max-width: 1100px) {
+  .toc-container {
+    position: static;
+    width: 100%;
+    margin: 20px auto 30px;
+    padding: 0 20px;
+  }
+  
+  .toc-sticky {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+  
+  .toc-sticky.collapsed {
+    width: 100%;
+    border-width: 4px;
+  }
+  
+  .toc-sticky.collapsed .toc-title {
+    display: flex;
+  }
+  
+  .toc-sticky.collapsed .toc-title span {
+    display: inline;
+  }
+
+  .toc-sticky.collapsed .toc-toggle {
+    margin-left: 0;
+  }
+  
+  body.post-page .container {
+    padding-right: 20px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .toc-container {
+    margin-bottom: 20px;
+  }
+  
+  .toc-sticky {
+    border-radius: 8px;
+  }
+
+  .toc-header {
+    padding: 12px 15px;
+  }
+  
+  .toc-content {
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toc-container {
+    margin-bottom: 15px;
+  }
+}

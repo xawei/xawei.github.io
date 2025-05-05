@@ -21,7 +21,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
-<body>
+<body class="post-page">
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
         <div class="banner-content">
             <!-- Header & Logo -->
@@ -106,16 +106,10 @@
         </div>
     </div>
     
-    
-        <div class="toc">
-            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> 目录</div>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%93%9D%E7%BB%BF%E5%8F%91%E5%B8%83"><span class="toc-text">蓝绿发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E5%8F%91%E5%B8%83"><span class="toc-text">红黑发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-1"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%91%E4%B8%9D%E9%9B%80%E5%8F%91%E5%B8%83"><span class="toc-text">金丝雀发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-2"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-2"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%8F%91%E5%B8%83"><span class="toc-text">滚动发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-3"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-3"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-3"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div>
-        </div>
-    
-    
-    <div class="post-content">
-        
-        <p>本文主要介绍Kubernetes中经常使用到的几种发布策略，如蓝绿发布、红黑发布、金丝雀（灰度）发布、滚动发布等。</p>
+    <div class="post-content-wrapper">
+        <div class="post-content">
+            
+            <p>本文主要介绍Kubernetes中经常使用到的几种发布策略，如蓝绿发布、红黑发布、金丝雀（灰度）发布、滚动发布等。</p>
 <span id="more"></span>
 
 
@@ -169,46 +163,66 @@
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hunternet/p/14306105.html">Kubernetes部署策略详解</a></li>
 </ol>
 
-    </div>
-    
-    
-        <div class="post-copyright">
-            <div class="copyright-title">版权声明</div>
-            <div class="copyright-info">
-                <div class="copyright-info-item">
-                    <span>作者:</span>
-                    <span>xawei</span>
-                </div>
-                <div class="copyright-info-item">
-                    <span>链接:</span>
-                    <a href="https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/">https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</a>
-                </div>
-                <div class="copyright-info-item">
-                    <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+        </div>
+        
+        
+            <div class="post-copyright">
+                <div class="copyright-title">版权声明</div>
+                <div class="copyright-info">
+                    <div class="copyright-info-item">
+                        <span>作者:</span>
+                        <span>xawei</span>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>链接:</span>
+                        <a href="https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/">https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</a>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-    
-    <div class="post-navigation">
-        <div class="post-nav-prev">
-            
-                <a href="/2021/01/10/pv-pvc-basic-use/" class="post-nav-link">
-                    <i class="fa-solid fa-angle-left"></i>
-                    <span class="post-nav-title">PV和PVC</span>
-                </a>
-            
-        </div>
-        <div class="post-nav-next">
-            
-                <a href="/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
-                    <span class="post-nav-title">Kubernetes架构及核心组件介绍</span>
-                    <i class="fa-solid fa-angle-right"></i>
-                </a>
-            
+        
+        
+        <div class="post-navigation">
+            <div class="post-nav-prev">
+                
+                    <a href="/2021/01/10/pv-pvc-basic-use/" class="post-nav-link">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <span class="post-nav-title">PV和PVC</span>
+                    </a>
+                
+            </div>
+            <div class="post-nav-next">
+                
+                    <a href="/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
+                        <span class="post-nav-title">Kubernetes架构及核心组件介绍</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                
+            </div>
         </div>
     </div>
-</article> 
+</article>
+
+
+    <div class="toc-container">
+        <div class="toc-sticky">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="toc-content">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%93%9D%E7%BB%BF%E5%8F%91%E5%B8%83"><span class="toc-text">蓝绿发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E5%8F%91%E5%B8%83"><span class="toc-text">红黑发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-1"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%91%E4%B8%9D%E9%9B%80%E5%8F%91%E5%B8%83"><span class="toc-text">金丝雀发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-2"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-2"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%8F%91%E5%B8%83"><span class="toc-text">滚动发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-3"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-3"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-3"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+            <div class="toc-progress">
+                <div class="toc-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+ 
         </div>
         
     </div>
@@ -230,6 +244,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 <!-- Theme scripts -->
-<script src="/js/main.js"></script> 
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+ 
 </body>
 </html> 

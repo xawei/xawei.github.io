@@ -21,7 +21,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
-<body>
+<body class="post-page">
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
         <div class="banner-content">
             <!-- Header & Logo -->
@@ -116,16 +116,10 @@
         </div>
     </div>
     
-    
-        <div class="toc">
-            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> 目录</div>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-text">环境架构概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%8E%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0"><span class="toc-text">调试过程与根本原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%8E%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">解决方案与优化建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div>
-        </div>
-    
-    
-    <div class="post-content">
-        
-        <p>最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和<code>connection reset</code>。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。</p>
+    <div class="post-content-wrapper">
+        <div class="post-content">
+            
+            <p>最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和<code>connection reset</code>。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。</p>
 <span id="more"></span>
 
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>我们在AWS同一Region内部署了两个EKS集群：</p>
@@ -186,46 +180,66 @@
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在云上复杂环境中，细微的配置差异都可能引发问题。此次问题由AWS NLB的multiple-zone配置与部分target group健康状态不一致引起。通过仔细的排查和调整配置，最终找到了问题根源并提出了相应的解决方案。</p>
 
-    </div>
-    
-    
-        <div class="post-copyright">
-            <div class="copyright-title">版权声明</div>
-            <div class="copyright-info">
-                <div class="copyright-info-item">
-                    <span>作者:</span>
-                    <span>xawei</span>
-                </div>
-                <div class="copyright-info-item">
-                    <span>链接:</span>
-                    <a href="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</a>
-                </div>
-                <div class="copyright-info-item">
-                    <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+        </div>
+        
+        
+            <div class="post-copyright">
+                <div class="copyright-title">版权声明</div>
+                <div class="copyright-info">
+                    <div class="copyright-info-item">
+                        <span>作者:</span>
+                        <span>xawei</span>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>链接:</span>
+                        <a href="https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</a>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-    
-    <div class="post-navigation">
-        <div class="post-nav-prev">
-            
-                <a href="/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/" class="post-nav-link">
-                    <i class="fa-solid fa-angle-left"></i>
-                    <span class="post-nav-title">Simplifying Multi-VPC Networking with AWS Transit Gateway</span>
-                </a>
-            
-        </div>
-        <div class="post-nav-next">
-            
-                <a href="/2025/01/21/Introduction%20to%20Istio%20resources/" class="post-nav-link">
-                    <span class="post-nav-title">Introduction to Istio Resources</span>
-                    <i class="fa-solid fa-angle-right"></i>
-                </a>
-            
+        
+        
+        <div class="post-navigation">
+            <div class="post-nav-prev">
+                
+                    <a href="/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/" class="post-nav-link">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <span class="post-nav-title">Simplifying Multi-VPC Networking with AWS Transit Gateway</span>
+                    </a>
+                
+            </div>
+            <div class="post-nav-next">
+                
+                    <a href="/2025/01/21/Introduction%20to%20Istio%20resources/" class="post-nav-link">
+                        <span class="post-nav-title">Introduction to Istio Resources</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                
+            </div>
         </div>
     </div>
-</article> 
+</article>
+
+
+    <div class="toc-container">
+        <div class="toc-sticky">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="toc-content">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-text">环境架构概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%8E%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0"><span class="toc-text">调试过程与根本原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%8E%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">解决方案与优化建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+            </div>
+            <div class="toc-progress">
+                <div class="toc-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+ 
         </div>
         
     </div>
@@ -247,6 +261,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 <!-- Theme scripts -->
-<script src="/js/main.js"></script> 
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+ 
 </body>
 </html> 

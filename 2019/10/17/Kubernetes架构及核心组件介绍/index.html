@@ -21,7 +21,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
-<body>
+<body class="post-page">
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
         <div class="banner-content">
             <!-- Header & Logo -->
@@ -106,16 +106,10 @@
         </div>
     </div>
     
-    
-        <div class="toc">
-            <div class="toc-title"><i class="fa-solid fa-list-ul"></i> 目录</div>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kubernetes%E7%9A%84%E6%9E%B6%E6%9E%84%E5%8F%8A%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-text">Kubernetes的架构及组件基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E7%BB%84%E4%BB%B6%EF%BC%88Control-Plane-Components%EF%BC%89"><span class="toc-text">控制面组件（Control Plane Components）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-apiserver"><span class="toc-text">kube-apiserver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#etcd"><span class="toc-text">etcd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-scheduler"><span class="toc-text">kube-scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-controller-manager"><span class="toc-text">kube-controller-manager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cloud-controller-manager"><span class="toc-text">cloud-controller-manager</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Worker%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">Worker节点上的组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kubelet"><span class="toc-text">kubelet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-proxy"><span class="toc-text">kube-proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Container-runtime"><span class="toc-text">Container runtime</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div>
-        </div>
-    
-    
-    <div class="post-content">
-        
-        <p>Kubernets是一个容器编排平台，本文主要介绍其整体架构，以及各个核心组件之间是如何协作完成容器的各项编排工作。</p>
+    <div class="post-content-wrapper">
+        <div class="post-content">
+            
+            <p>Kubernets是一个容器编排平台，本文主要介绍其整体架构，以及各个核心组件之间是如何协作完成容器的各项编排工作。</p>
 <span id="more"></span>
 
 <h2 id="Kubernetes的架构及组件基础概念"><a href="#Kubernetes的架构及组件基础概念" class="headerlink" title="Kubernetes的架构及组件基础概念"></a>Kubernetes的架构及组件基础概念</h2><p>当你完成Kubernets部署的时候，你得到的是一个集群，集群包含控制面（control plane）组件（master部分），以及woker节点。用户的业务应用容器以Pod的形式，运行在这些worker节点之前。而master控制面组件，则负责管理集群中运行woker节点以及各个容器Pod。在生产环境中，控制面组件一般以多副本的形式部署在多台不同的机器上，以保证高可用。</p>
@@ -143,41 +137,61 @@
 <li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/">Kubernetes Docs - Control Plane-Node Communication</a></li>
 </ol>
 
-    </div>
-    
-    
-        <div class="post-copyright">
-            <div class="copyright-title">版权声明</div>
-            <div class="copyright-info">
-                <div class="copyright-info-item">
-                    <span>作者:</span>
-                    <span>xawei</span>
-                </div>
-                <div class="copyright-info-item">
-                    <span>链接:</span>
-                    <a href="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</a>
-                </div>
-                <div class="copyright-info-item">
-                    <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+        </div>
+        
+        
+            <div class="post-copyright">
+                <div class="copyright-title">版权声明</div>
+                <div class="copyright-info">
+                    <div class="copyright-info-item">
+                        <span>作者:</span>
+                        <span>xawei</span>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>链接:</span>
+                        <a href="https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/">https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</a>
+                    </div>
+                    <div class="copyright-info-item">
+                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-    
-    <div class="post-navigation">
-        <div class="post-nav-prev">
-            
-                <a href="/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/" class="post-nav-link">
-                    <i class="fa-solid fa-angle-left"></i>
-                    <span class="post-nav-title">几种常见的发布策略</span>
-                </a>
-            
-        </div>
-        <div class="post-nav-next">
-            
+        
+        
+        <div class="post-navigation">
+            <div class="post-nav-prev">
+                
+                    <a href="/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/" class="post-nav-link">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <span class="post-nav-title">几种常见的发布策略</span>
+                    </a>
+                
+            </div>
+            <div class="post-nav-next">
+                
+            </div>
         </div>
     </div>
-</article> 
+</article>
+
+
+    <div class="toc-container">
+        <div class="toc-sticky">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="toc-content">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kubernetes%E7%9A%84%E6%9E%B6%E6%9E%84%E5%8F%8A%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-text">Kubernetes的架构及组件基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E7%BB%84%E4%BB%B6%EF%BC%88Control-Plane-Components%EF%BC%89"><span class="toc-text">控制面组件（Control Plane Components）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-apiserver"><span class="toc-text">kube-apiserver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#etcd"><span class="toc-text">etcd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-scheduler"><span class="toc-text">kube-scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-controller-manager"><span class="toc-text">kube-controller-manager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cloud-controller-manager"><span class="toc-text">cloud-controller-manager</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Worker%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">Worker节点上的组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kubelet"><span class="toc-text">kubelet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kube-proxy"><span class="toc-text">kube-proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Container-runtime"><span class="toc-text">Container runtime</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+            <div class="toc-progress">
+                <div class="toc-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+ 
         </div>
         
     </div>
@@ -199,6 +213,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 <!-- Theme scripts -->
-<script src="/js/main.js"></script> 
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+ 
 </body>
 </html> 
