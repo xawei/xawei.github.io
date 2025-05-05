@@ -2670,8 +2670,8 @@ figure.highlight,
 .toc-container {
   position: fixed;
   top: 90px; /* Adjusted to account for fixed header */
-  right: 30px; /* Slightly moved to the right */
-  width: 260px;
+  right: -10px; /* Slightly moved to the right */
+  width: 300px;
   z-index: 100;
   transition: all 0.3s ease;
 }
