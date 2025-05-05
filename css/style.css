@@ -8,6 +8,7 @@
 
 :root {
     --primary-color: #A31F34;
+    --primary-color-rgb: 163, 31, 52;
     --gradient-start: #D4F1F9;
     --gradient-end: #E1F8DC;
     --card-background: #fff;
@@ -62,6 +63,173 @@ a:hover {
     transition: padding-top 0.3s ease;
     padding-top: clamp(30px, 6vh, 60px); /* Use clamp to scale between 30px and 60px based on viewport height */
     will-change: transform, padding-top;
+}
+
+/* Content Wrapper - For Sidebar Layout */
+.content-wrapper {
+    display: flex;
+    gap: 40px; /* Increased from 20px for larger screens */
+}
+
+/* Media queries for responsive layout */
+@media (max-width: 1100px) {
+    .content-wrapper {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 0 0 250px;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.sidebar-container {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-section {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.sidebar-section:last-child {
+    border-bottom: none;
+}
+
+/* Profile section */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: #999;
+    box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.profile-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    width: 100%;
+    text-align: center;
+}
+
+.profile-desc {
+    font-size: 14px;
+    color: var(--text-color-light);
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Stats section */
+.sidebar-stats {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.sidebar-stats-item {
+    flex: 1;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 5px 0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-stats-item:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    transform: translateY(-3px);
+}
+
+.stats-number {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.stats-label {
+    font-size: 14px;
+    color: var(--text-color-light);
+}
+
+.sidebar-social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Main Content - adjusted for sidebar */
+.main-content {
+    flex: 1;
+    padding: 5% 0;
+    position: relative;
+    z-index: 10;
+}
+
+.main-content:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    opacity: 1;
+    z-index: -1;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* Banner - Fixed Background Gradient */
@@ -244,34 +412,13 @@ a:hover {
     align-items: center;
 }
 
-/* Main Content */
-.main-content {
-    padding: 5% 0;
-    position: relative;
-    z-index: 10;
-}
-
-.main-content:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: transparent;
-    opacity: 1;
-    z-index: -1;
-    border-radius: 0;
-    box-shadow: none;
-}
-
 /* Posts List */
 .posts-list {
     display: flex;
     flex-direction: column;
     gap: 30px;
     position: relative;
-    padding-top: 3.5px; /* Reduced from 5px to 70% */
+    padding-top: 3.5px;
 }
 
 /* Post */
@@ -840,15 +987,15 @@ h6:target {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: var(--card-background);
     border-radius: 50%;
     color: var(--primary-color);
     text-decoration: none;
     border: 1px solid var(--border-color);
     transition: all 0.3s;
-    font-size: 24px;
+    font-size: 18px;
     box-shadow: 0 2px 8px var(--shadow-color);
 }
 
@@ -867,21 +1014,12 @@ h6:target {
     color: white;
 }
 
-/* Custom Douban icon */
+/* Improved Douban icon */
 .douban-icon {
-    font-family: serif;
     font-weight: bold;
-    font-size: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.social-link.douban-icon:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 /* Contact info styling */
@@ -1146,8 +1284,38 @@ h6:target {
     margin-right: 8px;
 }
 
-/* Mobile Styles */
+/* Mobile adjustments */
 @media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .sidebar {
+        flex: 0 0 auto;
+        position: relative;
+        top: 0;
+        max-height: none;
+        margin-bottom: 15px;
+    }
+    
+    .sidebar-container {
+        max-width: 100%;
+    }
+    
+    .profile-avatar {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .profile-name {
+        font-size: 20px;
+    }
+    
+    .profile-desc {
+        font-size: 13px;
+    }
+    
     /* Stack header elements on mobile */
     .header-inner {
         flex-direction: column;
@@ -2271,15 +2439,15 @@ h6:target {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: var(--card-background);
     border-radius: 50%;
     color: var(--primary-color);
     text-decoration: none;
     border: 1px solid var(--border-color);
     transition: all 0.3s;
-    font-size: 24px;
+    font-size: 18px;
     box-shadow: 0 2px 8px var(--shadow-color);
 }
 
@@ -2415,4 +2583,66 @@ figure.highlight,
 .code-block-wrapper {
     position: relative;
     margin-bottom: 30px;
+}
+
+/* Extra Small Mobile Styles */
+@media (max-width: 480px) {
+    .content-wrapper {
+        gap: 10px;
+    }
+    
+    .sidebar {
+        margin-bottom: 10px;
+    }
+    
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+    
+    /* Reduce padding in sidebar sections */
+    .sidebar-section {
+        padding: 15px;
+    }
+    
+    /* Make stats more compact */
+    .stats-number {
+        font-size: 20px;
+        margin-bottom: 3px;
+    }
+    
+    .stats-label {
+        font-size: 13px;
+    }
+    
+    /* Reduce space between posts and sidebar */
+    .main-content {
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 3% 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 2% 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .posts-list {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .posts-list {
+        gap: 15px;
+        padding-top: 0;
+    }
 } 
