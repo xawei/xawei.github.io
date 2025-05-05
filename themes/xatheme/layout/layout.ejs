@@ -11,9 +11,18 @@
     </div>
     <div class="background-wrapper"></div>
     <div class="container">
+        <% if ((!theme.sidebar || theme.sidebar.enabled !== false) && is_home()) { %>
+        <div class="content-wrapper">
+            <%- partial('components/sidebar') %>
+            <div class="main-content">
+                <%- body %>
+            </div>
+        </div>
+        <% } else { %>
         <div class="main-content">
             <%- body %>
         </div>
+        <% } %>
     </div>
     <%- partial('components/footer') %>
     <div class="back-to-top">

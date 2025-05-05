@@ -16,6 +16,16 @@ colors:
   dark_text: "#EEEEEE"  # Light text for dark mode
   default_mode: light  # light, dark
 
+# Sidebar
+sidebar:
+  enabled: true
+  site_info:
+    title: "Wei's Blog"
+    subtitle: "Stay hungry, stay foolish"
+  stats:
+    show_counts: true
+    clickable: true
+
 # Banner
 banner:
   enabled: true

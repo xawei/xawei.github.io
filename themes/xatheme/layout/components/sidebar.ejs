@@ -1,0 +1,83 @@
+<%
+function getCategoriesCount() {
+  let categoriesCount = 0;
+  if (site.categories && site.categories.length > 0) {
+    categoriesCount = site.categories.length;
+  }
+  return categoriesCount;
+}
+
+function getTagsCount() {
+  let tagsCount = 0;
+  if (site.tags && site.tags.length > 0) {
+    tagsCount = site.tags.length;
+  }
+  return tagsCount;
+}
+
+function getPostsCount() {
+  let postsCount = 0;
+  if (site.posts && site.posts.length > 0) {
+    postsCount = site.posts.length;
+  }
+  return postsCount;
+}
+
+// Check if sidebar is enabled
+if (!theme.sidebar || theme.sidebar.enabled !== false) {
+%>
+
+<div class="sidebar">
+  <div class="sidebar-container">
+    <div class="sidebar-section site-info">
+      <div class="profile-info">
+        <div class="profile-avatar">
+          <% if (theme.defaults && theme.defaults.avatar) { %>
+            <img src="<%= theme.defaults.avatar %>" alt="Avatar">
+          <% } else { %>
+            <div class="avatar-placeholder">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          <% } %>
+        </div>
+        <div class="profile-name"><%= config.author || theme.info.author || "" %></div>
+        <div class="profile-desc"><%= theme.sidebar && theme.sidebar.site_info && theme.sidebar.site_info.subtitle ? theme.sidebar.site_info.subtitle : "Stay hungry, stay foolish" %></div>
+      </div>
+    </div>
+    
+    <% if (!theme.sidebar || !theme.sidebar.stats || theme.sidebar.stats.show_counts !== false) { %>
+    <div class="sidebar-section sidebar-stats">
+      <a href="<%= url_for('/archives') %>" class="sidebar-stats-item">
+        <div class="stats-number"><%= getPostsCount() %></div>
+        <div class="stats-label">Posts</div>
+      </a>
+      <a href="<%= url_for('/categories') %>" class="sidebar-stats-item">
+        <div class="stats-number"><%= getCategoriesCount() %></div>
+        <div class="stats-label">Categories</div>
+      </a>
+      <a href="<%= url_for('/tags') %>" class="sidebar-stats-item">
+        <div class="stats-number"><%= getTagsCount() %></div>
+        <div class="stats-label">Tags</div>
+      </a>
+    </div>
+    <% } %>
+    
+    <% if (theme.socials) { %>
+    <div class="sidebar-section">
+      <div class="social-links sidebar-social-links">
+        <% if (theme.socials.github) { %>
+        <a href="<%= theme.socials.github %>" class="social-link" target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <% } %>
+        <% if (theme.socials.douban) { %>
+        <a href="<%= theme.socials.douban %>" class="social-link douban-icon" target="_blank">
+          <i class="fa-solid fa-book"></i>
+        </a>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+<% } %> 
