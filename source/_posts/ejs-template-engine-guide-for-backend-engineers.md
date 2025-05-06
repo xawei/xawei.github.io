@@ -8,9 +8,9 @@ tags:
   - Node.js
 ---
 
-## What is EJS?
-
 EJS (Embedded JavaScript Templates) is a simple yet powerful templating language that lets you generate HTML markup with plain JavaScript. The "E" can stand for "Embedded," "Effective," "Elegant," or simply "Easy" - all of which describe this lightweight templating engine.
+
+<!--more-->
 
 > **EJS follows a simple philosophy: use JavaScript for template logic without inventing a new syntax.**
 
