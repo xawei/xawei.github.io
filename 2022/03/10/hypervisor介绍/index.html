@@ -18,6 +18,11 @@
 <meta property="og:url" content="https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/">
 <meta property="og:site_name" content="MyCatalog">
 
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
@@ -86,30 +91,31 @@
     <div class="container">
         
         <div class="main-content">
-            <article class="post">
-    <div class="post-header">
-        <h1 class="post-title">Hypervisor介绍</h1>
-        <div class="post-meta">
-            <span><i class="fa-regular fa-calendar"></i> 2022-03-10</span>
-            
-                <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-06</span>
-            
-            
-                <span><i class="fa-regular fa-folder"></i>
+            <div class="post-layout">
+    <!-- Main post content -->
+    <div class="post-main">
+        <article class="post">
+            <div class="post-header">
+                <h1 class="post-title">Hypervisor介绍</h1>
+                <div class="post-meta">
+                    <span><i class="fa-regular fa-calendar"></i> 2022-03-10</span>
                     
-                        <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
-                        
+                        <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-06</span>
                     
-                </span>
+                    
+                        <span><i class="fa-regular fa-folder"></i>
+                            
+                                <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            
+                        </span>
+                    
+                    
+                </div>
+            </div>
             
-            
-        </div>
-    </div>
-    
-    <div class="post-content-wrapper">
-        <div class="post-content">
-            
-            <p>hypervisor作用、类型和实现简介。</p>
+            <div class="post-content">
+                <p>hypervisor作用、类型和实现简介。</p>
 <span id="more"></span>
 
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>你是否想过如何在一台计算机上同时运行多个操作系统？或者如何让服务器更高效地利用硬件资源？答案就在于 hypervisor 技术。Hypervisor，又称虚拟机监视器（Virtual Machine Monitor，简称 VMM），是一种强大的软件程序，它允许你在单一硬件平台上创建和管理多个虚拟机（VM）。每个虚拟机都可以运行独立的操作系统（称为 Guest OS），就像它们运行在独立的物理机器上一样。</p>
@@ -138,66 +144,74 @@
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/containers/containers-vs-vms">Red Hat - Containers vs. Virtual Machines</a></li>
 </ol>
 
-        </div>
-        
-        
-            <div class="post-copyright">
-                <div class="copyright-title">版权声明</div>
-                <div class="copyright-info">
-                    <div class="copyright-info-item">
-                        <span>作者:</span>
-                        <span>xawei</span>
-                    </div>
-                    <div class="copyright-info-item">
-                        <span>链接:</span>
-                        <a href="https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/">https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/</a>
-                    </div>
-                    <div class="copyright-info-item">
-                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+            </div>
+            
+            
+                <div class="post-copyright">
+                    <div class="copyright-title">版权声明</div>
+                    <div class="copyright-info">
+                        <div class="copyright-info-item">
+                            <span>作者:</span>
+                            <span>xawei</span>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>post.copyright.created_at:</span>
+                            <span>2022-03-10</span>
+                        </div>
+                        
+                            <div class="copyright-info-item">
+                                <span>post.copyright.updated_at:</span>
+                                <span>2025-05-06</span>
+                            </div>
+                        
+                        <div class="copyright-info-item">
+                            <span>链接:</span>
+                            <a href="https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/">https://xawei.xyz/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/</a>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                        </div>
                     </div>
                 </div>
+            
+            
+            
+            
+            <div class="post-navigation">
+                <div class="post-nav-prev">
+                    
+                        <a href="/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/" class="post-nav-link">
+                            <i class="fa-solid fa-angle-left"></i>
+                            <span class="post-nav-title">Use VPC Endpoint to Keep Your Network Traffic in AWS</span>
+                        </a>
+                    
+                </div>
+                <div class="post-nav-next">
+                    
+                        <a href="/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" class="post-nav-link">
+                            <span class="post-nav-title">Kubernetes中的Static pod实现与使用场景分析</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    
+                </div>
             </div>
-        
-        
-        <div class="post-navigation">
-            <div class="post-nav-prev">
-                
-                    <a href="/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/" class="post-nav-link">
-                        <i class="fa-solid fa-angle-left"></i>
-                        <span class="post-nav-title">Use VPC Endpoint to Keep Your Network Traffic in AWS</span>
-                    </a>
-                
-            </div>
-            <div class="post-nav-next">
-                
-                    <a href="/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" class="post-nav-link">
-                        <span class="post-nav-title">Kubernetes中的Static pod实现与使用场景分析</span>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                
+        </article>
+    </div>
+
+    <!-- TOC column -->
+    
+        <div class="post-toc">
+            <div class="toc-inner">
+                <div class="toc-title">
+                    <i class="fa-solid fa-list"></i> <span>目录</span>
+                </div>
+                <div class="toc-content">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypervisor%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">Hypervisor的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-1-hypervisor-Bare-metal"><span class="toc-text">Type 1 hypervisor - Bare-metal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-2-hypervisor-Hosted"><span class="toc-text">Type 2 hypervisor - Hosted</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVM%E4%BB%8B%E7%BB%8D"><span class="toc-text">KVM介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+                </div>
             </div>
         </div>
-    </div>
-</article>
-
-
-    <div class="toc-container">
-        <div class="toc-sticky">
-            <div class="toc-header">
-                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
-                <button class="toc-toggle" aria-label="Toggle Table of Contents">
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
-            </div>
-            <div class="toc-content">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypervisor%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">Hypervisor的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-1-hypervisor-Bare-metal"><span class="toc-text">Type 1 hypervisor - Bare-metal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-2-hypervisor-Hosted"><span class="toc-text">Type 2 hypervisor - Hosted</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVM%E4%BB%8B%E7%BB%8D"><span class="toc-text">KVM介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
-            </div>
-            <div class="toc-progress">
-                <div class="toc-progress-bar"></div>
-            </div>
-        </div>
-    </div>
- 
+    
+</div> 
         </div>
         
     </div>

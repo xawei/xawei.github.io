@@ -18,6 +18,11 @@
 <meta property="og:url" content="https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/">
 <meta property="og:site_name" content="MyCatalog">
 
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <!-- Canonical -->
 <link rel="canonical" href="https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/" 
 <meta name="generator" content="Hexo 5.4.2"></head>
@@ -86,30 +91,31 @@
     <div class="container">
         
         <div class="main-content">
-            <article class="post">
-    <div class="post-header">
-        <h1 class="post-title">Use VPC Endpoint to Keep Your Network Traffic in AWS</h1>
-        <div class="post-meta">
-            <span><i class="fa-regular fa-calendar"></i> 2024-05-02</span>
-            
-                <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-06</span>
-            
-            
-                <span><i class="fa-regular fa-folder"></i>
+            <div class="post-layout">
+    <!-- Main post content -->
+    <div class="post-main">
+        <article class="post">
+            <div class="post-header">
+                <h1 class="post-title">Use VPC Endpoint to Keep Your Network Traffic in AWS</h1>
+                <div class="post-meta">
+                    <span><i class="fa-regular fa-calendar"></i> 2024-05-02</span>
                     
-                        <a href="/categories/AWS/">AWS</a>
-                        
+                        <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-06</span>
                     
-                </span>
+                    
+                        <span><i class="fa-regular fa-folder"></i>
+                            
+                                <a href="/categories/AWS/">AWS</a>
+                                
+                            
+                        </span>
+                    
+                    
+                </div>
+            </div>
             
-            
-        </div>
-    </div>
-    
-    <div class="post-content-wrapper">
-        <div class="post-content">
-            
-            <p>AWS VPC Endpoints enhance security and performance by keeping network traffic within the AWS cloud.<br>This article covers what VPC Endpoints are, their types, and how to set them up to improve your AWS infrastructure.</p>
+            <div class="post-content">
+                <p>AWS VPC Endpoints enhance security and performance by keeping network traffic within the AWS cloud.<br>This article covers what VPC Endpoints are, their types, and how to set them up to improve your AWS infrastructure.</p>
 <span id="more"></span>
 
 <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><h3 id="Recap-of-AWS-VPC-Basics"><a href="#Recap-of-AWS-VPC-Basics" class="headerlink" title="Recap of AWS VPC Basics"></a>Recap of AWS VPC Basics</h3><p>AWS Virtual Private Cloud (VPC) allows you to create a logically isolated network within the AWS cloud. You can control your network’s IP address range, subnets, route tables, and network gateways.<br>This isolation helps secure your AWS resources and manage network traffic effectively.</p>
@@ -152,66 +158,74 @@
 <li>Cost-Effective: Using VPC Endpoints can help you save on data transfer costs and reduce the need for NAT gateways.</li>
 </ul>
 
-        </div>
-        
-        
-            <div class="post-copyright">
-                <div class="copyright-title">版权声明</div>
-                <div class="copyright-info">
-                    <div class="copyright-info-item">
-                        <span>作者:</span>
-                        <span>xawei</span>
-                    </div>
-                    <div class="copyright-info-item">
-                        <span>链接:</span>
-                        <a href="https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/">https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</a>
-                    </div>
-                    <div class="copyright-info-item">
-                        <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+            </div>
+            
+            
+                <div class="post-copyright">
+                    <div class="copyright-title">版权声明</div>
+                    <div class="copyright-info">
+                        <div class="copyright-info-item">
+                            <span>作者:</span>
+                            <span>xawei</span>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>post.copyright.created_at:</span>
+                            <span>2024-05-02</span>
+                        </div>
+                        
+                            <div class="copyright-info-item">
+                                <span>post.copyright.updated_at:</span>
+                                <span>2025-05-06</span>
+                            </div>
+                        
+                        <div class="copyright-info-item">
+                            <span>链接:</span>
+                            <a href="https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/">https://xawei.xyz/2024/05/02/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</a>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                        </div>
                     </div>
                 </div>
+            
+            
+            
+            
+            <div class="post-navigation">
+                <div class="post-nav-prev">
+                    
+                        <a href="/2025/01/21/Introduction%20to%20Istio%20resources/" class="post-nav-link">
+                            <i class="fa-solid fa-angle-left"></i>
+                            <span class="post-nav-title">Introduction to Istio Resources</span>
+                        </a>
+                    
+                </div>
+                <div class="post-nav-next">
+                    
+                        <a href="/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
+                            <span class="post-nav-title">Hypervisor介绍</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    
+                </div>
             </div>
-        
-        
-        <div class="post-navigation">
-            <div class="post-nav-prev">
-                
-                    <a href="/2025/01/21/Introduction%20to%20Istio%20resources/" class="post-nav-link">
-                        <i class="fa-solid fa-angle-left"></i>
-                        <span class="post-nav-title">Introduction to Istio Resources</span>
-                    </a>
-                
-            </div>
-            <div class="post-nav-next">
-                
-                    <a href="/2022/03/10/hypervisor%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
-                        <span class="post-nav-title">Hypervisor介绍</span>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                
+        </article>
+    </div>
+
+    <!-- TOC column -->
+    
+        <div class="post-toc">
+            <div class="toc-inner">
+                <div class="toc-title">
+                    <i class="fa-solid fa-list"></i> <span>目录</span>
+                </div>
+                <div class="toc-content">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-text">1. Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Recap-of-AWS-VPC-Basics"><span class="toc-text">Recap of AWS VPC Basics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance-of-VPC-Endpoints"><span class="toc-text">Importance of VPC Endpoints</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-In-Depth-Look-at-VPC-Endpoints"><span class="toc-text">2. In-Depth Look at VPC Endpoints</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-Definition"><span class="toc-text">Detailed Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-VPC-Endpoints"><span class="toc-text">Types of VPC Endpoints</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Use-cases"><span class="toc-text">3. Use cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scenario-1-Access-a-custom-service-in-another-VPC"><span class="toc-text">Scenario 1: Access a custom service in another VPC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%8D-AWS-PrivateLink-Architecture"><span class="toc-text">🔍 AWS PrivateLink Architecture</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Conclusion"><span class="toc-text">4. Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Benefits"><span class="toc-text">Summary of Benefits</span></a></li></ol></li></ol>
+                </div>
             </div>
         </div>
-    </div>
-</article>
-
-
-    <div class="toc-container">
-        <div class="toc-sticky">
-            <div class="toc-header">
-                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
-                <button class="toc-toggle" aria-label="Toggle Table of Contents">
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
-            </div>
-            <div class="toc-content">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-text">1. Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Recap-of-AWS-VPC-Basics"><span class="toc-text">Recap of AWS VPC Basics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance-of-VPC-Endpoints"><span class="toc-text">Importance of VPC Endpoints</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-In-Depth-Look-at-VPC-Endpoints"><span class="toc-text">2. In-Depth Look at VPC Endpoints</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-Definition"><span class="toc-text">Detailed Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-VPC-Endpoints"><span class="toc-text">Types of VPC Endpoints</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Use-cases"><span class="toc-text">3. Use cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scenario-1-Access-a-custom-service-in-another-VPC"><span class="toc-text">Scenario 1: Access a custom service in another VPC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%8D-AWS-PrivateLink-Architecture"><span class="toc-text">🔍 AWS PrivateLink Architecture</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Conclusion"><span class="toc-text">4. Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Benefits"><span class="toc-text">Summary of Benefits</span></a></li></ol></li></ol>
-            </div>
-            <div class="toc-progress">
-                <div class="toc-progress-bar"></div>
-            </div>
-        </div>
-    </div>
- 
+    
+</div> 
         </div>
         
     </div>

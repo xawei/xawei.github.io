@@ -18,6 +18,9 @@
     --border-color: #e8e8e8;
     --shadow-color: rgba(0, 0, 0, 0.05);
     --code-bg: #f5f5f5;
+    --toc-border: #eaeaea;
+    --toc-active: #A31F34;
+    --toc-hover-bg: #f9f9f9;
 }
 
 [data-theme="dark"] {
@@ -31,6 +34,9 @@
     --border-color: #444;
     --shadow-color: rgba(0, 0, 0, 0.2);
     --code-bg: #333;
+    --toc-border: #444;
+    --toc-active: #FF4D6D;
+    --toc-hover-bg: #333;
 }
 
 body {
@@ -335,6 +341,7 @@ a:hover {
     color: var(--text-color);
     letter-spacing: 0.05em;
     transition: font-size 0.3s ease, color 0.3s ease;
+    font-family: 'Pacifico', 'Brush Script MT', cursive; /* Added handwriting style font */
 }
 
 .banner.scrolled .logo .title {
@@ -416,7 +423,7 @@ a:hover {
 .posts-list {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px; /* Reduced from 30px to make articles closer together */
     position: relative;
     padding-top: 3.5px;
 }
@@ -426,28 +433,24 @@ a:hover {
     background-color: var(--card-background);
     border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow-color);
-    margin-bottom: 5px; /* Reduced from 10px to 50% of current value */
-    padding: 15px 30px 15px 40px; /* Increased left padding to accommodate copy buttons */
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-    width: 100%;
+    padding: 25px; /* Reduced from 40px to decrease height */
+    margin-bottom: 10px; /* Reduced from 20px */
 }
 
+/* Remove hover animation */
 .post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px var(--shadow-color);
+    transform: none;
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .post-header {
-    margin-bottom: 10.5px; /* Reduced from 15px to 70% */
+    margin-bottom: 15px; /* Reduced from 30px to decrease height */
 }
 
 .post-title {
-    font-size: 1.5rem;
-    margin: 0 0 10.5px;
-    font-weight: 600;
-    color: var(--text-color);
+    font-size: 1.6rem; /* Smaller title for homepage */
+    margin-bottom: 15px;
+    line-height: 1.3;
 }
 
 .post-title a {
@@ -456,7 +459,7 @@ a:hover {
 }
 
 .post-title a:hover {
-    color: var(--primary-color);
+    color: var(--text-color); /* Changed from var(--primary-color) to prevent hover color change */
 }
 
 .post-meta {
@@ -510,10 +513,15 @@ a:hover {
 
 /* Post content */
 .post-content {
+    padding: 10px 0;
     line-height: 1.8;
-    position: relative;
-    margin-left: -10px;
-    width: 100%;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.post-content p {
+    margin-bottom: 1.5em;
+    line-height: 1.8;
 }
 
 .post-content h1, 
@@ -535,10 +543,6 @@ a:hover {
 
 .post-content h3 {
     font-size: 20px;
-}
-
-.post-content p {
-    margin-bottom: 20px;
 }
 
 .post-content img {
@@ -1847,44 +1851,29 @@ h6:target {
 .post-content h4:hover .heading-link-wrapper,
 .post-content h5:hover .heading-link-wrapper,
 .post-content h6:hover .heading-link-wrapper {
-    opacity: 1;
+    opacity: 0; /* Hide on hover */
 }
 
 .heading-anchor,
 .heading-copy-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 25px;
-    height: 25px;
-    border-radius: 4px;
-    background-color: var(--card-background);
-    color: var(--text-color-light);
-    font-size: 14px;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    transition: all 0.2s ease;
+    display: none;
 }
 
-.heading-anchor {
-    color: var(--primary-color);
+/* Remove heading link hover effect */
+.post-content h1:hover .heading-link-wrapper,
+.post-content h2:hover .heading-link-wrapper,
+.post-content h3:hover .heading-link-wrapper,
+.post-content h4:hover .heading-link-wrapper,
+.post-content h5:hover .heading-link-wrapper,
+.post-content h6:hover .heading-link-wrapper {
+    opacity: 0; /* Hide on hover */
 }
 
+/* Hide heading anchors completely */
+.heading-anchor,
 .heading-copy-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+    display: none;
 }
-
-.heading-anchor:hover,
-.heading-copy-button:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-    transform: translateY(-2px);
-}
-
-/* Remove all Article TOC styling */
-/* All TOC styling has been completely removed */
 
 /* Regular lists styling */
 .post-content ol {
@@ -2018,7 +2007,7 @@ h6:target {
 
 /* Add bullet points instead of toggle indicators */
 .toc-content .toc-link::before {
-  content: "•";
+  content: none; /* Remove bullet point */
   position: absolute;
   left: 0;
   top: 4px;
@@ -2032,7 +2021,7 @@ h6:target {
 .toc-content .toc-level-4 .toc-link::before,
 .toc-content .toc-level-5 .toc-link::before,
 .toc-content .toc-level-6 .toc-link::before {
-  content: "•";
+  content: none; /* Remove bullet point */
   color: var(--text-color-light);
   font-size: 14px;
 }
@@ -2670,23 +2659,22 @@ figure.highlight,
 .toc-container {
   position: fixed;
   top: 90px; /* Adjusted to account for fixed header */
-  right: -10px; /* Slightly moved to the right */
-  width: 300px;
+  right: 20px;
+  width: 280px;
   z-index: 100;
-  transition: all 0.3s ease;
-}
-
-.toc-sticky {
-  position: relative;
-  max-height: calc(100vh - 120px); /* Limit height for scrolling */
-  overflow-y: auto;
+  display: block !important; /* Always display */
   background-color: var(--card-background);
   border-radius: 12px;
   box-shadow: 0 4px 15px var(--shadow-color);
   border-left: 4px solid var(--primary-color);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.toc-sticky {
+  position: relative;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
 }
 
 /* Add right padding to post container to make room for TOC */
@@ -2721,49 +2709,86 @@ body.post-page .container {
   color: var(--primary-color);
 }
 
-.toc-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
-
-.toc-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--primary-color);
-}
-
-[data-theme="dark"] .toc-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 /* TOC Content styling */
 .toc-content {
   padding: 15px 20px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-color) transparent;
 }
 
-.toc-content::-webkit-scrollbar {
-  width: 6px;
+/* TOC links styling */
+.toc-content ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
-.toc-content::-webkit-scrollbar-track {
-  background: transparent;
+.toc-content .toc-item {
+  line-height: 1.8;
+  margin: 8px 0;
+  position: relative;
 }
 
-.toc-content::-webkit-scrollbar-thumb {
-  background-color: var(--border-color);
-  border-radius: 6px;
-  border: 2px solid transparent;
+.toc-content .toc-level-1 {
+  font-weight: 600;
+}
+
+.toc-content .toc-level-2 {
+  font-weight: 500;
+  padding-left: 0.8rem;
+}
+
+.toc-content .toc-level-3 {
+  font-weight: normal;
+  padding-left: 1.4rem;
+}
+
+.toc-content .toc-level-4 {
+  font-size: 0.9em;
+  padding-left: 2rem;
+}
+
+.toc-content .toc-level-5, 
+.toc-content .toc-level-6 {
+  font-size: 0.8em;
+  padding-left: 2.6rem;
+}
+
+.toc-content .toc-link {
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+  padding: 3px 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.toc-content .toc-link:hover {
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+.toc-content .toc-link::before {
+  content: none; /* Remove the bullet point */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.toc-content .toc-link.active {
+  color: var(--toc-active);
+  font-weight: 600;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.toc-content .toc-link.active::before {
+  background-color: var(--toc-active);
 }
 
 /* Collapsed state */
@@ -2821,7 +2846,7 @@ body.post-page .container {
   }
   
   .toc-container {
-    right: 20px;
+    display: none; /* Hide TOC on medium screens */
   }
 }
 
@@ -2829,32 +2854,17 @@ body.post-page .container {
 @media (max-width: 1100px) {
   .toc-container {
     position: static;
+    display: block;
     width: 100%;
     margin: 20px auto 30px;
-    padding: 0 20px;
+    top: 0;
   }
   
   .toc-sticky {
     position: relative;
     top: 0;
     max-height: none;
-  }
-  
-  .toc-sticky.collapsed {
-    width: 100%;
-    border-width: 4px;
-  }
-  
-  .toc-sticky.collapsed .toc-title {
-    display: flex;
-  }
-  
-  .toc-sticky.collapsed .toc-title span {
-    display: inline;
-  }
-
-  .toc-sticky.collapsed .toc-toggle {
-    margin-left: 0;
+    border-left-width: 4px;
   }
   
   body.post-page .container {
@@ -2864,6 +2874,30 @@ body.post-page .container {
 
 /* Mobile styles */
 @media (max-width: 768px) {
+  .post-header {
+    padding: 20px 20px 10px;
+  }
+  
+  .post-title {
+    font-size: 1.7rem;
+  }
+  
+  .post-meta {
+    font-size: 0.8rem;
+  }
+  
+  .post-meta span {
+    margin: 0 5px 5px;
+  }
+  
+  .post-content-wrapper {
+    padding: 15px 20px;
+  }
+  
+  .post-content {
+    font-size: 0.95rem;
+  }
+  
   .toc-container {
     margin-bottom: 20px;
   }
@@ -2879,10 +2913,504 @@ body.post-page .container {
   .toc-content {
     padding: 12px 15px;
   }
+  
+  .post-nav-title {
+    max-width: 120px;
+  }
 }
 
 @media (max-width: 480px) {
+  .post-title {
+    font-size: 1.5rem;
+  }
+  
+  .post-meta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post-meta span {
+    margin: 3px 0;
+  }
+  
+  .post-content-wrapper {
+    padding: 15px;
+  }
+  
+  .post-content {
+    font-size: 0.9rem;
+  }
+  
   .toc-container {
     margin-bottom: 15px;
   }
+}
+
+/* New TOC Implementation */
+.post-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+    position: relative;
+}
+
+.post-content {
+    flex: 1;
+    max-width: 100%;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-color);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* TOC Container - Parent fixed container */
+.toc-container {
+    position: fixed !important;
+    top: 80px !important;
+    right: 20px !important;
+    width: 280px !important;
+    max-height: calc(100vh - 120px) !important;
+    overflow-y: auto !important;
+    background-color: var(--card-background) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid var(--toc-border) !important;
+    z-index: 100 !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--border-color) transparent !important;
+}
+
+.toc-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.toc-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toc-container::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 6px;
+}
+
+.toc-header {
+    padding: 15px;
+    border-bottom: 1px solid var(--toc-border);
+    position: sticky;
+    top: 0;
+    background-color: var(--card-background);
+    z-index: 2;
+}
+
+.toc-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toc-title i {
+    color: var(--primary-color);
+}
+
+.toc-content {
+    padding: 10px 0;
+    max-height: none !important;
+    display: block !important;
+}
+
+/* TOC List Styling */
+.toc-content ol {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.toc-content > ol {
+    padding-left: 0;
+}
+
+.toc-content .toc-item {
+    margin: 4px 0;
+    position: relative;
+}
+
+.toc-content .toc-level-1 > a {
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.toc-content .toc-level-2 {
+    padding-left: 12px;
+}
+
+.toc-content .toc-level-3 {
+    padding-left: 16px;
+}
+
+.toc-content .toc-level-4 {
+    padding-left: 20px;
+}
+
+.toc-content .toc-level-5,
+.toc-content .toc-level-6 {
+    padding-left: 24px;
+}
+
+.toc-content .toc-link {
+    display: block;
+    padding: 5px 15px;
+    color: var(--text-color-light);
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.toc-content .toc-link:hover {
+    background-color: var(--toc-hover-bg);
+    color: var(--primary-color);
+}
+
+.toc-content .toc-link::before {
+  content: none; /* Remove the bullet point */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.toc-content .toc-link.active {
+    color: var(--toc-active);
+    font-weight: 600;
+    background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.toc-content .toc-link.active::before {
+    background-color: var(--toc-active);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1280px) {
+    .toc-container {
+        width: 240px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .post-content-wrapper {
+        flex-direction: column;
+    }
+    
+    .toc-container {
+        position: sticky !important;
+        top: 60px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-height: 300px !important;
+        margin-bottom: 20px !important;
+        margin-top: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc-container {
+        position: sticky;
+        top: 60px;
+        max-height: 300px;
+    }
+    
+    .toc-content .toc-level-3,
+    .toc-content .toc-level-4,
+    .toc-content .toc-level-5,
+    .toc-content .toc-level-6 {
+        padding-left: 12px;
+    }
+}
+
+/* Make sure TOC is always visible */
+.toc-container.visible {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Special handling for post page layout */
+body.post-page .container {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
+body.post-page .main-content {
+    width: 100%;
+    margin-right: auto;
+}
+
+@media (max-width: 992px) {
+    body.post-page .main-content {
+        width: 100%;
+    }
+}
+
+/* Add below the existing CSS, making sure not to remove any existing styles */
+
+/* New Post Layout Styles */
+.post-layout {
+  display: flex;
+  gap: 40px;
+  width: 90%; /* Changed from 100% to 90% */
+  max-width: 1300px;
+  margin: 0 auto; /* Center the entire layout */
+  padding: 0 20px;
+  justify-content: center; /* Center horizontally */
+}
+
+/* Adjust main post content area */
+.post-main {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
+  max-width: 900px; /* Make content wider */
+  width: 100%; /* Ensure it uses available space */
+}
+
+/* Post article styling */
+.post {
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: 25px; /* Reduced from 40px to decrease height */
+  margin-bottom: 10px; /* Reduced from 20px */
+}
+
+/* Post TOC sidebar */
+.post-toc {
+  width: 280px;
+  flex-shrink: 0;
+  position: relative;
+  margin-top: 30px;
+}
+
+/* TOC inner styles */
+.toc-inner {
+  position: sticky;
+  top: 90px; /* Adjust based on header height */
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+  scrollbar-width: thin;
+}
+
+.toc-title {
+  padding: 15px;
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--card-background);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.toc-title i {
+  color: var(--primary-color);
+}
+
+.toc-content {
+  padding: 10px 15px 20px;
+}
+
+/* TOC list styling */
+.toc-content ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-content .toc-item {
+  margin: 8px 0;
+  line-height: 1.2;
+}
+
+.toc-content .toc-link {
+  color: var(--text-color-light);
+  text-decoration: none;
+  display: block;
+  padding: 6px 0;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  position: relative;
+  padding-left: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toc-content .toc-link:hover {
+  color: var(--primary-color);
+  transform: translateX(4px);
+}
+
+.toc-content .toc-link.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.toc-content .toc-level-1 {
+  margin-top: 12px;
+}
+
+.toc-content .toc-level-2 {
+  padding-left: 12px;
+}
+
+.toc-content .toc-level-3 {
+  padding-left: 24px;
+}
+
+.toc-content .toc-level-4,
+.toc-content .toc-level-5,
+.toc-content .toc-level-6 {
+  padding-left: 36px;
+}
+
+/* Make the post content width more appropriate based on screen size */
+@media (min-width: 1400px) {
+  .post-layout {
+    max-width: 1400px; /* Even wider on large screens */
+  }
+  
+  .post-main {
+    max-width: 1000px; /* Wider content on large screens */
+  }
+}
+
+/* Adjust medium screens */
+@media (max-width: 1250px) and (min-width: 1100px) {
+  .post-layout {
+    max-width: 95%;
+  }
+  
+  .post-main {
+    max-width: calc(100% - 320px); /* Dynamic width based on container minus TOC and gap */
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1100px) {
+  .post-layout {
+    flex-direction: column;
+    align-items: center; /* Center items vertically when in column */
+  }
+  
+  .post-main {
+    max-width: 100%;
+  }
+  
+  .post-toc {
+    width: 100%;
+    order: -1; /* Move TOC to top on mobile */
+    margin-left: 0;
+  }
+  
+  .toc-inner {
+    margin-top: 0;
+    margin-bottom: 20px;
+    position: relative;
+    top: 0;
+    max-height: 300px;
+  }
+  
+  .post {
+    padding: 25px; /* Slightly less padding on mobile */
+  }
+}
+
+/* Clean up container styles for posts */
+body.post-page .container {
+  max-width: 100%; /* Allow post-layout to control width */
+  padding: 0;
+  padding-top: 30px; /* Reduced from 50px to make content closer to navbar */
+}
+
+/* Ensure the post content has good typography */
+.post-content {
+  padding: 10px 0;
+  line-height: 1.8;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+/* Adjust post content paragraph spacing */
+.post-content p {
+  margin-bottom: 1.5em;
+  line-height: 1.8;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+/* Post header spacing */
+.post-header {
+  margin-bottom: 15px; /* Reduced from 30px to decrease height */
+}
+
+/* Make sure the TOC is always visible */
+.toc-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* Small screen adjustments */
+@media (max-width: 600px) {
+  .post {
+    padding: 20px;
+  }
+  
+  .post-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* Make headings have proper scroll margin */
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-top: 100px;
 }
