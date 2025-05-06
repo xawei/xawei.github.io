@@ -61,7 +61,7 @@ a:hover {
 
 /* Container */
 .container {
-    max-width: 1100px;
+    max-width: 1300px; /* Increased from 1100px to make content wider */
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
@@ -74,13 +74,19 @@ a:hover {
 /* Content Wrapper - For Sidebar Layout */
 .content-wrapper {
     display: flex;
-    gap: 60px;
+    gap: 70px; /* Increased from 60px to give more space */
 }
 
 /* Media queries for responsive layout */
+@media (max-width: 1300px) {
+    .container {
+        max-width: 95%;
+    }
+}
+
 @media (max-width: 1100px) {
     .content-wrapper {
-        gap: 30px;
+        gap: 40px; /* Increased from 30px */
     }
 }
 
@@ -222,6 +228,7 @@ a:hover {
     padding: 5% 0;
     position: relative;
     z-index: 10;
+    width: 100%; /* Ensure it takes full width */
 }
 
 .main-content:before {
@@ -426,6 +433,7 @@ a:hover {
     gap: 15px; /* Reduced from 30px to make articles closer together */
     position: relative;
     padding-top: 3.5px;
+    width: 100%; /* Ensure it takes up full width */
 }
 
 /* Post */
@@ -433,8 +441,9 @@ a:hover {
     background-color: var(--card-background);
     border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow-color);
-    padding: 20px; /* Reduced from 40px to decrease height */
+    padding: 25px 30px; /* Slightly increased horizontal padding */
     margin-bottom: 10px; /* Reduced from 20px */
+    width: 100%; /* Ensure it takes up full width */
 }
 
 /* Remove hover animation */
