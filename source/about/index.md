@@ -6,8 +6,8 @@ date: 2021-03-02 14:52:41
 <div class="about-page">
 
 <div class="about-header">
-  <div class="avatar-container">
-    <img src="https://img9.doubanio.com/icon/ul52829878-16.jpg" alt="xawei" class="about-avatar">
+  <div class="profile-avatar">
+    <img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202505062012266.png" alt="xawei" class="about-avatar">
   </div>
   <div class="intro-text">
     <p>嗨，我是 <strong>xawei</strong>，喜欢学习🙂</p>
