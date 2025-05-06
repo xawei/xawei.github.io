@@ -85,8 +85,9 @@
     <div class="background-wrapper"></div>
     <div class="container">
         
-        <div class="main-content">
-            <article class="post">
+        <div class="content-wrapper post-layout">
+            <div class="main-content">
+                <article class="post">
     <div class="post-header">
         <h1 class="post-title">EJS Template Engine Guide for Backend Engineers</h1>
         <div class="post-meta">
@@ -281,26 +282,26 @@
             </div>
         </div>
     </div>
-</article>
-
-
-    <div class="toc-container">
-        <div class="toc-sticky">
-            <div class="toc-header">
-                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
-                <button class="toc-toggle" aria-label="Toggle Table of Contents">
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
+</article> 
             </div>
-            <div class="toc-content">
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><span class="toc-text">Understanding EJS: A Comprehensive Guide for Backend Engineers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-EJS"><span class="toc-text">What is EJS?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Tags"><span class="toc-text">EJS Tags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Scriptlet-Tag"><span class="toc-text">1. &lt;% %&gt; (Scriptlet Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Output-Tag-HTML-Escaped"><span class="toc-text">2. &lt;%&#x3D; %&gt; (Output Tag - HTML Escaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Output-Tag-Unescaped"><span class="toc-text">3. &lt;%- %&gt; (Output Tag - Unescaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Comment-Tag"><span class="toc-text">4. &lt;%# %&gt; (Comment Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Additional-Tags"><span class="toc-text">5. Additional Tags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Passing-Data-to-EJS-Templates"><span class="toc-text">Passing Data to EJS Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-to-EJS"><span class="toc-text">Server to EJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Missing-Data-Safely"><span class="toc-text">Handling Missing Data Safely</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EJS-to-Server-Form-Submission"><span class="toc-text">EJS to Server (Form Submission)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Partials-and-Layouts"><span class="toc-text">EJS Partials and Layouts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partials"><span class="toc-text">Partials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layouts"><span class="toc-text">Layouts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-EJS-to-Generate-a-Static-Website"><span class="toc-text">Using EJS to Generate a Static Website</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Static-Site-Generation"><span class="toc-text">Basic Static Site Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Features-for-Static-Site-Generation"><span class="toc-text">Advanced Features for Static Site Generation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">
+                        <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                        <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                    </div>
+                    <div class="toc-content">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Understanding-EJS-A-Comprehensive-Guide-for-Backend-Engineers"><span class="toc-text">Understanding EJS: A Comprehensive Guide for Backend Engineers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-EJS"><span class="toc-text">What is EJS?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Tags"><span class="toc-text">EJS Tags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Scriptlet-Tag"><span class="toc-text">1. &lt;% %&gt; (Scriptlet Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Output-Tag-HTML-Escaped"><span class="toc-text">2. &lt;%&#x3D; %&gt; (Output Tag - HTML Escaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Output-Tag-Unescaped"><span class="toc-text">3. &lt;%- %&gt; (Output Tag - Unescaped)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Comment-Tag"><span class="toc-text">4. &lt;%# %&gt; (Comment Tag)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Additional-Tags"><span class="toc-text">5. Additional Tags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Passing-Data-to-EJS-Templates"><span class="toc-text">Passing Data to EJS Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-to-EJS"><span class="toc-text">Server to EJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Missing-Data-Safely"><span class="toc-text">Handling Missing Data Safely</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EJS-to-Server-Form-Submission"><span class="toc-text">EJS to Server (Form Submission)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EJS-Partials-and-Layouts"><span class="toc-text">EJS Partials and Layouts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partials"><span class="toc-text">Partials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layouts"><span class="toc-text">Layouts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-EJS-to-Generate-a-Static-Website"><span class="toc-text">Using EJS to Generate a Static Website</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Static-Site-Generation"><span class="toc-text">Basic Static Site Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Features-for-Static-Site-Generation"><span class="toc-text">Advanced Features for Static Site Generation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+                    </div>
+                    <div class="toc-progress">
+                        <div class="toc-progress-bar"></div>
+                    </div>
+                </div>
             </div>
-            <div class="toc-progress">
-                <div class="toc-progress-bar"></div>
-            </div>
-        </div>
-    </div>
- 
+            
         </div>
         
     </div>

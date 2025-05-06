@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!headings.length) return;
 
     // Get current scroll position with offset for fixed header
-    const headerHeight = document.querySelector('.banner')?.offsetHeight || 80;
+    const headerHeight = document.querySelector('.banner')?.offsetHeight || 70;
     const scrollPosition = window.scrollY + headerHeight + 20;
 
     // Find the current heading
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Calculate reading progress
     const contentHeight = document.querySelector('.post-content').offsetHeight;
-    const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
+    const scrollPosition = window.scrollY;
     const scrollableHeight = contentHeight - windowHeight;
     
     // Calculate percentage of scroll progress
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (targetElement) {
         // Get header height for offset
-        const headerHeight = document.querySelector('.banner')?.offsetHeight || 80;
+        const headerHeight = document.querySelector('.banner')?.offsetHeight || 70;
         
         // Smooth scroll to target with offset
         window.scrollTo({
@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
           targetElement.classList.remove('anchor-highlight');
         }, 2000);
         
-        // If on mobile, auto-collapse TOC after clicking
-        if (window.innerWidth <= 768) {
-          tocSticky.classList.add('collapsed');
-          localStorage.setItem('tocCollapsed', 'true');
+        // On mobile, don't auto-collapse to keep TOC visible during scrolling
+        if (window.innerWidth <= 768 && tocSticky.classList.contains('collapsed')) {
+          tocSticky.classList.remove('collapsed');
+          localStorage.setItem('tocCollapsed', 'false');
         }
       }
     });
@@ -173,5 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
       tocSticky.classList.remove('collapsed');
       localStorage.setItem('tocCollapsed', 'false');
     }
+  });
+  
+  // Force update TOC position and active state when window is resized
+  window.addEventListener('resize', function() {
+    setActiveTocLink();
+    updateProgressIndicator();
   });
 }); 

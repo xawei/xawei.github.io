@@ -85,8 +85,9 @@
     <div class="background-wrapper"></div>
     <div class="container">
         
-        <div class="main-content">
-            <article class="post">
+        <div class="content-wrapper post-layout">
+            <div class="main-content">
+                <article class="post">
     <div class="post-header">
         <h1 class="post-title">Introduction to Istio Resources</h1>
         <div class="post-meta">
@@ -153,7 +154,7 @@
 <h2 id="AuthorizationPolicy"><a href="#AuthorizationPolicy" class="headerlink" title="AuthorizationPolicy"></a>AuthorizationPolicy</h2><p><strong>Purpose</strong>:<br>Controls access permissions to services within the mesh.</p>
 <p><strong>Example</strong>:<br>This policy allows only users with a specific JWT claim to access my-app.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">security.istio.io/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">AuthorizationPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-app-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">my-app</span></span><br><span class="line">  <span class="attr">action:</span> <span class="string">ALLOW</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">source:</span></span><br><span class="line">            <span class="attr">requestPrincipals:</span> [<span class="string">&quot;user@example.com&quot;</span>]</span><br></pre></td></tr></table></figure>
-<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#x75;&#x73;&#101;&#x72;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#99;&#x6f;&#109;">&#x75;&#x73;&#101;&#x72;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#99;&#x6f;&#109;</a> as JWT claim are allowed.</p>
+<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#117;&#x73;&#101;&#x72;&#x40;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#46;&#99;&#x6f;&#x6d;">&#117;&#x73;&#101;&#x72;&#x40;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#46;&#99;&#x6f;&#x6d;</a> as JWT claim are allowed.</p>
 <h2 id="Summary-of-Key-Istio-CRDs"><a href="#Summary-of-Key-Istio-CRDs" class="headerlink" title="Summary of Key Istio CRDs"></a>Summary of Key Istio CRDs</h2><table>
 <thead>
 <tr>
@@ -231,26 +232,26 @@
             </div>
         </div>
     </div>
-</article>
-
-
-    <div class="toc-container">
-        <div class="toc-sticky">
-            <div class="toc-header">
-                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
-                <button class="toc-toggle" aria-label="Toggle Table of Contents">
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
+</article> 
             </div>
-            <div class="toc-content">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gateway"><span class="toc-text">Gateway</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VirtualService"><span class="toc-text">VirtualService</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DestinationRule"><span class="toc-text">DestinationRule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServiceEntry"><span class="toc-text">ServiceEntry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sidecar"><span class="toc-text">Sidecar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PeerAuthentication"><span class="toc-text">PeerAuthentication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AuthorizationPolicy"><span class="toc-text">AuthorizationPolicy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-of-Key-Istio-CRDs"><span class="toc-text">Summary of Key Istio CRDs</span></a></li></ol>
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">
+                        <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span>目录</span></div>
+                        <button class="toc-toggle" aria-label="Toggle Table of Contents">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                    </div>
+                    <div class="toc-content">
+                        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gateway"><span class="toc-text">Gateway</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VirtualService"><span class="toc-text">VirtualService</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DestinationRule"><span class="toc-text">DestinationRule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServiceEntry"><span class="toc-text">ServiceEntry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sidecar"><span class="toc-text">Sidecar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PeerAuthentication"><span class="toc-text">PeerAuthentication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AuthorizationPolicy"><span class="toc-text">AuthorizationPolicy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-of-Key-Istio-CRDs"><span class="toc-text">Summary of Key Istio CRDs</span></a></li></ol>
+                    </div>
+                    <div class="toc-progress">
+                        <div class="toc-progress-bar"></div>
+                    </div>
+                </div>
             </div>
-            <div class="toc-progress">
-                <div class="toc-progress-bar"></div>
-            </div>
-        </div>
-    </div>
- 
+            
         </div>
         
     </div>
