@@ -433,7 +433,7 @@ a:hover {
     background-color: var(--card-background);
     border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow-color);
-    padding: 25px; /* Reduced from 40px to decrease height */
+    padding: 20px; /* Reduced from 40px to decrease height */
     margin-bottom: 10px; /* Reduced from 20px */
 }
 
