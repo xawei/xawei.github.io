@@ -2215,6 +2215,7 @@ h6:target {
 .about-page {
     background: var(--card-background);
     padding: 30px;
+    padding-top: 0;
     border-radius: var(--card-radius);
     /* box-shadow: 0 2px 5px var(--shadow-color); */
 }
@@ -3452,7 +3453,7 @@ body.post-page .container {
 
 /* Post header spacing */
 .post-header {
-  margin-bottom: 15px; /* Reduced from 30px to decrease height */
+  margin-bottom: 0;
 }
 
 /* Make sure the TOC is always visible */
@@ -3595,7 +3596,7 @@ h1, h2, h3, h4, h5, h6 {
     .post-title {
         font-size: 1.1rem; /* Even smaller for very small screens */
         line-height: 1.2;
-        margin-bottom: 8px;
+        margin-bottom: 0;
     }
     
     /* Make about header more compact on small screens */
