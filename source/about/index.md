@@ -6,12 +6,11 @@ date: 2021-03-02 14:52:41
 <div class="about-page">
 
 <div class="about-header">
-  <div class="profile-avatar">
+  <div class="avatar-container">
     <img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202505062012266.png" alt="xawei" class="about-avatar">
   </div>
   <div class="intro-text">
-    <p>嗨，我是 <strong>xawei</strong>，喜欢学习🙂</p>
-    <p>这个博客记录我在技术探索中的心得、解决方案和日常思考。</p>
+    <p>嗨，我是 <strong>xawei</strong>，喜欢学习🙂</p><p>这个博客记录我在技术探索中的心得、解决方案和日常思考。</p>
   </div>
 </div>
 
