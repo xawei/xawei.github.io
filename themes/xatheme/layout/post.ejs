@@ -74,23 +74,4 @@
             </div>
         </div>
     </div>
-</article>
-
-<% if (theme.features.toc && page.toc !== false) { %>
-    <div class="toc-container">
-        <div class="toc-sticky">
-            <div class="toc-header">
-                <div class="toc-title"><i class="fa-solid fa-list-ul"></i> <span><%= __('sidebar.toc') %></span></div>
-                <button class="toc-toggle" aria-label="Toggle Table of Contents">
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
-            </div>
-            <div class="toc-content">
-                <%- toc(page.content, {list_number: false}) %>
-            </div>
-            <div class="toc-progress">
-                <div class="toc-progress-bar"></div>
-            </div>
-        </div>
-    </div>
-<% } %> 
+</article> 
