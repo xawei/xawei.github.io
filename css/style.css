@@ -2248,22 +2248,26 @@ h6:target {
 
 .intro-text {
     flex: 1;
-    min-width: 300px;
+    min-width: 250px; /* Reduced from 300px to allow better wrapping on narrow screens */
+    max-width: 100%; /* Ensure it doesn't overflow its container */
 }
 
 .intro-text p {
     font-size: 1.1rem;
-    line-height: 1.2 !important; /* Further reduced and added !important to override any inherited styles */
+    line-height: 1.4 !important; /* Increased from 1.2 for better readability */
     color: var(--text-color);
-    margin-bottom: 5px !important; /* Added !important to override any inherited styles */
-    margin-top: 5px !important; /* Added !important to override any inherited styles */
-    padding-bottom: 5px !important; /* Ensure no padding is adding extra space */
-    padding-top: 5px !important; /* Ensure no padding is adding extra space */
+    margin-bottom: 8px !important; /* Increased from 5px for better spacing */
+    margin-top: 5px !important;
+    padding-bottom: 5px !important; 
+    padding-top: 5px !important;
+    width: 100%; /* Ensure the paragraph takes full width */
+    word-wrap: break-word; /* Enable word wrapping */
+    overflow-wrap: break-word; /* Modern version of word-wrap */
 }
 
 /* Add a special style for the specific paragraphs in about page */
 .about-header .intro-text p {
-    line-height: 1.2 !important;
+    line-height: 1.4 !important; /* Increased from 1.2 */
     margin: 5px !important;
     padding: 5px !important;
 }
@@ -3201,7 +3205,7 @@ body.post-page .container {
 @media (max-width: 768px) {
     .toc-container {
         position: sticky;
-        top: 60px;
+        top: 110px !important; /* Increase top position to prevent overlap with navbar */
         max-height: 300px;
     }
     
@@ -3496,17 +3500,21 @@ h1, h2, h3, h4, h5, h6 {
 /* Add a more specific targeting for the paragraphs in about page */
 .about-page .about-header .intro-text p {
     font-size: 1.1rem !important;
-    line-height: 1 !important; /* Very tight line height */
-    margin: 0 !important;
+    line-height: 1.4 !important; /* Increased from 1 for better readability */
+    margin: 0 0 8px 0 !important; /* Added bottom margin between paragraphs */
     letter-spacing: normal !important;
     text-indent: 0 !important;
     height: auto !important;
     text-align: left !important; /* Ensure text aligns left on all devices */
+    word-wrap: break-word !important; /* Enable word wrapping */
+    overflow-wrap: break-word !important; /* Modern version of word-wrap */
+    hyphens: auto !important; /* Add hyphens when breaking words if needed */
+    max-width: 100% !important; /* Ensure text doesn't overflow container */
 }
 
 /* Style for strong elements in intro text */
 .about-page .about-header .intro-text p strong {
-    line-height: 1 !important;
+    line-height: 1.4 !important; /* Match paragraph line height */
     font-weight: bold;
     display: inline !important;
     margin: 0 !important;
@@ -3603,5 +3611,51 @@ h1, h2, h3, h4, h5, h6 {
     
     .sidebar {
         margin-bottom: 5px; /* Further reduced */
+    }
+}
+
+@media (max-width: 768px) {
+    /* existing code */
+    
+    /* Improve about page layout on mobile */
+    .about-header {
+        margin-bottom: 20px;
+        gap: 20px; /* Added gap between avatar and text */
+    }
+    
+    .intro-text {
+        min-width: 100% !important; /* Override the min-width on mobile */
+        width: 100% !important; 
+        padding: 0 !important; /* Remove padding that might cause overflow */
+    }
+    
+    .about-header .intro-text {
+        width: 100% !important;
+        min-width: 0 !important;
+        word-break: break-word !important; /* Force word breaks if needed */
+    }
+    
+    .about-header .intro-text p {
+        font-size: 1rem !important; /* Slightly smaller text on mobile */
+        width: 100% !important; 
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        word-break: normal !important;
+        hyphens: auto !important;
+        white-space: normal !important;
+    }
+    
+    /* existing code */
+}
+
+@media (max-width: 480px) {
+    /* existing code */
+    
+    /* Further adjust intro text for very small screens */
+    .about-header .intro-text p {
+        font-size: 0.95rem !important; /* Even smaller font for very small screens */
+        padding: 0 !important;
+        margin: 4px 0 !important; /* Adjust margins for tight spacing */
     }
 }
