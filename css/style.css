@@ -341,7 +341,7 @@ a:hover {
     color: var(--text-color);
     letter-spacing: 0.05em;
     transition: font-size 0.3s ease, color 0.3s ease;
-    font-family: 'Pacifico', 'Brush Script MT', cursive; /* Added handwriting style font */
+    font-family: 'Architects Daughter', 'Comic Neue', cursive; /* Changed from Pacifico to Architects Daughter for Excalidraw style */
 }
 
 .banner.scrolled .logo .title {
@@ -2215,20 +2215,26 @@ h6:target {
     align-items: center;
     margin-bottom: 40px;
     flex-wrap: wrap;
+    gap: 25px; /* Add gap for horizontal spacing between avatar and intro-text */
 }
 
 .avatar-container {
-    margin-right: 30px;
+    margin-right: 20px;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.profile-avatar img,
 .about-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Consistent circle style for both avatars */
     object-fit: cover;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--light-background);
+    display: block; /* Ensure proper display */
 }
 
 .intro-text {
@@ -2238,9 +2244,19 @@ h6:target {
 
 .intro-text p {
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: 1.2 !important; /* Further reduced and added !important to override any inherited styles */
     color: var(--text-color);
-    margin-bottom: 10px;
+    margin-bottom: 5px !important; /* Added !important to override any inherited styles */
+    margin-top: 5px !important; /* Added !important to override any inherited styles */
+    padding-bottom: 5px !important; /* Ensure no padding is adding extra space */
+    padding-top: 5px !important; /* Ensure no padding is adding extra space */
+}
+
+/* Add a special style for the specific paragraphs in about page */
+.about-header .intro-text p {
+    line-height: 1.2 !important;
+    margin: 5px !important;
+    padding: 5px !important;
 }
 
 .about-section {
@@ -2476,12 +2492,19 @@ h6:target {
 @media (max-width: 768px) {
     .about-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
     }
     
     .avatar-container {
         margin-right: 0;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .about-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%; /* Ensure circle on mobile */
     }
     
     .skills-container {
@@ -3413,4 +3436,35 @@ body.post-page .container {
 /* Make headings have proper scroll margin */
 h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 100px;
+}
+
+/* Ensure about-avatar is always circular, even if inside post-content */
+.about-page .avatar-container .about-avatar,
+.about-header .avatar-container .about-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50% !important; /* Use !important to ensure it overrides other rules */
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border: 3px solid var(--light-background);
+    display: block;
+}
+
+/* Add a more specific targeting for the paragraphs in about page */
+.about-page .about-header .intro-text p {
+    font-size: 1.1rem !important;
+    line-height: 1 !important; /* Very tight line height */
+    margin: 0 !important;
+    letter-spacing: normal !important;
+    text-indent: 0 !important;
+    height: auto !important;
+}
+
+/* Style for strong elements in intro text */
+.about-page .about-header .intro-text p strong {
+    line-height: 1 !important;
+    font-weight: bold;
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
