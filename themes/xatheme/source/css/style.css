@@ -3477,3 +3477,96 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        gap: 8px; /* Reduced from 15px to bring posts-list closer to sidebar on mobile */
+    }
+    
+    .sidebar {
+        flex: 0 0 auto;
+        position: relative;
+        top: 0;
+        max-height: none;
+        margin-bottom: 8px; /* Reduced from 15px */
+        margin-top: 0; /* Ensure no top margin creates overlap with navbar */
+        z-index: 8; /* Lower than navbar to prevent overlap */
+    }
+    
+    /* Container spacing */
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+        padding-top: 110px; /* Increased from 85px to prevent sidebar overlap with navbar */
+        z-index: 10;
+    }
+    
+    /* Reduce post title font size on smaller screens */
+    .post-title {
+        font-size: 1.2rem; /* Reduced from 1.3rem for better mobile display */
+        margin-bottom: 10px; /* Reduced from 15px */
+        line-height: 1.3;
+    }
+    
+    /* Make post header closer to title */
+    .page-header {
+        margin-bottom: 15px; /* Reduced from 30px */
+    }
+
+    /* Reduce space between posts */
+    .posts-list {
+        gap: 8px; /* Reduced from larger values to make posts closer together */
+        padding-top: 2px; /* Further reduced */
+    }
+    
+    /* Reduce space in about page */
+    .about-header {
+        margin-bottom: 20px; /* Reduced from 40px to make it more compact */
+    }
+    
+    .about-section {
+        margin-bottom: 25px; /* Reduced from 40px */
+        padding-bottom: 20px; /* Reduced from 30px */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Even smaller screens */
+    
+    /* Bring content much closer to navbar on very small screens */
+    .banner {
+        min-height: 100px; /* Reduced from 110px */
+    }
+    
+    .banner.scrolled {
+        min-height: 100px; /* Reduced from 110px */
+    }
+    
+    .container {
+        padding-top: 105px; /* Adjusted to prevent overlap while keeping content close to navbar */
+    }
+    
+    /* Further reduce title size on very small screens */
+    .post-title {
+        font-size: 1.1rem; /* Even smaller for very small screens */
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+    
+    /* Make about header more compact on small screens */
+    .about-header {
+        margin-bottom: 15px; /* Even further reduced */
+        gap: 15px; /* Reduced from 25px */
+    }
+    
+    /* Make content wrapper and sidebar closer */
+    .content-wrapper {
+        gap: 5px; /* Further reduced */
+    }
+    
+    .sidebar {
+        margin-bottom: 5px; /* Further reduced */
+    }
+}
