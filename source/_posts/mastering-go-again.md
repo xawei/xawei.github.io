@@ -104,7 +104,42 @@ fmt.Printf("User: %+v\n", u)  // Output: User: {ID:1 Name:Alice}
 - **Interfaces**: Define behavior with method signatures, e.g., `type Writer interface { Write([]byte) (int, error) }`. Implicit satisfaction—no explicit `implements`.
 
 **Interface Example**:
+```go
+package main
 
+import "fmt"
+
+type Shape interface {
+    Area() float64
+}
+
+type Circle struct {
+    Radius float64
+}
+
+func (c Circle) Area() float64 {
+    return 3.14 * c.Radius * c.Radius
+}
+
+type Rectangle struct {
+    Width, Height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.Width * r.Height
+}
+
+func PrintArea(s Shape) {
+    fmt.Println("Area:", s.Area())
+}
+
+func main() {
+    c := Circle{Radius: 5}
+    r := Rectangle{Width: 4, Height: 6}
+    PrintArea(c)  // Output: Area: 78.5
+    PrintArea(r)  // Output: Area: 24
+}
+```
 
 
 ### Slices and Maps
@@ -252,28 +287,54 @@ Go’s standard library is a treasure trove—here are the essentials:
 ---
 
 ## 7. Best Practices
-
 To write professional Go code:
-
 ### Code Organization
 
 - Group related code into packages.
 - Follow the [standard layout](https://github.com/golang-standards/project-layout).
 
 ### Error Handling
-
 - Handle errors at the point of occurrence.
 - Wrap errors with context using `fmt.Errorf` or `errors` package.
 
 ### Performance
-
 - Avoid unnecessary allocations (e.g., reuse buffers).
 - Use `go tool pprof` to profile.
 
 ### Idiomatic Go
-
 - Keep code simple and readable.
 - Use `go fmt` and `go vet` to enforce standards.
+
+---
+
+## 8. What’s New in Go?
+
+Since 2023, Go has evolved with major releases: Go 1.22 (February 2024), Go 1.23 (August 2024), and Go 1.24 (February 2025). Below are the most significant updates for backend developers, based on the latest information up to May 2025:
+
+### Language Enhancements
+
+- **Generic Type Aliases (Go 1.24)**: Building on generics from Go 1.18, Go 1.24 supports generic type aliases, enabling more flexible type definitions for reusable code.
+- **Enhanced Looping Constructs**:
+  - **Ranging over Integers (Go 1.22)**: `for range` loops can iterate over integers, simplifying counted loops.
+  - **Iterator Functions (Go 1.23)**: `for range` supports iterator functions, making custom data structure iteration more intuitive with the new `iter` package.
+
+### Standard Library Improvements
+
+- **Enhanced HTTP Routing (Go 1.22)**: The `net/http.ServeMux` now supports method-based routing (e.g., `POST /items`) and wildcards (e.g., `/items/{id}`), improving web application development.
+- **New Cryptographic Packages (Go 1.24)**: Packages like `crypto/mlkem` (for post-quantum cryptography), `crypto/hkdf`, `crypto/pbkdf2`, and `crypto/sha3` enhance security for sensitive applications.
+- **Directory-Scoped Filesystem Access (Go 1.24)**: New `os.Root` and `os.OpenRoot` APIs provide safer file operations within specified directories, reducing security risks.
+
+### Performance Optimizations
+
+- **New Map Implementation (Go 1.24)**: The built-in `map` type uses Swiss Tables, reducing CPU overhead by 2–3% and improving hash map performance.
+- **Timer and Ticker Changes (Go 1.23)**: `Timer` and `Ticker` are now garbage-collectible immediately and avoid stale values, improving concurrency reliability.
+
+### Tooling and Ecosystem
+
+- **Tool Dependencies in go.mod (Go 1.24)**: Track executable dependencies directly in `go.mod` using `tool` directives, streamlining project setup.
+- **Telemetry (Go 1.23)**: Opt-in telemetry collects usage statistics to improve Go, controlled via `go telemetry`.
+
+**Tip**: Experiment with these features in small projects, like using the new HTTP routing for a REST API or generic type aliases in a utility library. Check the [official release notes](https://go.dev/doc/devel/release) for full details.
 
 ---
 
