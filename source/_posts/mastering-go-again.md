@@ -1,5 +1,5 @@
 ---
-title: Mastering Go Again: A Refresher for Developers with Prior Experience
+title: "Mastering Go Again: A Refresher for Developers with Prior Experience"
 date: 2025-05-12 08:10:00
 categories:
   - Go, Programming Language
