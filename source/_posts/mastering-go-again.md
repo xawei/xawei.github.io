@@ -303,8 +303,7 @@ To write professional Go code:
 
 ### Idiomatic Go
 - Keep code simple and readable.
-- Use `go fmt` and `go vet` to enforce standards.  
-
+- Use `go fmt` and `go vet` to enforce standards.
 
 ---
 
