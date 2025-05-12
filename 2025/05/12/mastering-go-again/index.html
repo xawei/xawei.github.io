@@ -157,8 +157,128 @@
 <p><strong>Error Handling Example</strong>:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.Open(<span class="string">&quot;missing.txt&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Error:&quot;</span>, err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> file.Close()</span><br><span class="line">fmt.Println(<span class="string">&quot;File opened successfully&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<p><strong>Quick Tip</strong>: Write small programs to practice these basics—something like a CLI tool to rebuild muscle memory.</p>
-<h2 id="2-Advanced-Data-Types"><a href="#2-Advanced-Data-Types" class="headerlink" title="2. Advanced Data Types"></a>2. Advanced Data Types</h2>
+<hr>
+<h2 id="2-Advanced-Data-Types"><a href="#2-Advanced-Data-Types" class="headerlink" title="2. Advanced Data Types"></a>2. Advanced Data Types</h2><p>Go’s power lies in its simple yet flexible data types. Here’s what to revisit:</p>
+<h3 id="Structs-and-Interfaces"><a href="#Structs-and-Interfaces" class="headerlink" title="Structs and Interfaces"></a>Structs and Interfaces</h3><ul>
+<li><strong>Structs</strong>: Define custom types with <code>type Person struct &#123; Name string; Age int &#125;</code>. Use embedding for composition over inheritance.</li>
+</ul>
+<p><strong>Struct Example</strong>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID   <span class="type">int</span></span><br><span class="line">    Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line">u := User&#123;ID: <span class="number">1</span>, Name: <span class="string">&quot;Alice&quot;</span>&#125;</span><br><span class="line">fmt.Printf(<span class="string">&quot;User: %+v\n&quot;</span>, u)  <span class="comment">// Output: User: &#123;ID:1 Name:Alice&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Interfaces</strong>: Define behavior with method signatures, e.g., <code>type Writer interface &#123; Write([]byte) (int, error) &#125;</code>. Implicit satisfaction—no explicit <code>implements</code>.</li>
+</ul>
+<p><strong>Interface Example</strong>:</p>
+<h3 id="Slices-and-Maps"><a href="#Slices-and-Maps" class="headerlink" title="Slices and Maps"></a>Slices and Maps</h3><ul>
+<li><strong>Slices</strong>: Dynamic arrays created with <code>make([]int, length, capacity)</code> or <code>[]int&#123;1, 2, 3&#125;</code>. Master <code>append()</code> and slicing operations like <code>slice[1:3]</code>.</li>
+<li><strong>Maps</strong>: Key-value stores via <code>make(map[keyType]valueType)</code> or <code>map[string]int&#123;&quot;a&quot;: 1&#125;</code>. Check existence with <code>val, ok := m[&quot;key&quot;]</code>.</li>
+</ul>
+<p><strong>Map Example</strong>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scores := <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>&#123;</span><br><span class="line">    <span class="string">&quot;Alice&quot;</span>: <span class="number">95</span>,</span><br><span class="line">    <span class="string">&quot;Bob&quot;</span>:   <span class="number">87</span>,</span><br><span class="line">&#125;</span><br><span class="line">scores[<span class="string">&quot;Charlie&quot;</span>] = <span class="number">91</span></span><br><span class="line">fmt.Println(scores[<span class="string">&quot;Alice&quot;</span>])  <span class="comment">// Output: 95</span></span><br><span class="line"><span class="built_in">delete</span>(scores, <span class="string">&quot;Bob&quot;</span>)</span><br><span class="line">fmt.Println(scores)  <span class="comment">// Output: map[Alice:95 Charlie:91]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Pointers"><a href="#Pointers" class="headerlink" title="Pointers"></a>Pointers</h3><ul>
+<li>Use <code>&amp;</code> to get a memory address and <code>*</code> to dereference.</li>
+<li>Go avoids pointer arithmetic, keeping things safe and simple.</li>
+</ul>
+<hr>
+<h2 id="3-Concurrency"><a href="#3-Concurrency" class="headerlink" title="3. Concurrency"></a>3. Concurrency</h2><p>Concurrency is Go’s killer feature, and as a backend developer, you’ll want to master it for scalable systems.</p>
+<h3 id="Goroutines"><a href="#Goroutines" class="headerlink" title="Goroutines"></a>Goroutines</h3><ul>
+<li>Lightweight threads launched with <code>go myFunction()</code>.</li>
+<li>Managed by the Go runtime, not the OS—super efficient.</li>
+</ul>
+<h3 id="Channels"><a href="#Channels" class="headerlink" title="Channels"></a>Channels</h3><ul>
+<li>Communicate between goroutines with <code>ch := make(chan int)</code>.</li>
+<li>Buffered channels (<code>make(chan int, 10)</code>) allow sending without immediate receiving.</li>
+<li>Use <code>&lt;-</code> to send or receive data.</li>
+</ul>
+<h3 id="Select-Statements"><a href="#Select-Statements" class="headerlink" title="Select Statements"></a>Select Statements</h3><ul>
+<li>Handle multiple channels with <code>select &#123; case &lt;-ch1: ...; case ch2 &lt;- val: ... &#125;</code>.</li>
+<li>Great for timeouts or non-blocking operations.</li>
+</ul>
+<h3 id="Synchronization-Primitives"><a href="#Synchronization-Primitives" class="headerlink" title="Synchronization Primitives"></a>Synchronization Primitives</h3><ul>
+<li><code>sync.Mutex</code>: Lock shared resources.</li>
+<li><code>sync.WaitGroup</code>: Wait for multiple goroutines to finish.</li>
+<li><code>sync.Once</code>: Ensure a function runs exactly once.</li>
+</ul>
+<p><strong>Concurrency Example</strong>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">(id <span class="type">int</span>, ch <span class="keyword">chan</span> <span class="type">string</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> wg.Done()</span><br><span class="line">    ch &lt;- fmt.Sprintf(<span class="string">&quot;Worker %d done&quot;</span>, id)</span><br><span class="line">&#125;</span><br><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>)</span><br><span class="line"><span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++ &#123;</span><br><span class="line">    wg.Add(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> worker(i, ch, &amp;wg)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    wg.Wait()</span><br><span class="line">    <span class="built_in">close</span>(ch)</span><br><span class="line">&#125;()</span><br><span class="line"><span class="keyword">for</span> msg := <span class="keyword">range</span> ch &#123;</span><br><span class="line">    fmt.Println(msg)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>Output</em>: Varies, e.g., “Worker 1 done”, “Worker 3 done”, “Worker 2 done”.<br><strong>Practice</strong>: Write a concurrent web scraper or a worker pool to solidify these patterns.</p>
+<hr>
+<h2 id="4-Packages-and-Modules"><a href="#4-Packages-and-Modules" class="headerlink" title="4. Packages and Modules"></a>4. Packages and Modules</h2><p>Go’s module system is critical for managing code and dependencies.</p>
+<h3 id="Importing-and-Using-Packages"><a href="#Importing-and-Using-Packages" class="headerlink" title="Importing and Using Packages"></a>Importing and Using Packages</h3><ul>
+<li>Import with <code>import &quot;fmt&quot;</code> or custom paths like <code>import &quot;github.com/user/repo&quot;</code>.</li>
+<li>Alias imports with <code>import f &quot;fmt&quot;</code>.</li>
+</ul>
+<h3 id="Creating-and-Managing-Modules"><a href="#Creating-and-Managing-Modules" class="headerlink" title="Creating and Managing Modules"></a>Creating and Managing Modules</h3><ul>
+<li>Initialize with <code>go mod init module/name</code>.</li>
+<li>The <code>go.mod</code> file tracks dependencies; <code>go.sum</code> ensures integrity.</li>
+</ul>
+<h3 id="Dependency-Management"><a href="#Dependency-Management" class="headerlink" title="Dependency Management"></a>Dependency Management</h3><ul>
+<li>Add dependencies with <code>go get package/path</code>.</li>
+<li>Clean up with <code>go mod tidy</code>.</li>
+</ul>
+<p><strong>Tip</strong>: Explore popular third-party packages like <code>github.com/gorilla/mux</code> for routing or <code>go.uber.org/zap</code> for logging.</p>
+<hr>
+<h2 id="5-Testing-and-Benchmarking"><a href="#5-Testing-and-Benchmarking" class="headerlink" title="5. Testing and Benchmarking"></a>5. Testing and Benchmarking</h2><p>Testing is built into Go, and it’s a must for backend reliability.</p>
+<h3 id="Writing-Unit-Tests"><a href="#Writing-Unit-Tests" class="headerlink" title="Writing Unit Tests"></a>Writing Unit Tests</h3><ul>
+<li>Place tests in <code>_test.go</code> files, e.g., <code>func TestAdd(t *testing.T)</code>.</li>
+<li>Use <code>t.Errorf()</code> to report failures.</li>
+<li>Run with <code>go test</code>.</li>
+</ul>
+<h3 id="Using-the-Testing-Package"><a href="#Using-the-Testing-Package" class="headerlink" title="Using the Testing Package"></a>Using the Testing Package</h3><ul>
+<li>Table-driven tests are idiomatic: loop over test cases in a slice.</li>
+</ul>
+<h3 id="Benchmarking-Functions"><a href="#Benchmarking-Functions" class="headerlink" title="Benchmarking Functions"></a>Benchmarking Functions</h3><ul>
+<li>Write benchmarks with <code>func BenchmarkX(b *testing.B)</code>.</li>
+<li>Run with <code>go test -bench=.</code>.</li>
+</ul>
+<p><strong>Practice</strong>: Test a simple REST API handler to get comfortable.</p>
+<hr>
+<h2 id="6-Standard-Library"><a href="#6-Standard-Library" class="headerlink" title="6. Standard Library"></a>6. Standard Library</h2><p>Go’s standard library is a treasure trove—here are the essentials:</p>
+<h3 id="Key-Packages"><a href="#Key-Packages" class="headerlink" title="Key Packages"></a>Key Packages</h3><ul>
+<li><code>fmt</code>: Printing and formatting.</li>
+<li><code>net/http</code>: Build servers and clients (e.g., <code>http.HandleFunc(&quot;/&quot;, handler)</code>).</li>
+<li><code>os</code> and <code>io</code>: File and I&#x2F;O operations.</li>
+<li><code>encoding/json</code>: JSON marshaling&#x2F;unmarshaling.</li>
+</ul>
+<h3 id="Effective-Use"><a href="#Effective-Use" class="headerlink" title="Effective Use"></a>Effective Use</h3><ul>
+<li>Skim the <a target="_blank" rel="noopener" href="https://pkg.go.dev/std">official docs</a> for each package.</li>
+<li>Look for idiomatic examples in open-source projects.</li>
+</ul>
+<p><strong>Practice</strong>: Build a small HTTP server to handle JSON requests.</p>
+<hr>
+<h2 id="7-Best-Practices"><a href="#7-Best-Practices" class="headerlink" title="7. Best Practices"></a>7. Best Practices</h2><p>To write professional Go code:</p>
+<h3 id="Code-Organization"><a href="#Code-Organization" class="headerlink" title="Code Organization"></a>Code Organization</h3><ul>
+<li>Group related code into packages.</li>
+<li>Follow the <a target="_blank" rel="noopener" href="https://github.com/golang-standards/project-layout">standard layout</a>.</li>
+</ul>
+<h3 id="Error-Handling-1"><a href="#Error-Handling-1" class="headerlink" title="Error Handling"></a>Error Handling</h3><ul>
+<li>Handle errors at the point of occurrence.</li>
+<li>Wrap errors with context using <code>fmt.Errorf</code> or <code>errors</code> package.</li>
+</ul>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><ul>
+<li>Avoid unnecessary allocations (e.g., reuse buffers).</li>
+<li>Use <code>go tool pprof</code> to profile.</li>
+</ul>
+<h3 id="Idiomatic-Go"><a href="#Idiomatic-Go" class="headerlink" title="Idiomatic Go"></a>Idiomatic Go</h3><ul>
+<li>Keep code simple and readable.</li>
+<li>Use <code>go fmt</code> and <code>go vet</code> to enforce standards.</li>
+</ul>
+<hr>
+<h2 id="Your-Roadmap-to-Mastery"><a href="#Your-Roadmap-to-Mastery" class="headerlink" title="Your Roadmap to Mastery"></a>Your Roadmap to Mastery</h2><p>Here’s how to put it all together:</p>
+<ol>
+<li><strong>Review Basics</strong>: Write quick programs (e.g., a file reader) to refresh syntax.</li>
+<li><strong>Practice Advanced Topics</strong>: Build a project with structs, interfaces, and concurrency (e.g., a task queue).</li>
+<li><strong>Explore the Standard Library</strong>: Create a REST API with <code>net/http</code>.</li>
+<li><strong>Learn New Features</strong>: Rewrite a function using generics.</li>
+<li><strong>Test and Optimize</strong>: Add tests and benchmarks to your project.</li>
+<li><strong>Build Real Applications</strong>: Develop a backend service (e.g., a URL shortener).</li>
+<li><strong>Stay Current</strong>: Follow <a target="_blank" rel="noopener" href="https://go.dev/blog/">Go Blog</a> and join the community on forums like <a target="_blank" rel="noopener" href="https://www.reddit.com/r/golang/">Reddit</a>.</li>
+</ol>
+<hr>
+<h2 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h2><p>You’ve got this! With your prior experience, this refresher should get you back to speed quickly. Focus on hands-on practice—coding is the best way to relearn Go. If you hit roadblocks or want deeper dives into specific topics (like generics or concurrency), feel free to dig deeper or ask for guidance. Happy coding, and welcome back to the world of Go!</p>
+
             </div>
             
             
@@ -225,7 +345,7 @@
                     <i class="fa-solid fa-list"></i> <span>目录</span>
                 </div>
                 <div class="toc-content">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Syntax-and-Structure"><span class="toc-text">1. Basic Syntax and Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Variables-Constants-and-Data-Types"><span class="toc-text">Variables, Constants, and Data Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Control-Structures"><span class="toc-text">Control Structures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions-and-Methods"><span class="toc-text">Functions and Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Handling"><span class="toc-text">Error Handling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Advanced-Data-Types"><span class="toc-text">2. Advanced Data Types</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Syntax-and-Structure"><span class="toc-text">1. Basic Syntax and Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Variables-Constants-and-Data-Types"><span class="toc-text">Variables, Constants, and Data Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Control-Structures"><span class="toc-text">Control Structures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions-and-Methods"><span class="toc-text">Functions and Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Handling"><span class="toc-text">Error Handling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Advanced-Data-Types"><span class="toc-text">2. Advanced Data Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Structs-and-Interfaces"><span class="toc-text">Structs and Interfaces</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Slices-and-Maps"><span class="toc-text">Slices and Maps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pointers"><span class="toc-text">Pointers</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Concurrency"><span class="toc-text">3. Concurrency</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Goroutines"><span class="toc-text">Goroutines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Channels"><span class="toc-text">Channels</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Select-Statements"><span class="toc-text">Select Statements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronization-Primitives"><span class="toc-text">Synchronization Primitives</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Packages-and-Modules"><span class="toc-text">4. Packages and Modules</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Importing-and-Using-Packages"><span class="toc-text">Importing and Using Packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Creating-and-Managing-Modules"><span class="toc-text">Creating and Managing Modules</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dependency-Management"><span class="toc-text">Dependency Management</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Testing-and-Benchmarking"><span class="toc-text">5. Testing and Benchmarking</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Writing-Unit-Tests"><span class="toc-text">Writing Unit Tests</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-the-Testing-Package"><span class="toc-text">Using the Testing Package</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Benchmarking-Functions"><span class="toc-text">Benchmarking Functions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Standard-Library"><span class="toc-text">6. Standard Library</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Packages"><span class="toc-text">Key Packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Effective-Use"><span class="toc-text">Effective Use</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Best-Practices"><span class="toc-text">7. Best Practices</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-Organization"><span class="toc-text">Code Organization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Handling-1"><span class="toc-text">Error Handling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Performance"><span class="toc-text">Performance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Idiomatic-Go"><span class="toc-text">Idiomatic Go</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Your-Roadmap-to-Mastery"><span class="toc-text">Your Roadmap to Mastery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Final-Thoughts"><span class="toc-text">Final Thoughts</span></a></li></ol>
                 </div>
             </div>
         </div>
