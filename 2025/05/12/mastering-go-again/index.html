@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastering Go Again: A Refresher for Developers with Prior Experience - MyCatalog</title>
+
+<link rel="icon" href="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20210221121303.png" />
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mastering Go Again: A Refresher for Developers with Prior Experience">
+<meta property="og:description" content="&lt;p&gt;Welcome back to Go! As a backend developer who hasn’t touched Go for years, you’re likely looking to refresh your skills and master the language without wading through beginner tutorials. This guide is designed for someone with prior experience who needs a detailed, concise refresher on Go’s essentials, including recent updates and best practices.&lt;/p&gt;">
+<meta property="og:url" content="https://xawei.xyz/2025/05/12/mastering-go-again/">
+<meta property="og:site_name" content="MyCatalog">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue&family=Architects+Daughter&display=swap" rel="stylesheet">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://xawei.xyz/2025/05/12/mastering-go-again/" 
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body class="post-page">
+    <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
+        <div class="banner-content">
+            <!-- Header & Logo -->
+<div class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <a href="/" class="title">
+                
+                    MyCatalog
+                
+            </a>
+        </div>
+        
+        <nav class="menu-container">
+            <ul class="menu">
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/">
+                            
+                                <i class="fa-solid fa-house"></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/categories">
+                            
+                                <i class="fa-solid fa-folder"></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/archives">
+                            
+                                <i class="fa-solid fa-box-archive"></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/about">
+                            
+                                <i class="fa-solid fa-user"></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                
+                
+            </ul>
+        </nav>
+    </div>
+</div> 
+        </div>
+    </div>
+    <div class="background-wrapper"></div>
+    <div class="container">
+        
+        <div class="main-content">
+            <div class="post-layout">
+    <!-- Main post content -->
+    <div class="post-main">
+        <article class="post">
+            <div class="post-header">
+                <h1 class="post-title">Mastering Go Again: A Refresher for Developers with Prior Experience</h1>
+                <div class="post-meta">
+                    <span><i class="fa-regular fa-calendar"></i> 2025-05-12</span>
+                    
+                        <span><i class="fa-regular fa-calendar-plus"></i> 2025-05-12</span>
+                    
+                    
+                        <span><i class="fa-regular fa-folder"></i>
+                            
+                                <a href="/categories/Go-Programming-Language/">Go, Programming Language</a>
+                                
+                            
+                        </span>
+                    
+                    
+                        <span><i class="fa-solid fa-tags"></i>
+                            
+                                <a href="/tags/Go/" class="post-tag">Go</a>
+                                
+                            
+                        </span>
+                    
+                </div>
+            </div>
+            
+            <div class="post-content">
+                <p>Welcome back to Go! As a backend developer who hasn’t touched Go for years, you’re likely looking to refresh your skills and master the language without wading through beginner tutorials. This guide is designed for someone with prior experience who needs a detailed, concise refresher on Go’s essentials, including recent updates and best practices.</p>
+<span id="more"></span>
+
+<h2 id="1-Basic-Syntax-and-Structure"><a href="#1-Basic-Syntax-and-Structure" class="headerlink" title="1. Basic Syntax and Structure"></a>1. Basic Syntax and Structure</h2><p>Since it’s been a while, let’s start with a quick review of Go’s foundational elements to jog your memory.</p>
+<h3 id="Variables-Constants-and-Data-Types"><a href="#Variables-Constants-and-Data-Types" class="headerlink" title="Variables, Constants, and Data Types"></a>Variables, Constants, and Data Types</h3><ul>
+<li><strong>Variables</strong>: Declared with <code>var name type</code> or using the shorthand <code>name := value</code>. Type inference makes the latter convenient.</li>
+<li><strong>Constants</strong>: Use <code>const name = value</code> for immutable values.</li>
+<li><strong>Data Types</strong>: Core types include <code>int</code>, <code>float64</code>, <code>bool</code>, <code>string</code>, and more. You’ll also encounter <code>rune</code> (a Unicode code point) and <code>byte</code> (an alias for <code>uint8</code>).</li>
+</ul>
+<h3 id="Control-Structures"><a href="#Control-Structures" class="headerlink" title="Control Structures"></a>Control Structures</h3><ul>
+<li><strong>If</strong>: Supports an optional initialization clause, e.g., <code>if x := compute(); x &gt; 0 &#123; ... &#125;</code>.</li>
+<li><strong>Switch</strong>: Cleaner than C-style switches—no fallthrough by default, and cases can be expressions.</li>
+<li><strong>For</strong>: The only loop in Go. Use it as a traditional <code>for i := 0; i &lt; 10; i++</code>, a while loop <code>for condition &#123;&#125;</code>, or an infinite loop <code>for &#123;&#125;</code>.</li>
+</ul>
+<p><strong>Switch Example:</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i <span class="keyword">interface</span>&#123;&#125; = <span class="string">&quot;Go&quot;</span></span><br><span class="line"><span class="keyword">switch</span> v := i.(<span class="keyword">type</span>) &#123;</span><br><span class="line"><span class="keyword">case</span> <span class="type">int</span>:</span><br><span class="line">    fmt.Println(<span class="string">&quot;Integer:&quot;</span>, v)</span><br><span class="line"><span class="keyword">case</span> <span class="type">string</span>:</span><br><span class="line">    fmt.Println(<span class="string">&quot;String:&quot;</span>, v)</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    fmt.Println(<span class="string">&quot;Unknown type&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Functions-and-Methods"><a href="#Functions-and-Methods" class="headerlink" title="Functions and Methods"></a>Functions and Methods</h3><ul>
+<li>Functions can return multiple values, e.g., <code>func divide(a, b int) (int, error)</code>.</li>
+<li>Methods are functions with a receiver, e.g., <code>func (r Receiver) MethodName()</code>.</li>
+<li>Anonymous functions (closures) are handy for inline logic.</li>
+</ul>
+<p><strong>Function Example</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(add(<span class="number">3</span>, <span class="number">4</span>))  <span class="comment">// Output: 7</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Method Example</strong>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Counter <span class="keyword">struct</span> &#123;</span><br><span class="line">    Value <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Counter)</span></span> Increment() &#123;</span><br><span class="line">    c.Value++</span><br><span class="line">&#125;</span><br><span class="line">c := Counter&#123;Value: <span class="number">0</span>&#125;</span><br><span class="line">c.Increment()</span><br><span class="line">fmt.Println(c.Value)  <span class="comment">// Output: 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h3><ul>
+<li>Errors are explicit values of type <code>error</code>. Check with <code>if err != nil</code>.</li>
+<li>Use <code>defer</code> to schedule cleanup tasks, like closing files or unlocking mutexes.</li>
+</ul>
+<p><strong>Error Handling Example</strong>:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.Open(<span class="string">&quot;missing.txt&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Error:&quot;</span>, err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> file.Close()</span><br><span class="line">fmt.Println(<span class="string">&quot;File opened successfully&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Quick Tip</strong>: Write small programs to practice these basics—something like a CLI tool to rebuild muscle memory.</p>
+<h2 id="2-Advanced-Data-Types"><a href="#2-Advanced-Data-Types" class="headerlink" title="2. Advanced Data Types"></a>2. Advanced Data Types</h2>
+            </div>
+            
+            
+                <div class="post-copyright">
+                    <div class="copyright-title">版权声明</div>
+                    <div class="copyright-info">
+                        <div class="copyright-info-item">
+                            <span>作者:</span>
+                            <span>xawei</span>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>post.copyright.created_at:</span>
+                            <span>2025-05-12</span>
+                        </div>
+                        
+                            <div class="copyright-info-item">
+                                <span>post.copyright.updated_at:</span>
+                                <span>2025-05-12</span>
+                            </div>
+                        
+                        <div class="copyright-info-item">
+                            <span>链接:</span>
+                            <a href="https://xawei.xyz/2025/05/12/mastering-go-again/">https://xawei.xyz/2025/05/12/mastering-go-again/</a>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            
+                <div class="post-tags">
+                    <div class="post-tags-header">post.tags:</div>
+                    <div class="post-tags-list">
+                        
+                            <a class="post-tag" href="/tags/Go/"># Go</a>
+                        
+                    </div>
+                </div>
+            
+            
+            <div class="post-navigation">
+                <div class="post-nav-prev">
+                    
+                </div>
+                <div class="post-nav-next">
+                    
+                        <a href="/2025/05/03/ejs-template-engine-guide-for-backend-engineers/" class="post-nav-link">
+                            <span class="post-nav-title">EJS Template Engine Guide for Backend Engineers</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- TOC column -->
+    
+        <div class="post-toc">
+            <div class="toc-inner">
+                <div class="toc-title">
+                    <i class="fa-solid fa-list"></i> <span>目录</span>
+                </div>
+                <div class="toc-content">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Syntax-and-Structure"><span class="toc-text">1. Basic Syntax and Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Variables-Constants-and-Data-Types"><span class="toc-text">Variables, Constants, and Data Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Control-Structures"><span class="toc-text">Control Structures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions-and-Methods"><span class="toc-text">Functions and Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Handling"><span class="toc-text">Error Handling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Advanced-Data-Types"><span class="toc-text">2. Advanced Data Types</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+    
+</div> 
+        </div>
+        
+    </div>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright">
+            © 2025 <i class="fa-solid fa-heart"></i> xawei
+        </div>
+    </div>
+</footer> 
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<!-- Theme scripts -->
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+ 
+</body>
+</html> 
