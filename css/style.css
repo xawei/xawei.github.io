@@ -2729,7 +2729,7 @@ figure.highlight,
 /* TOC Container Styling - fixed position on the right */
 .toc-container {
   position: fixed;
-  top: 90px; /* Adjusted to account for fixed header */
+  top: 120px; /* Increased from 90px to create more space */
   right: 20px;
   width: 280px;
   z-index: 100;
@@ -2738,7 +2738,7 @@ figure.highlight,
   border-radius: 12px;
   box-shadow: 0 4px 15px var(--shadow-color);
   border-left: 4px solid var(--primary-color);
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 150px); /* Adjusted to account for new top position */
   overflow-y: auto;
 }
 
@@ -3218,10 +3218,10 @@ body.post-page .container {
 @media (max-width: 768px) {
     .toc-container {
         position: sticky !important;
-        top: 130px !important; /* Increased from 110px to provide more space below navbar */
+        top: 150px !important; /* Increased from 130px to provide more space below navbar */
         max-height: 300px !important;
         width: 94% !important; /* Make it slightly narrower than the container */
-        margin: 0 auto 20px auto !important; /* Center it with some bottom margin */
+        margin: 20px auto 20px auto !important; /* Added top margin to create space */
         right: auto !important; /* Reset the right positioning */
     }
     
@@ -3241,9 +3241,10 @@ body.post-page .container {
 /* Additional adjustments for extra small screens */
 @media (max-width: 480px) {
     .toc-container {
-        top: 60px !important; /* Adjust for smaller header on mobile */
+        top: 80px !important; /* Increased from 60px for smaller devices */
         width: 100% !important; /* Full width on very small screens */
         max-height: 250px !important; /* Slightly shorter to leave more room for content */
+        margin: 15px auto 20px auto !important; /* Added top margin to create space */
     }
     
     .toc-inner {
@@ -3317,8 +3318,8 @@ body.post-page .main-content {
 /* TOC inner styles */
 .toc-inner {
   position: sticky;
-  top: 3rem; /* Adjust based on header height */
-  max-height: calc(100vh - 120px);
+  top: 4rem; /* Increased from 3rem to add more spacing */
+  max-height: calc(100vh - 150px); /* Adjusted to match container */
   overflow-y: auto;
   background-color: var(--card-background);
   box-shadow: 0 2px 8px var(--shadow-color);
