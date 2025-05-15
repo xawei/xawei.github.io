@@ -4,9 +4,6 @@ date: 2025-05-15 09:30:00
 categories:
   - Web Development
 tags:
-  - JavaScript
-  - Security
-  - Web API
   - Web Development
 ---
 
