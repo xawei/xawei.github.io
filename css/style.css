@@ -3311,14 +3311,17 @@ body.post-page .main-content {
 .post-toc {
   width: 280px;
   flex-shrink: 0;
-  position: relative;
-  margin-top: 30px;
+  position: sticky;
+  top: 100px;
+  margin-top: 0;
+  height: fit-content;
+  align-self: flex-start;
 }
 
 /* TOC inner styles */
 .toc-inner {
-  position: sticky;
-  top: 4rem; /* Increased from 3rem to add more spacing */
+  position: relative;
+  top: auto;
   max-height: calc(100vh - 150px); /* Adjusted to match container */
   overflow-y: auto;
   background-color: var(--card-background);
