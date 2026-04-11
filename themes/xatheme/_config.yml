@@ -63,4 +63,20 @@ features:
   toc: true  # Table of Contents enabled
   back_to_top: true
   code_copy: true
-  dark_mode_toggle: false  # Enable dark mode toggle 
+  dark_mode_toggle: true  # Enable dark mode toggle 
+
+# Comments
+giscus:
+  enable: true
+  repo: "xawei/xawei.github.io" # Replace with your repo
+  repo_id: "" # You will need to get this from giscus.app if required, or let giscus fetch it automatically if valid
+  category: "Announcements"
+  category_id: "" # You will need to get this from giscus.app
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "zh-CN"
+  crossorigin: "anonymous"
