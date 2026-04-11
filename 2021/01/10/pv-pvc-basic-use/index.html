@@ -25,7 +25,8 @@
 
 <!-- Canonical -->
  <link rel="canonical" href="https://xawei.xyz/2021/01/10/pv-pvc-basic-use/" />
-<meta name="generator" content="Hexo 5.4.2"></head>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="MyCatalog" type="application/atom+xml">
+</head>
 <body class="post-page">
     <div class="banner" style="--gradient-start: #D4F1F9; --gradient-end: #E1F8DC;">
         <div class="banner-content">
@@ -81,6 +82,12 @@
                 
                 
                 
+                    <li class="menu-item theme-item">
+                        <div class="theme-toggle">
+                            <i class="fa-regular fa-moon"></i>
+                        </div>
+                    </li>
+                
             </ul>
         </nav>
     </div>
@@ -100,7 +107,7 @@
                 <div class="post-meta">
                     <span><i class="fa-regular fa-calendar"></i> 2021-01-10</span>
                     
-                        <span><i class="fa-regular fa-calendar-plus"></i> 2025-11-06</span>
+                        <span><i class="fa-regular fa-calendar-plus"></i> 2026-04-11</span>
                     
                     
                         <span><i class="fa-regular fa-folder"></i>
@@ -111,6 +118,11 @@
                         </span>
                     
                     
+                    <span class="post-wordcount">
+                        <i class="fa-solid fa-file-word"></i> 1.3k 字
+                        <span class="divider">|</span>
+                        <i class="fa-regular fa-clock"></i> 5 分钟
+                    </span>
                 </div>
             </div>
             
@@ -145,10 +157,29 @@
 <p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png"></p>
 <h4 id="PVC-PV-SC-等资源"><a href="#PVC-PV-SC-等资源" class="headerlink" title="PVC &#x2F; PV &#x2F; SC 等资源"></a>PVC &#x2F; PV &#x2F; SC 等资源</h4><ol>
 <li><p>在集群中需要有对应的storageClass</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ebs-sc</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">ebs.csi.aws.com</span>  <span class="comment"># Specify related provisioner</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">gp3</span>                <span class="comment"># The type of EBS volume (gp3 for general-purpose SSD)</span></span><br><span class="line">  <span class="attr">fsType:</span> <span class="string">ext4</span>             <span class="comment"># File system type</span></span><br><span class="line"><span class="attr">reclaimPolicy:</span> <span class="string">Delete</span>       <span class="comment"># Automatically delete EBS volume when PVC is deleted</span></span><br><span class="line"><span class="attr">volumeBindingMode:</span> <span class="string">WaitForFirstConsumer</span> <span class="comment"># Volume is provisioned only when a pod uses the PVC</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>sc
+<span class="token key atrule">provisioner</span><span class="token punctuation">:</span> ebs.csi.aws.com  <span class="token comment"># Specify related provisioner</span>
+<span class="token key atrule">parameters</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> gp3                <span class="token comment"># The type of EBS volume (gp3 for general-purpose SSD)</span>
+  <span class="token key atrule">fsType</span><span class="token punctuation">:</span> ext4             <span class="token comment"># File system type</span>
+<span class="token key atrule">reclaimPolicy</span><span class="token punctuation">:</span> Delete       <span class="token comment"># Automatically delete EBS volume when PVC is deleted</span>
+<span class="token key atrule">volumeBindingMode</span><span class="token punctuation">:</span> WaitForFirstConsumer <span class="token comment"># Volume is provisioned only when a pod uses the PVC</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>创建PVC</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-ebs-pvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span>          <span class="comment"># EBS volumes can only be attached to one node at a time</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">5Gi</span>           <span class="comment"># Request 5Gi of storage</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">ebs-sc</span>    <span class="comment"># Use the ebs-sc StorageClass</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>ebs<span class="token punctuation">-</span>pvc
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteOnce          <span class="token comment"># EBS volumes can only be attached to one node at a time</span>
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 5Gi           <span class="token comment"># Request 5Gi of storage</span>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>sc    <span class="token comment"># Use the ebs-sc StorageClass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <p>集群中的<strong>Volume Controller</strong>发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。</p>
 <p>Volume Controller寻找PV的条件主要是：</p>
@@ -158,7 +189,30 @@
 </ul>
 <p>如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。</p>
 <ol start="3">
-<li>创建使用PVC的workload<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">ebs-pvc-app</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">app</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span>   <span class="comment"># Mount PVC at this path</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">storage</span></span><br><span class="line">        <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">          <span class="attr">claimName:</span> <span class="string">my-ebs-pvc</span>             <span class="comment"># Use the PVC created earlier</span></span><br></pre></td></tr></table></figure></li>
+<li>创建使用PVC的workload<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>pvc<span class="token punctuation">-</span>app
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>pvc<span class="token punctuation">-</span>app
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>pvc<span class="token punctuation">-</span>app
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> app
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /usr/share/nginx/html   <span class="token comment"># Mount PVC at this path</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>ebs<span class="token punctuation">-</span>pvc             <span class="token comment"># Use the PVC created earlier</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <p>对于EBS这样的块存储，分为”两阶段处理”。</p>
 <p>（1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要”挂载存储设备到宿主机”）</p>
@@ -185,7 +239,7 @@
                         
                             <div class="copyright-info-item">
                                 <span>post.copyright.updated_at:</span>
-                                <span>2025-11-06</span>
+                                <span>2026-04-11</span>
                             </div>
                         
                         <div class="copyright-info-item">
@@ -219,6 +273,26 @@
                     
                 </div>
             </div>
+
+            
+                <div class="giscus-container" style="margin-top: 50px;">
+                    <script src="https://giscus.app/client.js"
+                        data-repo="xawei/xawei.github.io"
+                        data-repo-id=""
+                        data-category="Announcements"
+                        data-category-id=""
+                        data-mapping="pathname"
+                        data-strict="0"
+                        data-reactions-enabled="1"
+                        data-emit-metadata="0"
+                        data-input-position="bottom"
+                        data-theme="preferred_color_scheme"
+                        data-lang="zh-CN"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
+            
         </article>
     </div>
 
@@ -236,6 +310,7 @@
         </div>
     
 </div>
+
         </div>
         
     </div>
@@ -243,7 +318,7 @@
 <footer class="footer">
     <div class="footer-inner">
         <div class="copyright">
-            © 2025 <i class="fa-solid fa-heart"></i> xawei
+            © 2026 <i class="fa-solid fa-heart"></i> xawei
         </div>
     </div>
 </footer> 
