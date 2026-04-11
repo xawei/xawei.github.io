@@ -2072,7 +2072,7 @@ h6:target {
 }
 
 /* Category and Tag pages */
-.category, .tag {
+div.category, div.tag {
     background: var(--card-background);
     padding: 30px;
     border-radius: var(--card-radius);
