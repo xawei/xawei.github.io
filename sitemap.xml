@@ -20,6 +20,15 @@
   </url>
   
   <url>
+    <loc>https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xawei.xyz/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/</loc>
     
     <lastmod>2026-04-11</lastmod>
@@ -30,15 +39,6 @@
   
   <url>
     <loc>https://xawei.xyz/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/2019/10/17/Kubernetes%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
+    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
+    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/index.html</loc>
+    <loc>https://xawei.xyz/about/index.html</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/about/index.html</loc>
+    <loc>https://xawei.xyz/categories/index.html</loc>
     
     <lastmod>2026-04-11</lastmod>
     
