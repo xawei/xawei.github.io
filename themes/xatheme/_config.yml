@@ -67,7 +67,7 @@ features:
 
 # Comments
 giscus:
-  enable: true
+  enable: false
   repo: "xawei/xawei.github.io" # Replace with your repo
   repo_id: "" # You will need to get this from giscus.app if required, or let giscus fetch it automatically if valid
   category: "Announcements"
