@@ -7,40 +7,41 @@
 }
 
 :root {
-    --primary-color: #00E5FF; /* Cyan */
-    --primary-color-rgb: 0, 229, 255;
-    --gradient-start: #E0F2FE; /* Light blue tech */
-    --gradient-end: #F3E8FF; /* Light purple tech */
-    --card-background: rgba(255, 255, 255, 0.85); /* Glassmorphism light */
-    --background-color: #F8FAFC; /* Very light slate */
-    --text-color: #0F172A; /* Slate 900 */
-    --text-color-light: #64748B; /* Slate 500 */
+    --primary-color: #2563EB; /* Deep tech blue for readability in light mode */
+    --primary-color-rgb: 37, 99, 235;
+    --gradient-start: #FFFFFF; /* Pure white start for banner */
+    --gradient-end: #F1F5F9; /* Very soft slate end */
+    --card-background: rgba(255, 255, 255, 0.95); /* Clearer white glass */
+    --background-color: #F8FAFC; /* Clean slate background */
+    --text-color: #1E293B; /* Deep slate for high contrast */
+    --text-color-light: #64748B; /* Muted slate for secondary text */
     --border-color: rgba(226, 232, 240, 0.8);
-    --shadow-color: rgba(15, 23, 42, 0.08);
+    --shadow-color: rgba(15, 23, 42, 0.04); /* Very subtle shadow in light mode */
     --code-bg: #F1F5F9;
     --toc-border: #E2E8F0;
-    --toc-active: #00E5FF;
+    --toc-active: #2563EB;
     --toc-hover-bg: #F8FAFC;
     --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "Fira Code", "JetBrains Mono", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    --glow-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+    --glow-shadow: 0 4px 20px rgba(37, 99, 235, 0.15); /* Soft blue shadow for hover */
 }
 
 [data-theme="dark"] {
-    --primary-color: #00E5FF; /* Neon Cyan */
-    --gradient-start: #0B1120; /* Deep space */
-    --gradient-end: #0F172A; /* Slate 900 */
-    --card-background: rgba(30, 41, 59, 0.75); /* Glassmorphism dark */
-    --background-color: #0B1120;
-    --text-color: #F8FAFC;
-    --text-color-light: #94A3B8;
-    --border-color: rgba(51, 65, 85, 0.6);
-    --shadow-color: rgba(0, 0, 0, 0.4);
+    --primary-color: #00E5FF; /* Keep Neon Cyan for dark mode */
+    --primary-color-rgb: 0, 229, 255;
+    --gradient-start: #040814; /* Extremely deep space */
+    --gradient-end: #0B1121; /* Deep slate */
+    --card-background: rgba(15, 23, 42, 0.85); /* Darker slate for better text contrast */
+    --background-color: #020617; /* Near black background */
+    --text-color: #F8FAFC; /* Bright slate for main text */
+    --text-color-light: #94A3B8; /* Muted slate for secondary text */
+    --border-color: rgba(51, 65, 85, 0.5);
+    --shadow-color: rgba(0, 0, 0, 0.6); /* Stronger shadow to separate cards from background */
     --code-bg: #1E293B;
-    --toc-border: #334155;
+    --toc-border: #1E293B;
     --toc-active: #00E5FF;
-    --toc-hover-bg: #1E293B;
-    --glow-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    --toc-hover-bg: #0F172A;
+    --glow-shadow: 0 0 20px rgba(0, 229, 255, 0.25); /* Neon cyan glow */
 }
 
 body {
@@ -122,7 +123,7 @@ a:hover {
     box-shadow: 0 4px 15px var(--shadow-color);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -287,7 +288,7 @@ a:hover {
     opacity: 0.85; /* Tech glassmorphism */
     z-index: -1;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .banner:after {
@@ -466,7 +467,7 @@ a:hover {
     width: 100%;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
