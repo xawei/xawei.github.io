@@ -2,69 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://xawei.xyz/2021/01/10/pv-pvc-basic-use/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/2025/05/15/understanding-cross-origin-resource-sharing/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/2021/03/05/%E4%BD%BF%E7%94%A8CRD%E5%92%8CAggregated%20Server%E6%89%A9%E5%B1%95Kubernetes/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/about/index.html</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/categories/index.html</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/masonry/index.html</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://xawei.xyz/tags/index.html</loc>
     
     <lastmod>2026-04-11</lastmod>
@@ -110,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/</loc>
+    <loc>https://xawei.xyz/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -119,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</loc>
+    <loc>https://xawei.xyz/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -146,15 +83,6 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
-    
-    <lastmod>2026-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
     
     <lastmod>2026-04-11</lastmod>
@@ -165,6 +93,78 @@
   
   <url>
     <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/2021/01/10/pv-pvc-basic-use/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/2021/03/05/%E4%BD%BF%E7%94%A8CRD%E5%92%8CAggregated%20Server%E6%89%A9%E5%B1%95Kubernetes/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/2025/05/15/understanding-cross-origin-resource-sharing/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/about/index.html</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/categories/index.html</loc>
+    
+    <lastmod>2026-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/masonry/index.html</loc>
     
     <lastmod>2026-04-11</lastmod>
     
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/%E5%BC%80%E6%BA%90/</loc>
+    <loc>https://xawei.xyz/categories/Go-Programming-Language/</loc>
     <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/Go-Programming-Language/</loc>
+    <loc>https://xawei.xyz/categories/%E5%BC%80%E6%BA%90/</loc>
     <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
