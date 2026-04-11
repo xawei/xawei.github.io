@@ -587,7 +587,7 @@ a:hover {
 }
 
 /* Inline code */
-.post-content code {
+.post-content :not(pre) > code {
     background-color: var(--code-bg);
     padding: 0.2em 0.4em;
     border-radius: 6px;
@@ -598,7 +598,7 @@ a:hover {
     border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] .post-content code {
+[data-theme="dark"] .post-content :not(pre) > code {
     background-color: rgba(0, 229, 255, 0.1);
     color: #00E5FF;
     border-color: rgba(0, 229, 255, 0.2);
@@ -1650,89 +1650,6 @@ h6:target {
         opacity: 0.9;
     }
 }
-
-/* Syntax highlighting - light theme */
-:root:not([data-theme="dark"]) .post-content .hljs-keyword,
-:root:not([data-theme="dark"]) .post-content .hljs-selector-tag,
-:root:not([data-theme="dark"]) .post-content .hljs-title.function_ {
-    color: #0000ff; /* blue */
-}
-
-:root:not([data-theme="dark"]) .post-content .hljs-string {
-    color: #a31515; /* dark red */
-}
-
-:root:not([data-theme="dark"]) .post-content .hljs-attr,
-:root:not([data-theme="dark"]) .post-content .hljs-variable,
-:root:not([data-theme="dark"]) .post-content .hljs-template-variable {
-    color: #008080; /* teal */
-}
-
-:root:not([data-theme="dark"]) .post-content .hljs-comment {
-    color: #008000; /* green */
-    font-style: italic;
-}
-
-:root:not([data-theme="dark"]) .post-content .hljs-name,
-:root:not([data-theme="dark"]) .post-content .hljs-tag {
-    color: #800000; /* maroon */
-}
-
-/* Syntax highlighting - dark theme */
-[data-theme="dark"] .post-content .hljs-keyword,
-[data-theme="dark"] .post-content .hljs-selector-tag,
-[data-theme="dark"] .post-content .hljs-title.function_ {
-    color: #569cd6; /* blue */
-}
-
-[data-theme="dark"] .post-content .hljs-string {
-    color: #ce9178; /* brownish */
-}
-
-[data-theme="dark"] .post-content .hljs-attr,
-[data-theme="dark"] .post-content .hljs-variable,
-[data-theme="dark"] .post-content .hljs-template-variable {
-    color: #9cdcfe; /* light blue */
-}
-
-[data-theme="dark"] .post-content .hljs-comment {
-    color: #6a9955; /* green */
-    font-style: italic;
-}
-
-[data-theme="dark"] .post-content .hljs-name,
-[data-theme="dark"] .post-content .hljs-tag {
-    color: #f44747; /* red */
-}
-
-/* Line numbers for code blocks */
-.post-content pre {
-    counter-reset: line;
-}
-
-.post-content pre code {
-    position: relative;
-    padding-left: 3.5rem; /* Space for line numbers */
-}
-
-.post-content pre code > span {
-    display: inline-block;
-    position: relative;
-    width: calc(100% - 10px);
-    white-space: pre;
-}
-
-.post-content pre code > span:before {
-    counter-increment: line;
-    content: counter(line);
-    position: absolute;
-    left: -2.5rem;
-    width: 2rem;
-    color: #858585; /* Muted color for line numbers */
-    text-align: right;
-    font-size: 0.85em;
-}
-
 /* Table styles */
 .post-content table {
     width: 100%;
