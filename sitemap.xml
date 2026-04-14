@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/</loc>
+    <loc>https://xawei.xyz/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/</loc>
+    <loc>https://xawei.xyz/2025/02/12/Simplifying_Multi-VPC_Networking_with_AWS_Transit_Gateway/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
+    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
+    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/about/index.html</loc>
+    <loc>https://xawei.xyz/categories/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/index.html</loc>
+    <loc>https://xawei.xyz/tags/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/tags/index.html</loc>
+    <loc>https://xawei.xyz/about/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -275,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/%E5%BC%80%E6%BA%90/</loc>
+    <loc>https://xawei.xyz/categories/Go-Programming-Language/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/Go-Programming-Language/</loc>
+    <loc>https://xawei.xyz/categories/%E5%BC%80%E6%BA%90/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
