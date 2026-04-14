@@ -158,7 +158,7 @@
 <p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/istio-explain.svg"></p>
 <h2 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway"></a>Gateway</h2><p><strong>Purpose</strong>:<br>Defines an entry point into the service mesh (usually at the edge of the cluster) for external traffic.</p>
 <p><strong>Example</strong>:<br>This Gateway allows HTTPS traffic on port 443 to a my-app service.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Gateway
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>gateway
@@ -175,11 +175,11 @@
         <span class="token punctuation">-</span> <span class="token string">"my-app.example.com"</span>
       <span class="token key atrule">tls</span><span class="token punctuation">:</span>
         <span class="token key atrule">mode</span><span class="token punctuation">:</span> SIMPLE
-        <span class="token key atrule">credentialName</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app<span class="token punctuation">-</span>cert  <span class="token comment"># Secret containing TLS certificate</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token key atrule">credentialName</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app<span class="token punctuation">-</span>cert  <span class="token comment"># Secret containing TLS certificate</span></code></pre>
 
 <h2 id="VirtualService"><a href="#VirtualService" class="headerlink" title="VirtualService"></a>VirtualService</h2><p><strong>Purpose</strong>:<br>Defines rules for routing traffic to services inside the mesh.</p>
 <p><strong>Example</strong>:<br>This VirtualService directs requests to my-app based on different paths.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
@@ -202,11 +202,11 @@
       <span class="token key atrule">route</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
             <span class="token key atrule">host</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2</code></pre>
 <p><strong>Explanation</strong>:<br>•	Requests with &#x2F;v1 go to v1 of my-app.<br>•	Requests with &#x2F;v2 go to v2 of my-app.</p>
 <h2 id="DestinationRule"><a href="#DestinationRule" class="headerlink" title="DestinationRule"></a>DestinationRule</h2><p><strong>Purpose</strong>:<br>Defines policies for service subsets, load balancing, and connection settings.</p>
 <p><strong>Example</strong>:<br>This rule defines subsets for v1 and v2 of my-app.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
@@ -221,11 +221,11 @@
         <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v2
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">version</span><span class="token punctuation">:</span> v2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v2</code></pre>
 <p><strong>Explanation</strong>:<br>•   Defines subsets v1 and v2, mapped to corresponding pod labels (version: v1 and version: v2).<br>•	Uses ROUND_ROBIN load balancing.</p>
 <h2 id="ServiceEntry"><a href="#ServiceEntry" class="headerlink" title="ServiceEntry"></a>ServiceEntry</h2><p><strong>Purpose</strong>:<br>Allows Istio to handle services that are external to the mesh.</p>
 <p><strong>Example</strong>:<br>This ServiceEntry registers api.external.com as an external service.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceEntry
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> external<span class="token punctuation">-</span>api
@@ -237,11 +237,11 @@
     <span class="token punctuation">-</span> <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">443</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> https
       <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTPS
-  <span class="token key atrule">resolution</span><span class="token punctuation">:</span> DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token key atrule">resolution</span><span class="token punctuation">:</span> DNS</code></pre>
 <p><strong>Explanation</strong>:<br>•	Allows traffic to api.external.com (e.g., a SaaS API).<br>•	Uses DNS resolution to route traffic.</p>
 <h2 id="Sidecar"><a href="#Sidecar" class="headerlink" title="Sidecar"></a>Sidecar</h2><p><strong>Purpose</strong>:<br>Controls egress traffic for a specific namespace or workload.</p>
 <p><strong>Example</strong>:<br>This Sidecar restricts traffic for workloads in default namespace.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Sidecar
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>sidecar
@@ -249,22 +249,22 @@
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">egress</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token string">"./*"</span>  <span class="token comment"># Only allows traffic to services in the same namespace</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token punctuation">-</span> <span class="token string">"./*"</span>  <span class="token comment"># Only allows traffic to services in the same namespace</span></code></pre>
 <p><strong>Explanation</strong>:<br>•	Limits outbound traffic to only services within the default namespace.</p>
 <h2 id="PeerAuthentication"><a href="#PeerAuthentication" class="headerlink" title="PeerAuthentication"></a>PeerAuthentication</h2><p><strong>Purpose</strong>:<br>Defines mutual TLS (mTLS) and authentication policies.</p>
 <p><strong>Example</strong>:<br>This enforces STRICT mTLS for all services in a namespace.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> PeerAuthentication
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> default
   <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">mtls</span><span class="token punctuation">:</span>
-    <span class="token key atrule">mode</span><span class="token punctuation">:</span> STRICT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token key atrule">mode</span><span class="token punctuation">:</span> STRICT</code></pre>
 <p><strong>Explanation</strong>:<br>•	All services in default namespace must communicate using mTLS.</p>
 <h2 id="AuthorizationPolicy"><a href="#AuthorizationPolicy" class="headerlink" title="AuthorizationPolicy"></a>AuthorizationPolicy</h2><p><strong>Purpose</strong>:<br>Controls access permissions to services within the mesh.</p>
 <p><strong>Example</strong>:<br>This policy allows only users with a specific JWT claim to access my-app.</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> AuthorizationPolicy
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app<span class="token punctuation">-</span>policy
@@ -277,8 +277,8 @@
   <span class="token key atrule">rules</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">source</span><span class="token punctuation">:</span>
-            <span class="token key atrule">requestPrincipals</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"user@example.com"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#117;&#115;&#x65;&#114;&#64;&#101;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#117;&#115;&#x65;&#114;&#64;&#101;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> as JWT claim are allowed.</p>
+            <span class="token key atrule">requestPrincipals</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"user@example.com"</span><span class="token punctuation">]</span></code></pre>
+<p><strong>Explanation</strong>:<br>•	Only requests with <a href="mailto:&#117;&#115;&#x65;&#x72;&#64;&#x65;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#x2e;&#x63;&#x6f;&#109;">&#117;&#115;&#x65;&#x72;&#64;&#x65;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#x2e;&#x63;&#x6f;&#109;</a> as JWT claim are allowed.</p>
 <h2 id="Summary-of-Key-Istio-CRDs"><a href="#Summary-of-Key-Istio-CRDs" class="headerlink" title="Summary of Key Istio CRDs"></a>Summary of Key Istio CRDs</h2><table>
 <thead>
 <tr>

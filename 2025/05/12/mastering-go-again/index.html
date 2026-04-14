@@ -161,7 +161,7 @@
 <li><strong>For</strong>: The only loop in Go. Use it as a traditional <code>for i := 0; i &lt; 10; i++</code>, a while loop <code>for condition &#123;&#125;</code>, or an infinite loop <code>for &#123;&#125;</code>.</li>
 </ul>
 <p><strong>Switch Example:</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> i <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token string">"Go"</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> i <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token string">"Go"</span>
 <span class="token keyword">switch</span> v <span class="token operator">:=</span> i<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 <span class="token keyword">case</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Integer:"</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span>
@@ -169,7 +169,7 @@
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"String:"</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span>
 <span class="token keyword">default</span><span class="token punctuation">:</span>
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Unknown type"</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <h3 id="Functions-and-Methods"><a href="#Functions-and-Methods" class="headerlink" title="Functions and Methods"></a>Functions and Methods</h3><ul>
 <li>Functions can return multiple values, e.g., <code>func divide(a, b int) (int, error)</code>.</li>
@@ -177,13 +177,13 @@
 <li>Anonymous functions (closures) are handy for inline logic.</li>
 </ul>
 <p><strong>Function Example</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> a <span class="token operator">+</span> b
 <span class="token punctuation">&#125;</span>
-fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// Output: 7</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// Output: 7</span></code></pre>
 
 <p><strong>Method Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Counter <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Counter <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
     Value <span class="token builtin">int</span>
 <span class="token punctuation">&#125;</span>
 <span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>Counter<span class="token punctuation">)</span> <span class="token function">Increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -191,20 +191,20 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 <span class="token punctuation">&#125;</span>
 c <span class="token operator">:=</span> Counter<span class="token punctuation">&#123;</span>Value<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">&#125;</span>
 c<span class="token punctuation">.</span><span class="token function">Increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>Value<span class="token punctuation">)</span>  <span class="token comment">// Output: 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>Value<span class="token punctuation">)</span>  <span class="token comment">// Output: 1</span></code></pre>
 
 <h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h3><ul>
 <li>Errors are explicit values of type <code>error</code>. Check with <code>if err != nil</code>.</li>
 <li>Use <code>defer</code> to schedule cleanup tasks, like closing files or unlocking mutexes.</li>
 </ul>
 <p><strong>Error Handling Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">"missing.txt"</span><span class="token punctuation">)</span>
+<pre class="language-go" data-language="go"><code class="language-go">file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">"missing.txt"</span><span class="token punctuation">)</span>
 <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Error:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
     <span class="token keyword">return</span>
 <span class="token punctuation">&#125;</span>
 <span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"File opened successfully"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"File opened successfully"</span><span class="token punctuation">)</span></code></pre>
 
 <hr>
 <h2 id="2-Advanced-Data-Types"><a href="#2-Advanced-Data-Types" class="headerlink" title="2. Advanced Data Types"></a>2. Advanced Data Types</h2><p>Go’s power lies in its simple yet flexible data types. Here’s what to revisit:</p>
@@ -212,18 +212,18 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 <li><strong>Structs</strong>: Define custom types with <code>type Person struct &#123; Name string; Age int &#125;</code>. Use embedding for composition over inheritance.</li>
 </ul>
 <p><strong>Struct Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> User <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> User <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
     ID   <span class="token builtin">int</span>
     Name <span class="token builtin">string</span>
 <span class="token punctuation">&#125;</span>
 u <span class="token operator">:=</span> User<span class="token punctuation">&#123;</span>ID<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> Name<span class="token punctuation">:</span> <span class="token string">"Alice"</span><span class="token punctuation">&#125;</span>
-fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"User: %+v\n"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span>  <span class="token comment">// Output: User: &#123;ID:1 Name:Alice&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"User: %+v\n"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span>  <span class="token comment">// Output: User: &#123;ID:1 Name:Alice&#125;</span></code></pre>
 
 <ul>
 <li><strong>Interfaces</strong>: Define behavior with method signatures, e.g., <code>type Writer interface &#123; Write([]byte) (int, error) &#125;</code>. Implicit satisfaction—no explicit <code>implements</code>.</li>
 </ul>
 <p><strong>Interface Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
 <span class="token keyword">import</span> <span class="token string">"fmt"</span>
 
@@ -256,7 +256,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Printf</
     r <span class="token operator">:=</span> Rectangle<span class="token punctuation">&#123;</span>Width<span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span> Height<span class="token punctuation">:</span> <span class="token number">6</span><span class="token punctuation">&#125;</span>
     <span class="token function">PrintArea</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span>  <span class="token comment">// Output: Area: 78.5</span>
     <span class="token function">PrintArea</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>  <span class="token comment">// Output: Area: 24</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 
 <h3 id="Slices-and-Maps"><a href="#Slices-and-Maps" class="headerlink" title="Slices and Maps"></a>Slices and Maps</h3><ul>
@@ -264,14 +264,14 @@ fmt<span class="token punctuation">.</span><span class="token function">Printf</
 <li><strong>Maps</strong>: Key-value stores via <code>make(map[keyType]valueType)</code> or <code>map[string]int&#123;&quot;a&quot;: 1&#125;</code>. Check existence with <code>val, ok := m[&quot;key&quot;]</code>.</li>
 </ul>
 <p><strong>Map Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">scores <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go">scores <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">&#123;</span>
     <span class="token string">"Alice"</span><span class="token punctuation">:</span> <span class="token number">95</span><span class="token punctuation">,</span>
     <span class="token string">"Bob"</span><span class="token punctuation">:</span>   <span class="token number">87</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span>
 scores<span class="token punctuation">[</span><span class="token string">"Charlie"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">91</span>
 fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>scores<span class="token punctuation">[</span><span class="token string">"Alice"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment">// Output: 95</span>
 <span class="token function">delete</span><span class="token punctuation">(</span>scores<span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">)</span>
-fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>scores<span class="token punctuation">)</span>  <span class="token comment">// Output: map[Alice:95 Charlie:91]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>scores<span class="token punctuation">)</span>  <span class="token comment">// Output: map[Alice:95 Charlie:91]</span></code></pre>
 
 <h3 id="Pointers"><a href="#Pointers" class="headerlink" title="Pointers"></a>Pointers</h3><ul>
 <li>Use <code>&amp;</code> to get a memory address and <code>*</code> to dereference.</li>
@@ -298,7 +298,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 <li><code>sync.Once</code>: Ensure a function runs exactly once.</li>
 </ul>
 <p><strong>Concurrency Example</strong>:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">worker</span><span class="token punctuation">(</span>id <span class="token builtin">int</span><span class="token punctuation">,</span> ch <span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> wg <span class="token operator">*</span>sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">worker</span><span class="token punctuation">(</span>id <span class="token builtin">int</span><span class="token punctuation">,</span> ch <span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> wg <span class="token operator">*</span>sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">defer</span> wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     ch <span class="token operator">&lt;-</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"Worker %d done"</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span>
@@ -314,11 +314,11 @@ ch <span class="token operator">:=</span> <span class="token function">make</spa
 <span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">for</span> msg <span class="token operator">:=</span> <span class="token keyword">range</span> ch <span class="token punctuation">&#123;</span>
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>In Go, channels and the select statement are fundamental for managing concurrent operations. Channels provide a way for goroutines to communicate with each other and synchronize their work. The select statement is used to choose from multiple channel operations. If multiple channels are ready, one is chosen at random.</p>
 <p><strong>Select Example</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token operator">...</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token operator">...</span>
 <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     ch1 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">)</span>
     ch2 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">)</span>
@@ -342,7 +342,7 @@ ch <span class="token operator">:=</span> <span class="token function">make</spa
             fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Message 2:"</span><span class="token punctuation">,</span> msg2<span class="token punctuation">)</span>
         <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>Remember, <strong>if no case is ready and there is a default branch</strong>, the select statement will execute the default branch without blocking. This makes it possible to implement non-blocking sends, receives, and tests for channel operations.</p>
 <p><em>Output</em>: Varies, e.g., “Worker 1 done”, “Worker 3 done”, “Worker 2 done”.<br><strong>Practice</strong>: Write a concurrent web scraper or a worker pool to solidify these patterns.</p>

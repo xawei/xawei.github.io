@@ -163,14 +163,14 @@
 <li><strong>Steal sensitive information</strong>: Extract authentication tokens or cookies</li>
 </ol>
 <p>Here’s a simple diagram illustrating the problem:</p>
-<pre class="line-numbers language-none"><code class="language-none">┌─────────────────┐         ┌─────────────────┐
+<pre class="language-none"><code class="language-none">┌─────────────────┐         ┌─────────────────┐
 │                 │ Request │                 │
 │ evil.com        │──────────│ yourbank.com    │
 │ (Attacker site) │         │ (Your bank site)│
 │                 │ Without │                 │
 └─────────────────┘  CORS   └─────────────────┘
                      ↓
-           User&#39;s private data exposed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+           User&#39;s private data exposed</code></pre>
 
 <h2 id="How-CORS-Works"><a href="#How-CORS-Works" class="headerlink" title="How CORS Works"></a>How CORS Works</h2><p>When your browser makes a cross-origin request:</p>
 <ol>
@@ -180,7 +180,7 @@
 <li>The browser checks these headers before making the response available to your code</li>
 </ol>
 <p>Here’s a diagram illustrating the CORS process flow, including the preflight mechanism:</p>
-<pre class="line-numbers language-none"><code class="language-none">┌─────────────┐                                  ┌─────────────┐
+<pre class="language-none"><code class="language-none">┌─────────────┐                                  ┌─────────────┐
 │             │                                  │             │
 │  Browser    │                                  │   Server    │
 │             │                                  │             │
@@ -213,7 +213,7 @@
 │             │                                  │             │
 │  Browser    │                                  │   Server    │
 │             │                                  │             │
-└─────────────┘                                  └─────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+└─────────────┘                                  └─────────────┘</code></pre>
 
 <p>For simple requests (without preflight), steps 1 and 2 are skipped.</p>
 <h3 id="Key-CORS-Headers"><a href="#Key-CORS-Headers" class="headerlink" title="Key CORS Headers"></a>Key CORS Headers</h3><ul>
@@ -232,10 +232,10 @@
 <li>No ReadableStream objects</li>
 </ul>
 <p>For simple requests, the server only needs to include the appropriate <code>Access-Control-Allow-Origin</code> header:</p>
-<pre class="line-numbers language-none"><code class="language-none">Access-Control-Allow-Origin: https:&#x2F;&#x2F;myapp.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">Access-Control-Allow-Origin: https:&#x2F;&#x2F;myapp.com</code></pre>
 
 <p>Or to allow any origin (not recommended for production):</p>
-<pre class="line-numbers language-none"><code class="language-none">Access-Control-Allow-Origin: *<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">Access-Control-Allow-Origin: *</code></pre>
 
 <h3 id="2-Preflight-Requests"><a href="#2-Preflight-Requests" class="headerlink" title="2. Preflight Requests"></a>2. Preflight Requests</h3><p>For more complex requests, browsers send a “preflight” OPTIONS request to check if the actual request is allowed. This happens when:</p>
 <ul>
@@ -246,24 +246,24 @@
 <p>Here’s what a preflight exchange looks like:</p>
 <ol>
 <li><p>Browser sends OPTIONS request:</p>
-<pre class="line-numbers language-none"><code class="language-none">OPTIONS &#x2F;api&#x2F;data HTTP&#x2F;1.1
+<pre class="language-none"><code class="language-none">OPTIONS &#x2F;api&#x2F;data HTTP&#x2F;1.1
 Host: api.example.com
 Origin: https:&#x2F;&#x2F;myapp.com
 Access-Control-Request-Method: PUT
-Access-Control-Request-Headers: Content-Type, Authorization<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Access-Control-Request-Headers: Content-Type, Authorization</code></pre>
 </li>
 <li><p>Server responds with permissions:</p>
-<pre class="line-numbers language-none"><code class="language-none">HTTP&#x2F;1.1 204 No Content
+<pre class="language-none"><code class="language-none">HTTP&#x2F;1.1 204 No Content
 Access-Control-Allow-Origin: https:&#x2F;&#x2F;myapp.com
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE
 Access-Control-Allow-Headers: Content-Type, Authorization
-Access-Control-Max-Age: 86400<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Access-Control-Max-Age: 86400</code></pre>
 </li>
 <li><p>If approved, the browser proceeds with the actual request</p>
 </li>
 </ol>
 <h2 id="Implementing-CORS-Solutions"><a href="#Implementing-CORS-Solutions" class="headerlink" title="Implementing CORS Solutions"></a>Implementing CORS Solutions</h2><p>Let’s look at how to implement CORS solutions in different environments:</p>
-<h3 id="Backend-Solutions"><a href="#Backend-Solutions" class="headerlink" title="Backend Solutions"></a>Backend Solutions</h3><h4 id="Node-js-with-Express"><a href="#Node-js-with-Express" class="headerlink" title="Node.js with Express"></a>Node.js with Express</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="Backend-Solutions"><a href="#Backend-Solutions" class="headerlink" title="Backend Solutions"></a>Backend Solutions</h3><h4 id="Node-js-with-Express"><a href="#Node-js-with-Express" class="headerlink" title="Node.js with Express"></a>Node.js with Express</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> cors <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cors'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -285,9 +285,9 @@ app<span class="token punctuation">.</span><span class="token function">get</spa
 
 app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Server running on port 3000'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
-<h4 id="Python-with-Flask"><a href="#Python-with-Flask" class="headerlink" title="Python with Flask"></a>Python with Flask</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
+<h4 id="Python-with-Flask"><a href="#Python-with-Flask" class="headerlink" title="Python with Flask"></a>Python with Flask</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 <span class="token keyword">from</span> flask_cors <span class="token keyword">import</span> CORS
 
 app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
@@ -309,9 +309,9 @@ CORS<span class="token punctuation">(</span>app<span class="token punctuation">,
     <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Data accessed successfully"</span><span class="token punctuation">&#125;</span>
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>port<span class="token operator">=</span><span class="token number">5000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>port<span class="token operator">=</span><span class="token number">5000</span><span class="token punctuation">)</span></code></pre>
 
-<h4 id="Go-with-Gin"><a href="#Go-with-Gin" class="headerlink" title="Go with Gin"></a>Go with Gin</h4><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+<h4 id="Go-with-Gin"><a href="#Go-with-Gin" class="headerlink" title="Go with Gin"></a>Go with Gin</h4><pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
 <span class="token keyword">import</span> <span class="token punctuation">(</span>
 	<span class="token string">"github.com/gin-contrib/cors"</span>
@@ -343,9 +343,9 @@ CORS<span class="token punctuation">(</span>app<span class="token punctuation">,
 	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
 	router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">":8080"</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<h3 id="Frontend-Solutions"><a href="#Frontend-Solutions" class="headerlink" title="Frontend Solutions"></a>Frontend Solutions</h3><h4 id="Making-Cross-Origin-Requests-with-Fetch-API"><a href="#Making-Cross-Origin-Requests-with-Fetch-API" class="headerlink" title="Making Cross-Origin Requests with Fetch API"></a>Making Cross-Origin Requests with Fetch API</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// Simple GET request</span>
+<h3 id="Frontend-Solutions"><a href="#Frontend-Solutions" class="headerlink" title="Frontend Solutions"></a>Frontend Solutions</h3><h4 id="Making-Cross-Origin-Requests-with-Fetch-API"><a href="#Making-Cross-Origin-Requests-with-Fetch-API" class="headerlink" title="Making Cross-Origin Requests with Fetch API"></a>Making Cross-Origin Requests with Fetch API</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// Simple GET request</span>
 <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'https://api.example.com/data'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">data</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -362,9 +362,9 @@ CORS<span class="token punctuation">(</span>app<span class="token punctuation">,
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">data</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Error:'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Error:'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
-<h4 id="Using-Axios"><a href="#Using-Axios" class="headerlink" title="Using Axios"></a>Using Axios</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<h4 id="Using-Axios"><a href="#Using-Axios" class="headerlink" title="Using Axios"></a>Using Axios</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
 
 <span class="token comment">// Configure Axios for all requests</span>
 axios<span class="token punctuation">.</span>defaults<span class="token punctuation">.</span>baseURL <span class="token operator">=</span> <span class="token string">'https://api.example.com'</span><span class="token punctuation">;</span>
@@ -383,22 +383,22 @@ axios<span class="token punctuation">.</span><span class="token function">post</
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Error:'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Error:'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <h2 id="Proxying-Requests"><a href="#Proxying-Requests" class="headerlink" title="Proxying Requests"></a>Proxying Requests</h2><p>If you can’t modify the server’s CORS policy, you can use a proxy:</p>
 <h3 id="Development-Proxy"><a href="#Development-Proxy" class="headerlink" title="Development Proxy"></a>Development Proxy</h3><p>For React apps (in package.json):</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+<pre class="language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
   <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"my-app"</span><span class="token punctuation">,</span>
   <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
   <span class="token property">"proxy"</span><span class="token operator">:</span> <span class="token string">"https://api.example.com"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>Then in your code:</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// This will be proxied to https://api.example.com/data</span>
-<span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'/data'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token comment">/*...*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// This will be proxied to https://api.example.com/data</span>
+<span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'/data'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token comment">/*...*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <h3 id="Production-Proxy"><a href="#Production-Proxy" class="headerlink" title="Production Proxy"></a>Production Proxy</h3><p>Set up a server-side proxy with Nginx:</p>
-<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">&#123;</span>
+<pre class="language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">&#123;</span>
     <span class="token directive"><span class="token keyword">listen</span> <span class="token number">80</span></span><span class="token punctuation">;</span>
     <span class="token directive"><span class="token keyword">server_name</span> myapp.com</span><span class="token punctuation">;</span>
     
@@ -412,10 +412,10 @@ axios<span class="token punctuation">.</span><span class="token function">post</
         <span class="token directive"><span class="token keyword">root</span> /var/www/html</span><span class="token punctuation">;</span>
         <span class="token directive"><span class="token keyword">try_files</span> <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ /index.html</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <h2 id="CORS-in-Action-Complete-Example"><a href="#CORS-in-Action-Complete-Example" class="headerlink" title="CORS in Action: Complete Example"></a>CORS in Action: Complete Example</h2><p>Let’s create a complete example with both frontend and backend code to demonstrate CORS in action:</p>
-<h3 id="Backend-Node-js-Express"><a href="#Backend-Node-js-Express" class="headerlink" title="Backend (Node.js&#x2F;Express)"></a>Backend (Node.js&#x2F;Express)</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// server.js</span>
+<h3 id="Backend-Node-js-Express"><a href="#Backend-Node-js-Express" class="headerlink" title="Backend (Node.js&#x2F;Express)"></a>Backend (Node.js&#x2F;Express)</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// server.js</span>
 <span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> cors <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cors'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -442,9 +442,9 @@ app<span class="token punctuation">.</span><span class="token function">get</spa
 <span class="token keyword">const</span> <span class="token constant">PORT</span> <span class="token operator">=</span> <span class="token number">3000</span><span class="token punctuation">;</span>
 app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token constant">PORT</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server running on http://localhost:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token constant">PORT</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
-<h3 id="Frontend-HTML-JavaScript"><a href="#Frontend-HTML-JavaScript" class="headerlink" title="Frontend (HTML&#x2F;JavaScript)"></a>Frontend (HTML&#x2F;JavaScript)</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- index.html --></span>
+<h3 id="Frontend-HTML-JavaScript"><a href="#Frontend-HTML-JavaScript" class="headerlink" title="Frontend (HTML&#x2F;JavaScript)"></a>Frontend (HTML&#x2F;JavaScript)</h3><pre class="language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- index.html --></span>
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -518,7 +518,7 @@ app<span class="token punctuation">.</span><span class="token function">listen</
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
 
 <h3 id="Running-the-Example"><a href="#Running-the-Example" class="headerlink" title="Running the Example"></a>Running the Example</h3><ol>
 <li>Save the server code as <code>server.js</code> and run with <code>node server.js</code></li>
@@ -534,7 +534,7 @@ app<span class="token punctuation">.</span><span class="token function">listen</
 <li><strong>Test with simple requests first</strong>: Start with GET requests before more complex operations</li>
 </ol>
 <h2 id="Visual-Guide-to-CORS-Debugging"><a href="#Visual-Guide-to-CORS-Debugging" class="headerlink" title="Visual Guide to CORS Debugging"></a>Visual Guide to CORS Debugging</h2><p>When faced with CORS errors, follow this visual debugging workflow:</p>
-<pre class="line-numbers language-none"><code class="language-none">┌─────────────────────┐
+<pre class="language-none"><code class="language-none">┌─────────────────────┐
 │ CORS Error Detected │
 └──────────┬──────────┘
            │
@@ -574,13 +574,13 @@ app<span class="token punctuation">.</span><span class="token function">listen</
 │ 2. Set up a proxy on your domain                             │
 │ 3. Use development server with CORS proxy                    │
 │ 4. Modify request to be a &quot;simple request&quot; if possible       │
-└─────────────────────────────────────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+└─────────────────────────────────────────────────────────────┘</code></pre>
 
 <p>Here’s what a typical CORS error looks like in the browser console:</p>
-<pre class="line-numbers language-none"><code class="language-none">Access to fetch at &#39;https:&#x2F;&#x2F;api.example.com&#x2F;data&#39; from origin &#39;https:&#x2F;&#x2F;myapp.com&#39; 
+<pre class="language-none"><code class="language-none">Access to fetch at &#39;https:&#x2F;&#x2F;api.example.com&#x2F;data&#39; from origin &#39;https:&#x2F;&#x2F;myapp.com&#39; 
 has been blocked by CORS policy: No &#39;Access-Control-Allow-Origin&#39; header is present 
 on the requested resource. If an opaque response serves your needs, set the request&#39;s 
-mode to &#39;no-cors&#39; to fetch the resource with CORS disabled.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+mode to &#39;no-cors&#39; to fetch the resource with CORS disabled.</code></pre>
 
 <p>This visual error pattern is your clue to check the server’s CORS configuration.</p>
 <h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><p>While implementing CORS, keep these security best practices in mind:</p>

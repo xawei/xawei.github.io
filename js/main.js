@@ -211,6 +211,16 @@ function processCodeBlocks() {
                 }
             });
         }
+        if (language === 'code') {
+            pre.classList.forEach(className => {
+                if (className.startsWith('language-')) {
+                    language = className.replace('language-', '');
+                }
+            });
+        }
+        if (language === 'code' && pre.hasAttribute('data-language')) {
+            language = pre.getAttribute('data-language');
+        }
         
         // Create header with tools
         const header = document.createElement('div');

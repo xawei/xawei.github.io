@@ -153,34 +153,34 @@
 <li>可用的kubernetes集群，建议版本&gt;&#x3D;1.16.3</li>
 </ul>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1-下载ploto-demo项目"><a href="#1-下载ploto-demo项目" class="headerlink" title="1. 下载ploto-demo项目"></a>1. 下载ploto-demo项目</h3><p>ploto-demo中保存了本示例所需的yaml文件</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/xawei/ploto-demo.git
-<span class="token builtin class-name">cd</span> ploto-demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/xawei/ploto-demo.git
+<span class="token builtin class-name">cd</span> ploto-demo</code></pre>
 
 
 
-<h3 id="2-创建CRD和新建命名空间"><a href="#2-创建CRD和新建命名空间" class="headerlink" title="2. 创建CRD和新建命名空间"></a>2. 创建CRD和新建命名空间</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/crds/ploto.io_dynamicexecutorpools.yaml
+<h3 id="2-创建CRD和新建命名空间"><a href="#2-创建CRD和新建命名空间" class="headerlink" title="2. 创建CRD和新建命名空间"></a>2. 创建CRD和新建命名空间</h3><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/crds/ploto.io_dynamicexecutorpools.yaml
 kubectl apply <span class="token parameter variable">-f</span> manifest/crds/ploto.io_fixedexecutorpools.yaml
 kubectl apply <span class="token parameter variable">-f</span> manifest/crds/ploto.io_tasks.yaml
 kubectl create ns ploto-system
-kubectl create ns ploto-demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kubectl create ns ploto-demo</code></pre>
 
 <p>查看CRD：</p>
 <p><img src="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20201130163857.png"></p>
-<h3 id="3-创建默认资源池扩缩容算法的Webhook"><a href="#3-创建默认资源池扩缩容算法的Webhook" class="headerlink" title="3. 创建默认资源池扩缩容算法的Webhook"></a>3. 创建默认资源池扩缩容算法的Webhook</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/webhook/autoscaler-webhook-service.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-创建默认资源池扩缩容算法的Webhook"><a href="#3-创建默认资源池扩缩容算法的Webhook" class="headerlink" title="3. 创建默认资源池扩缩容算法的Webhook"></a>3. 创建默认资源池扩缩容算法的Webhook</h3><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/webhook/autoscaler-webhook-service.yaml</code></pre>
 
 
 
-<h3 id="4-创建Ploto-Controller"><a href="#4-创建Ploto-Controller" class="headerlink" title="4. 创建Ploto Controller"></a>4. 创建Ploto Controller</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/controllers/ploto-controller.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="4-创建Ploto-Controller"><a href="#4-创建Ploto-Controller" class="headerlink" title="4. 创建Ploto Controller"></a>4. 创建Ploto Controller</h3><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/controllers/ploto-controller.yaml</code></pre>
 
 <p>查看ns ploto-system下的资源：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl get all <span class="token parameter variable">-n</span> ploto-system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl get all <span class="token parameter variable">-n</span> ploto-system</code></pre>
 
 <p><img src="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20201130164726.png"></p>
 <p>至此，我们已经完成了在kubernetes至少上部署了Ploto框架所必须的预备资源。下面再继续创建与业务相关的Task和DynamicExecutorPool自定义资源。</p>
 <h3 id="5-创建自定义的Dynamic-Executor-Pool"><a href="#5-创建自定义的Dynamic-Executor-Pool" class="headerlink" title="5. 创建自定义的Dynamic Executor Pool"></a>5. 创建自定义的Dynamic Executor Pool</h3><p>准备创建一个DynamicExecutorPool，先查看一下我们定义的dep1.yaml：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> manifest/deps/dep-simple-logger.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> manifest/deps/dep-simple-logger.yaml</code></pre>
 
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># manifest/deps/dep-simple-logger.yaml</span>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># manifest/deps/dep-simple-logger.yaml</span>
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> <span class="token string">"ploto.io/v1alpha1"</span>
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> DynamicExecutorPool
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -220,36 +220,36 @@ kubectl create ns ploto-demo<span aria-hidden="true" class="line-numbers-rows"><
       <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
     <span class="token key atrule">terminationMessagePath</span><span class="token punctuation">:</span> /dev/termination<span class="token punctuation">-</span>log
     <span class="token key atrule">terminationMessagePolicy</span><span class="token punctuation">:</span> File
-    <span class="token key atrule">workingDir</span><span class="token punctuation">:</span> /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token key atrule">workingDir</span><span class="token punctuation">:</span> /</code></pre>
 
 <p>其中定义的container是我们的应用容器，持续监听本地任务文件，一旦任务文件存在，则会去读Task.Spec.Para中的数据，执行任务。</p>
 <p>创建这个dynamic executor pool（简称dep）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/deps/dep-simple-logger.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/deps/dep-simple-logger.yaml</code></pre>
 
 <p>可以查看目前dep的状态：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl get dep <span class="token parameter variable">-o</span> wide <span class="token parameter variable">-n</span> ploto-demo
-kubectl get pod <span class="token parameter variable">-n</span> ploto-demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl get dep <span class="token parameter variable">-o</span> wide <span class="token parameter variable">-n</span> ploto-demo
+kubectl get pod <span class="token parameter variable">-n</span> ploto-demo</code></pre>
 
 <p><img src="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20201202220002.png"></p>
 <p>dep-simple-logger刚创建时，还没有executor pod，当ploto-controller监听到dep-simple-logger时，则为这个dep创建了2个pod（ initialExecutor: 2）。</p>
 <h3 id="6-创建task，并查看执行情况"><a href="#6-创建task，并查看执行情况" class="headerlink" title="6. 创建task，并查看执行情况"></a>6. 创建task，并查看执行情况</h3><p>manifest&#x2F;tasks&#x2F;中准备了6个task，我们查看其中一个task1.yaml，下面附上了注释：</p>
-<pre class="line-numbers language-none"><code class="language-none">cat manifest&#x2F;tasks&#x2F;task1.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">cat manifest&#x2F;tasks&#x2F;task1.yaml</code></pre>
 
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> <span class="token string">"ploto.io/v1alpha1"</span>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> <span class="token string">"ploto.io/v1alpha1"</span>
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Task
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> task1
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">executorPool</span><span class="token punctuation">:</span> dep<span class="token punctuation">-</span>simple<span class="token punctuation">-</span>logger <span class="token comment"># 指定消费这个task的executor pod所属的资源池</span>
   <span class="token key atrule">executorPoolType</span><span class="token punctuation">:</span> Dynamic <span class="token comment"># 指定消费这个task的executor pod所属的资源池类型</span>
-  <span class="token key atrule">para</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//ploto.io/tasks/1.html <span class="token comment"># task携带的任务信息</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token key atrule">para</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//ploto.io/tasks/1.html <span class="token comment"># task携带的任务信息</span></code></pre>
 
 <p>创建这些task：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/tasks/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> manifest/tasks/</code></pre>
 
 <p>如上图所示，6个新创建的task，初始状态为Pending，等待调度关联到对应的executorPool管理的pod，由pod执行消费任务。</p>
-<pre class="line-numbers language-none"><code class="language-none">kubectl get task -n ploto-demo
-kubectl get pod -n ploto-demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">kubectl get task -n ploto-demo
+kubectl get pod -n ploto-demo</code></pre>
 
 <p><img src="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20201202220221.png"></p>
 <p>task状态为Running后，等待manifest&#x2F;deps&#x2F;dep1.yaml中定义的simulate-exe-time启动参数值（单位秒）的时间后，可以看到部分task执行完成了（status: completed）：</p>
@@ -260,12 +260,12 @@ kubectl get pod -n ploto-demo<span aria-hidden="true" class="line-numbers-rows">
 <p>ploto-controller会根据task的数量、执行情况，周期性地对dep管理的executor pod资源数量，在[minExecutor, maxExecutor]区间内做动态的扩缩容。默认为每一个周期需要的pod数量为上一周期的1.3倍。你也可以实现自定义的扩缩容webhook，在dep中配置。</p>
 <p>等待所有任务执行完后，我们查看dep的状态，以及它所关联的pod。发现pod数量已缩容至dep-simple-loger实例中设置的最小值minExexutor: 2。</p>
 <p><img src="https://weiblog.oss-cn-beijing.aliyuncs.com/img/20201202220809.png"></p>
-<h3 id="附：-清理ploto相关资源"><a href="#附：-清理ploto相关资源" class="headerlink" title="附： 清理ploto相关资源"></a>附： 清理ploto相关资源</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl delete <span class="token parameter variable">-f</span> manifest/crds/
+<h3 id="附：-清理ploto相关资源"><a href="#附：-清理ploto相关资源" class="headerlink" title="附： 清理ploto相关资源"></a>附： 清理ploto相关资源</h3><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl delete <span class="token parameter variable">-f</span> manifest/crds/
 kubectl delete <span class="token parameter variable">-f</span> manifest/sa/
 kubectl delete <span class="token parameter variable">-f</span> manifest/controllers/
 
 kubectl delete ns ploto-system
-kubectl delete ns ploto-demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kubectl delete ns ploto-demo</code></pre>
 
 
             </div>

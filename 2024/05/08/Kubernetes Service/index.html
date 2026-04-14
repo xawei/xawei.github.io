@@ -164,7 +164,7 @@
 
 <h3 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h3><p><code>ClusterIP</code> 是Kubernetes中默认的Service类型，通过“<strong>仅集群内可见的IP</strong>”把部署在集群中的服务应用暴露出来。也就是说，这样的Service仅在集群内部可以访问。<code>ClusterIP</code> 非常适合于 <u>面向内部</u> 的 backend services，这些服务不应该暴露在集群外部。</p>
 <p><strong>Example Configuration:</strong></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>internal<span class="token punctuation">-</span>service
@@ -175,7 +175,7 @@
   <span class="token key atrule">ports</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
       <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
-      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span></code></pre>
 
 <h3 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h3><p>NodePort Service 在每个Node的 IP 上通过一个静态端口（即 NodePort）暴露服务。这允许来自集群外部的外部流量通过 <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> 访问服务。这种类型的服务一般适用于临时配置，如演示或开发环境。</p>
 <pre class="mermaid">graph TD
@@ -196,7 +196,7 @@
     class Node1,Node2 node;</pre>
 
 <p><strong>Example Configuration:</strong></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nodeport<span class="token punctuation">-</span>service
@@ -207,7 +207,7 @@
   <span class="token key atrule">ports</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
       <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
-      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30007</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30007</span></code></pre>
 
 <h3 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h3><p>当在支持automatic load balancer provisioning的云服务提供商（AWS&#x2F;GCP&#x2F;Ali Cloud&#x2F;TencentCloud等）的环境上运行时，LoadBalancer Service 会为你的Service配置一个负载均衡器（load balancer），<strong>并将流量从外部负载均衡器 路由 到自动创建的 NodePort 和 ClusterIP 服务</strong>。这种设置适合于生产环境，特别是需要将应用暴露到公网时。</p>
 <pre class="mermaid">graph TD
@@ -228,7 +228,7 @@
     class Pod1,Pod2,Pod3 pod;</pre>
 
 <p><strong>Example Configuration:</strong></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>loadbalancer<span class="token punctuation">-</span>service
@@ -238,18 +238,18 @@
     <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
   <span class="token key atrule">ports</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span></code></pre>
 
 <h3 id="ExternalName"><a href="#ExternalName" class="headerlink" title="ExternalName"></a>ExternalName</h3><p>ExternalName Service 是一种特殊 Service 类型，它没有Selector，也不管理任何Pods。相反，它使用DNS将流量重定向到外部服务。在 Service 的YAML配置中，通过 <code>externalName</code> 参数指向所需的外部DNS地址。</p>
 <p>这种服务类型使得内部应用能够通过稳定的内部DNS入口访问外部资源，从而提高了系统的灵活性和可维护性，尤其是在迁移或外部服务变更时。所以，ExternalName 一般用于将<strong>数据库、外部 API 和遗留系统</strong>等服务直接整合到 Kubernetes Service 中的场景。</p>
 <p><strong>Example Configuration:</strong></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>external<span class="token punctuation">-</span>service
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">type</span><span class="token punctuation">:</span> ExternalName
-  <span class="token key atrule">externalName</span><span class="token punctuation">:</span> my.database.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token key atrule">externalName</span><span class="token punctuation">:</span> my.database.example.com</code></pre>
 
 <h2 id="Headless-Service"><a href="#Headless-Service" class="headerlink" title="Headless Service"></a>Headless Service</h2><p>如果每个通过 Service 的connection都随机到后端的一个 pod，那要是 client 想要连接每一个 pod 怎么办呢？它需要知道每一个 pod 的 IP。当然，我们可以通过调用 Kubernetes API Server 来获取到所有 pod 的 IP，但我们应该让应用保持Kubernetes-agnostic，所以这不是一个很理想的方法。</p>
 <p>所以在 Kubernetes 中，我们可以通过 DNS lookups 来让 client 发现 pod IPs。通常情况下，当你通过DNS lookup来查询一个 Service，DNS Server 会返回一个 IP—— Service 的 Cluster IP。但是，如果你告诉 Kubernetes 你不需要这个service的 IP（把 service 中的 <code>clusterIP</code> 字段设为 <code>None</code>），那么DNS Server 就会返回 pod IPs 而不是 service IP。也就是说，这时 Kubernetes 返回的是service 的多个 A 记录而不是单个 A 记录，每一个都分别指向后端每个 pod 的 IP。</p>
@@ -263,10 +263,10 @@
 </ul>
 <h2 id="Discovering-services"><a href="#Discovering-services" class="headerlink" title="Discovering services"></a>Discovering services</h2><p>对于在 Kubernetes 集群中的应用，有两种主要的方式发现Service：环境变量 和 DNS。</p>
 <h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>Pod 运行在 Node 上，而 Node 上的 Kubelet 会获取到所有在该 namespace 下的 active service 的信息，注入到 pod 的环境变量中，格式是<code>&#123;SVCNAME&#125;_SERVICE_HOST</code> 和 <code>&#123;SVCNAME&#125;_SERVICE_PORT</code>。 </p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@pdb-dp-857c7ff884-m7nkd:/<span class="token comment"># env|grep SERVICE</span>
+<pre class="language-bash" data-language="bash"><code class="language-bash">root@pdb-dp-857c7ff884-m7nkd:/<span class="token comment"># env|grep SERVICE</span>
 <span class="token assign-left variable">KUBERNETES_SERVICE_PORT_HTTPS</span><span class="token operator">=</span><span class="token number">443</span>
 <span class="token assign-left variable">KUBERNETES_SERVICE_PORT</span><span class="token operator">=</span><span class="token number">443</span>
-<span class="token assign-left variable">KUBERNETES_SERVICE_HOST</span><span class="token operator">=</span><span class="token number">10.96</span>.0.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token assign-left variable">KUBERNETES_SERVICE_HOST</span><span class="token operator">=</span><span class="token number">10.96</span>.0.1</code></pre>
 
 <blockquote>
 <p>📢：如果 pod 是在创建 Service 前创建的，那么不会注入 Service 相关的环境变量信息。</p>
@@ -293,17 +293,17 @@
 </ul>
 <h3 id="Session-stickiness"><a href="#Session-stickiness" class="headerlink" title="Session stickiness"></a>Session stickiness</h3><p>默认情况下，Service 的请求会被随机负载均衡到后端的各个 Pod 上。但如果你需要来自特定客户端 IP 的所有请求每次都连接到同一个 Pod，你可以配置会话保持（Session Stickiness）。</p>
 <p>可以通过将 <code>sessionAffinity</code> 设置为 <code>ClientIP</code> 来实现基于客户端 IP 的会话亲和性。还可以通过 <code>sessionAffinityConfig.clientIP.timeoutSeconds</code> 来配置会话保持的最大时间（默认为 10800 秒，即 3 小时）。</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">sessionAffinity</span><span class="token punctuation">:</span> ClientIP
   <span class="token key atrule">sessionAffinityConfig</span><span class="token punctuation">:</span>
     <span class="token key atrule">clientIP</span><span class="token punctuation">:</span>
-      <span class="token key atrule">timeoutSeconds</span><span class="token punctuation">:</span> <span class="token number">10800</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token key atrule">timeoutSeconds</span><span class="token punctuation">:</span> <span class="token number">10800</span></code></pre>
 
 <h2 id="External-IPs"><a href="#External-IPs" class="headerlink" title="External IPs"></a>External IPs</h2><p>如果存在路由到一个或多个集群节点的外部 IP 地址，Kubernetes Service 可以暴露在这些 <code>externalIPs</code> 上。当网络流量进入集群时，如果目标 IP 是 Service 的外部 IP，且目标端口与 Service 端口匹配，流量就会被路由到该 Service 的某个 endpoint 上。</p>
 <p><code>externalIPs</code> 不由 Kubernetes 管理，集群管理员需要自己配置网络路由以确保流量能够到达集群节点。</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">selector</span><span class="token punctuation">:</span>
@@ -314,7 +314,7 @@
       <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
       <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span>
   <span class="token key atrule">externalIPs</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> 80.11.12.10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">-</span> 80.11.12.10</code></pre>
 
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Services-without-selectors"><a href="#Services-without-selectors" class="headerlink" title="Services without selectors"></a>Services without selectors</h3><p>Service 通常用于抽象访问 Kubernetes Pods，但它们也可以用于抽象其他类型的后端。例如：</p>
 <ul>

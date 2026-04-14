@@ -169,7 +169,7 @@
 <p><img src="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/202411231141710.png"></p>
 <h4 id="PVC-PV-SC-等资源"><a href="#PVC-PV-SC-等资源" class="headerlink" title="PVC &#x2F; PV &#x2F; SC 等资源"></a>PVC &#x2F; PV &#x2F; SC 等资源</h4><ol>
 <li><p>在集群中需要有对应的storageClass</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>sc
@@ -178,10 +178,10 @@
   <span class="token key atrule">type</span><span class="token punctuation">:</span> gp3                <span class="token comment"># The type of EBS volume (gp3 for general-purpose SSD)</span>
   <span class="token key atrule">fsType</span><span class="token punctuation">:</span> ext4             <span class="token comment"># File system type</span>
 <span class="token key atrule">reclaimPolicy</span><span class="token punctuation">:</span> Delete       <span class="token comment"># Automatically delete EBS volume when PVC is deleted</span>
-<span class="token key atrule">volumeBindingMode</span><span class="token punctuation">:</span> WaitForFirstConsumer <span class="token comment"># Volume is provisioned only when a pod uses the PVC</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token key atrule">volumeBindingMode</span><span class="token punctuation">:</span> WaitForFirstConsumer <span class="token comment"># Volume is provisioned only when a pod uses the PVC</span></code></pre>
 </li>
 <li><p>创建PVC</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>ebs<span class="token punctuation">-</span>pvc
@@ -191,7 +191,7 @@
   <span class="token key atrule">resources</span><span class="token punctuation">:</span>
     <span class="token key atrule">requests</span><span class="token punctuation">:</span>
       <span class="token key atrule">storage</span><span class="token punctuation">:</span> 5Gi           <span class="token comment"># Request 5Gi of storage</span>
-  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>sc    <span class="token comment"># Use the ebs-sc StorageClass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>sc    <span class="token comment"># Use the ebs-sc StorageClass</span></code></pre></li>
 </ol>
 <p>集群中的<strong>Volume Controller</strong>发现这个PVC后，就会主动在集群中寻找合适的PV，来和PVC绑定。只有和PV绑定了的PVC，才能被pod正常挂载使用。</p>
 <p>Volume Controller寻找PV的条件主要是：</p>
@@ -201,7 +201,7 @@
 </ul>
 <p>如果集群中不存在合适的PV，Provisioner就会尝试根据配置动态创建外部存储，和在集群上创建对应的PV。</p>
 <ol start="3">
-<li>创建使用PVC的workload<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<li>创建使用PVC的workload<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> ebs<span class="token punctuation">-</span>pvc<span class="token punctuation">-</span>app
@@ -224,7 +224,7 @@
       <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
         <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
-          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>ebs<span class="token punctuation">-</span>pvc             <span class="token comment"># Use the PVC created earlier</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>ebs<span class="token punctuation">-</span>pvc             <span class="token comment"># Use the PVC created earlier</span></code></pre></li>
 </ol>
 <p>对于EBS这样的块存储，分为”两阶段处理”。</p>
 <p>（1）Attach：为宿主机挂载远程存储；（如果是NFS的话，其实没有这个过程，因为不需要”挂载存储设备到宿主机”）</p>

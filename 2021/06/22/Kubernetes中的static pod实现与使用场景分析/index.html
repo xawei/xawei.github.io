@@ -165,7 +165,7 @@
 <li><p>Step 4：手动指定Kubelet启动参数：<br>kubelet –cgroup-driver&#x3D;systemd –pod-manifest-path&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F; –fail-swap-on&#x3D;false –pod-infra-container-image&#x3D;kubernetes&#x2F;pause &gt; &#x2F;tmp&#x2F;kubelet.log 2&gt;&amp;1</p>
 </li>
 <li><p>Step 5：观察Pod定义的容器组已被Kubelet正确启动，纳入管理:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">></span> /etc/kubernetes/manifests/pod.yaml <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">></span> /etc/kubernetes/manifests/pod.yaml <span class="token operator">&lt;&lt;</span><span class="token string">EOF
 &#123;
     "kind":"Pod",
     "apiVersion":"v1",
@@ -184,7 +184,7 @@
         "restartPolicy":"Always"
     &#125;
 &#125;
-EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+EOF</span></code></pre>
 
 <p><img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/20210707122532.png"></p>
 </li>
@@ -205,7 +205,7 @@ EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 <p><strong>注意</strong>：这里不会详细介绍Kubelet的启动已经各种其他能力，可以参考：</p>
 </blockquote>
 <p>Kubernetes&#x2F;cmd&#x2F;kubelet&#x2F;app&#x2F;server.go:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">run</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> s <span class="token operator">*</span>options<span class="token punctuation">.</span>KubeletServer<span class="token punctuation">,</span> kubeDeps <span class="token operator">*</span>kubelet<span class="token punctuation">.</span>Dependencies<span class="token punctuation">,</span> featureGate featuregate<span class="token punctuation">.</span>FeatureGate<span class="token punctuation">)</span> <span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">run</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> s <span class="token operator">*</span>options<span class="token punctuation">.</span>KubeletServer<span class="token punctuation">,</span> kubeDeps <span class="token operator">*</span>kubelet<span class="token punctuation">.</span>Dependencies<span class="token punctuation">,</span> featureGate featuregate<span class="token punctuation">.</span>FeatureGate<span class="token punctuation">)</span> <span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 	<span class="token operator">...</span>
   <span class="token comment">// About to get clients and such, detect standaloneMode</span>
     standaloneMode <span class="token operator">:=</span> <span class="token boolean">true</span>
@@ -227,11 +227,11 @@ EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 		<span class="token keyword">return</span> err
 	<span class="token punctuation">&#125;</span>
   <span class="token operator">...</span>
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span>  </code></pre>
 
 <p>首先找到Kubelet的启动入口，会判断是否传入kubeConfig，如果没有，则是Stand alone模式，即无集群模式，因为没有kubeConfig的Kubelet无法访问某个集群的Kube-apiserver。KubeClient, EeventClient, HeartClient都置为nil，不会上报事件、心跳。</p>
 <p>Kubernetes&#x2F;cmd&#x2F;kubelet&#x2F;app&#x2F;server.go:</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// RunKubelet is responsible for setting up and running a kubelet.  It is used in three different applications:</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// RunKubelet is responsible for setting up and running a kubelet.  It is used in three different applications:</span>
 <span class="token comment">//   1 Integration tests</span>
 <span class="token comment">//   2 Kubelet binary</span>
 <span class="token comment">//   3 Standalone 'kubernetes' binary</span>
@@ -262,17 +262,17 @@ EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span>
   <span class="token operator">...</span>
 		kubeDeps<span class="token punctuation">.</span>PodConfig<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">makePodSourceConfig</span><span class="token punctuation">(</span>kubeCfg<span class="token punctuation">,</span> kubeDeps<span class="token punctuation">,</span> nodeName<span class="token punctuation">,</span> nodeHasSynced<span class="token punctuation">)</span>
    <span class="token operator">...</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>RunKubelet -&gt; createAndInitKubelet -&gt; NewMainKubelet. 在NewMainKubelet中，调用makePodSourceConfig来根据kubeletConfiguration，生成PodConfig，一个struct，能够获取多种取到的Pod配置来源（StaticPodPath&#x2F;StaticPodURL&#x2F;Kube-apisever)，并能够分发给不通的Listener处理。PodConfig在源码中的注释说明原文如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; PodConfig is a configuration mux that merges many sources of pod configuration into a single
+<pre class="language-none"><code class="language-none">&#x2F;&#x2F; PodConfig is a configuration mux that merges many sources of pod configuration into a single
 &#x2F;&#x2F; consistent structure, and then delivers incremental change notifications to listeners
-&#x2F;&#x2F; in order.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; in order.</code></pre>
 
 
 
 <p>Kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;kubelet.go</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// makePodSourceConfig creates a config.PodConfig from the given</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// makePodSourceConfig creates a config.PodConfig from the given</span>
 <span class="token comment">// KubeletConfiguration or returns an error.</span>
 <span class="token keyword">func</span> <span class="token function">makePodSourceConfig</span><span class="token punctuation">(</span>kubeCfg <span class="token operator">*</span>kubeletconfiginternal<span class="token punctuation">.</span>KubeletConfiguration<span class="token punctuation">,</span> kubeDeps <span class="token operator">*</span>Dependencies<span class="token punctuation">,</span> nodeName types<span class="token punctuation">.</span>NodeName<span class="token punctuation">,</span> nodeHasSynced <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>config<span class="token punctuation">.</span>PodConfig<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 	<span class="token operator">...</span>
@@ -293,11 +293,11 @@ EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 		config<span class="token punctuation">.</span><span class="token function">NewSourceApiserver</span><span class="token punctuation">(</span>kubeDeps<span class="token punctuation">.</span>KubeClient<span class="token punctuation">,</span> nodeName<span class="token punctuation">,</span> nodeHasSynced<span class="token punctuation">,</span> cfg<span class="token punctuation">.</span><span class="token function">Channel</span><span class="token punctuation">(</span>kubetypes<span class="token punctuation">.</span>ApiserverSource<span class="token punctuation">)</span><span class="token punctuation">)</span>
 	<span class="token punctuation">&#125;</span>
   <span class="token operator">...</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>再看看makePodSourceConfig函数里面，就是有三种来源的Pod定义信息，分别是StaticPodPath、StaticPodURL和kubeClient。</p>
 <p>再直接查看kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;config&#x2F;file.go：</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token operator">...</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token operator">...</span>
 <span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>sourceFile<span class="token punctuation">)</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 	listTicker <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">NewTicker</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>period<span class="token punctuation">)</span>
 	<span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -324,15 +324,15 @@ EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 	<span class="token keyword">case</span> statInfo<span class="token punctuation">.</span><span class="token function">Mode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">IsRegular</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
 		<span class="token operator">...</span>
 	<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>可以看到如果StaticPodPath配置了的话，kubelet会启动一个协程，定时watch这个路径下的所有文件，如果是符合Pod定义的文件，则把反序列化出来的Pod对象分发给PodConfig的Listener进行处理。</p>
 <p>Stuct PodConfig的成员updates chan kubetypes.PodUpdate是一个分发需要处理的Pod事件的Channel。</p>
 <p>Kubernetes&#x2F;pkg&#x2F;kubelet&#x2F;kubelet.go</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>kl <span class="token operator">*</span>Kubelet<span class="token punctuation">)</span> <span class="token function">syncLoopIteration</span><span class="token punctuation">(</span>configCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> kubetypes<span class="token punctuation">.</span>PodUpdate<span class="token punctuation">,</span> handler SyncHandler<span class="token punctuation">,</span>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>kl <span class="token operator">*</span>Kubelet<span class="token punctuation">)</span> <span class="token function">syncLoopIteration</span><span class="token punctuation">(</span>configCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> kubetypes<span class="token punctuation">.</span>PodUpdate<span class="token punctuation">,</span> handler SyncHandler<span class="token punctuation">,</span>
 	syncCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> time<span class="token punctuation">.</span>Time<span class="token punctuation">,</span> housekeepingCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> time<span class="token punctuation">.</span>Time<span class="token punctuation">,</span> plegCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token operator">*</span>pleg<span class="token punctuation">.</span>PodLifecycleEvent<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">&#123;</span>
   <span class="token operator">...</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p>在函数syncLoopIteration中，通过读取PodConfig的updates这个Channel，来分发出事件进行处理，主要是由Kubelet按照Pod的定义，调用底层的容器运行时来运行容器。当然，当Kubelet watch到指定路径的Pod定义文件被移除，那它也会停止原本运行的Static pod。后面的实现代码边幅较长不再详细列举。</p>
 <h2 id="Static-pod的典型应用场景"><a href="#Static-pod的典型应用场景" class="headerlink" title="Static pod的典型应用场景"></a>Static pod的典型应用场景</h2><p>Static pod目前使用最广泛的场景，是在Kubeadm中使用使用这一机制来Bootstrap一个Kubernetes集群。</p>
