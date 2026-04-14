@@ -3561,6 +3561,8 @@ body.post-page .main-content {
   .post-layout {
     flex-direction: column;
     align-items: center; /* Center items vertically when in column */
+    width: 100%;
+    padding: 0 10px;
   }
   
   .post-main {
@@ -3611,8 +3613,8 @@ body.post-page .main-content {
 /* Clean up container styles for posts */
 body.post-page .container {
   max-width: 100%; /* Allow post-layout to control width */
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 /* Ensure the post content has good typography */
@@ -3729,7 +3731,7 @@ h1, h2, h3, h4, h5, h6 {
     .container {
         max-width: 100%;
         padding: 0 15px;
-        padding-top: 80px; /* Fixed value that accounts for banner height */
+        padding-top: 100px; /* Fixed value that accounts for banner height */
         z-index: 10;
     }
     
@@ -3775,7 +3777,7 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .container {
-        padding-top: 75px; /* Adjusted to prevent overlap while keeping content close to navbar */
+        padding-top: 90px; /* Adjusted to prevent overlap while keeping content close to navbar */
     }
     
     /* Further reduce title size on very small screens */
