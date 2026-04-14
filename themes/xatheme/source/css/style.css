@@ -3582,3 +3582,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 .post-wordcount { margin-left: 10px; color: var(--text-color, #666); font-size: 0.9em; }
 .post-wordcount .divider { margin: 0 5px; opacity: 0.5; }
+
+/* Mermaid Diagrams */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    margin: 2rem 0;
+    padding: 0 !important;
+}
