@@ -3592,3 +3592,65 @@ h1, h2, h3, h4, h5, h6 {
     margin: 2rem 0;
     padding: 0 !important;
 }
+
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        flex: 0 0 auto;
+        position: relative;
+        top: 0;
+        max-height: none;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .sidebar-container {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 10px;
+    }
+    .sidebar-section {
+        padding: 15px;
+    }
+    .post {
+        padding: 15px 20px !important;
+    }
+    .post-title {
+        font-size: 1.4rem !important;
+    }
+    .post-content img, .post-content pre {
+        max-width: 100%;
+        height: auto;
+    }
+    .banner {
+        height: auto;
+        padding: 60px 0 20px 0;
+    }
+}
+@media (max-width: 480px) {
+    .sidebar {
+        margin-bottom: 10px;
+    }
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+    .sidebar-section {
+        padding: 12px;
+    }
+    .stats-number {
+        font-size: 1.1rem;
+    }
+    .post {
+        padding: 12px 15px !important;
+    }
+    .post-title {
+        font-size: 1.25rem !important;
+    }
+}
