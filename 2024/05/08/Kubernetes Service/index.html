@@ -132,9 +132,9 @@
                         </span>
                     
                     <span class="post-wordcount">
-                        <i class="fa-solid fa-file-word"></i> 2.1k 字
+                        <i class="fa-solid fa-file-word"></i> 2.3k 字
                         <span class="divider">|</span>
-                        <i class="fa-regular fa-clock"></i> 8 分钟
+                        <i class="fa-regular fa-clock"></i> 9 分钟
                     </span>
                 </div>
             </div>
@@ -145,7 +145,16 @@
 
 
 <h2 id="Service-类型"><a href="#Service-类型" class="headerlink" title="Service 类型"></a>Service 类型</h2><p><strong>Kubernetes Services</strong> 是访问 Pods 的抽象层，为访问部署的应用程序提供了一个一致且简化的endpoint。在Kubernetes中有不同类型的Services，包括：<code>ClusterIP</code>, <code>NodePort</code>, <code>LoadBalancer</code>. </p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405051706209.png" style="zoom: 33%;" />
+<pre class="mermaid">graph LR
+    Client([Internal Client]) -.->|Cluster Internal| SVC[Service : ClusterIP]
+    SVC -->|Load Balancing| Pod1(Pod 1)
+    SVC -->|Load Balancing| Pod2(Pod 2)
+    SVC -->|Load Balancing| Pod3(Pod 3)
+
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef pod fill:#e8f5e9,stroke:#388e3c,color:#000;
+    class SVC k8s;
+    class Pod1,Pod2,Pod3 pod;</pre>
 
 <h3 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h3><p><code>ClusterIP</code> 是Kubernetes中默认的Service类型，通过“<strong>仅集群内可见的IP</strong>”把部署在集群中的服务应用暴露出来。也就是说，这样的Service仅在集群内部可以访问。<code>ClusterIP</code> 非常适合于 <u>面向内部</u> 的 backend services，这些服务不应该暴露在集群外部。</p>
 <p><strong>Example Configuration:</strong></p>
@@ -163,7 +172,22 @@
       <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h3><p>NodePort Service 在每个Node的 IP 上通过一个静态端口（即 NodePort）暴露服务。这允许来自集群外部的外部流量通过 <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> 访问服务。这种类型的服务一般适用于临时配置，如演示或开发环境。</p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405051423533.png" style="zoom: 33%;" />
+<pre class="mermaid">graph TD
+    Client([External Client]) -->|NodeIP : NodePort| Node1[Node 1]
+    Client -->|NodeIP : NodePort| Node2[Node 2]
+    
+    Node1 -.->|iptables/IPVS| SVC[Service : ClusterIP]
+    Node2 -.->|iptables/IPVS| SVC
+    
+    SVC --> Pod1(Pod 1)
+    SVC --> Pod2(Pod 2)
+
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef pod fill:#e8f5e9,stroke:#388e3c,color:#000;
+    classDef node fill:#eceff1,stroke:#475569,color:#000;
+    class SVC k8s;
+    class Pod1,Pod2 pod;
+    class Node1,Node2 node;</pre>
 
 <p><strong>Example Configuration:</strong></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -242,9 +266,18 @@
 <p>📢：如果 pod 是在创建 Service 前创建的，那么不会注入 Service 相关的环境变量信息。</p>
 </blockquote>
 <h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>正常集群中都会部署一个cluster-aware的 DNS service 插件，例如 CoreDNS。CoreDNS 持续监听 Kubernetes API 来发现新的 Services，为它们创建 DNS 记录。</p>
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405082353211.png" style="zoom:33%;" />
-
-<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405082338947.png" style="zoom: 33%;" />
+<pre class="mermaid">sequenceDiagram
+    participant API as Kubernetes API Server
+    participant CoreDNS as CoreDNS
+    participant Pod as Client Pod
+    
+    CoreDNS->>API: 1. Watch for Service/Endpoint changes
+    API-->>CoreDNS: 2. Notify new Service created
+    CoreDNS->>CoreDNS: 3. Update internal DNS records (A/AAAA/SRV)
+    
+    Pod->>CoreDNS: 4. DNS Query (my-svc.my-namespace.svc.cluster.local)
+    CoreDNS-->>Pod: 5. Return Service ClusterIP
+    Pod->>Pod: 6. Connect to ClusterIP</pre>
 
 <h2 id="Virtual-IP-addressing-mechanism"><a href="#Virtual-IP-addressing-mechanism" class="headerlink" title="Virtual IP addressing mechanism"></a>Virtual IP addressing mechanism</h2><p>以上内容介绍了 Kubernetes Service 的基本使用方法和场景，现在介绍的是 Service 的 Virtual IP 是如何实现的😄</p>
 <h3 id="Traffic-policies"><a href="#Traffic-policies" class="headerlink" title="Traffic policies"></a>Traffic policies</h3><p>Kubernetes 提供了路由流量的策略，主要分为 <code>externalTrafficPolicy</code> 和 <code>internalTrafficPolicy</code>：</p>
