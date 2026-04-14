@@ -588,62 +588,64 @@ a:hover {
 
 /* Code block styling (PrismJS + Mac-style) */
 .post-content figure.highlight,
+/* Clean Typora-style Code Blocks */
+.post-content figure.highlight,
 .code-block-wrapper {
     position: relative;
-    margin: 2em 0;
-    border-radius: 12px;
+    margin: 1.5em 0;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    background-color: #0F172A; /* Always dark for code blocks */
+    background-color: #f6f8fa; /* Light background for light mode */
     font-family: var(--font-mono);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 [data-theme="dark"] .post-content figure.highlight,
 [data-theme="dark"] .code-block-wrapper {
-    background-color: #0B1121;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba(51, 65, 85, 0.6);
+    background-color: #282c34; /* Dark background for dark mode */
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Code header styling (Mac dots) */
+/* Code header styling (Clean) */
 .code-header {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    background-color: rgba(255, 255, 255, 0.03);
-    color: #94A3B8;
-    font-size: 0.85rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    position: relative;
+    justify-content: flex-end; /* Align items to the right */
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, 0.03);
+    color: #666;
+    font-size: 0.8rem;
+    position: absolute; /* Float over code */
+    top: 0;
+    right: 0;
+    width: 100%;
+    pointer-events: none; /* Let clicks pass through background */
 }
 
+.code-header > * {
+    pointer-events: auto; /* Re-enable clicks on buttons/labels */
+}
+
+/* Remove Mac dots */
 .code-header::before {
-    content: '';
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #ff5f56;
-    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
-    margin-right: auto;
+    display: none;
 }
 
 [data-theme="dark"] .code-header {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: #64748B;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #abb2bf;
 }
 
 /* Language label */
 .lang-label {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     font-weight: 600;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
-    color: #64748B;
     text-transform: uppercase;
+    margin-right: auto; /* Push to the left if needed, or keep right */
+    padding-left: 10px;
+    opacity: 0.7;
 }
 
 /* Copy and fold buttons */
@@ -690,11 +692,15 @@ a:hover {
 
 .code-block-wrapper pre {
     margin: 0;
-    padding: 1.2rem 1rem 1.2rem 3.8rem;
+    padding: 1.2rem 1rem 1.2rem 1.2rem; /* Adjusted padding, no need for large left padding if no line numbers by default */
     background-color: transparent !important;
     border-radius: 0;
-    color: #F8FAFC;
+    color: #383a42; /* Light mode text color */
     overflow-x: auto;
+}
+
+[data-theme="dark"] .code-block-wrapper pre {
+    color: #F8FAFC; /* Dark mode text color */
 }
 
 /* Button wrapper styling */
@@ -751,10 +757,10 @@ a:hover {
     content: none; /* Remove the gradient overlay as wrapper handles it now */
 }
 
-/* --- PRISMJS SYNTAX HIGHLIGHTING (One Dark / Tech Style) --- */
+/* --- PRISMJS SYNTAX HIGHLIGHTING (Light/Dark Mode Support) --- */
 .post-content pre[class*="language-"] {
-    color: #abb2bf;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    color: #383a42; /* Light mode text color */
+    text-shadow: none;
     direction: ltr;
     text-align: left;
     white-space: pre;
@@ -764,28 +770,145 @@ a:hover {
     hyphens: none;
 }
 
+[data-theme="dark"] .post-content pre[class*="language-"] {
+    color: #abb2bf; /* Dark mode text color */
+}
+
 .post-content pre[class*="language-"]::-moz-selection,
 .post-content pre[class*="language-"] ::-moz-selection {
-    text-shadow: none;
-    background: #3e4451;
+    background: #e5e5e6;
 }
 
 .post-content pre[class*="language-"]::selection,
 .post-content pre[class*="language-"] ::selection {
-    text-shadow: none;
+    background: #e5e5e6;
+}
+
+[data-theme="dark"] .post-content pre[class*="language-"]::-moz-selection,
+[data-theme="dark"] .post-content pre[class*="language-"] ::-moz-selection {
+    background: #3e4451;
+}
+
+[data-theme="dark"] .post-content pre[class*="language-"]::selection,
+[data-theme="dark"] .post-content pre[class*="language-"] ::selection {
     background: #3e4451;
 }
 
 /* Tokens */
-.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #5c6370; font-style: italic; }
-.token.punctuation { color: #abb2bf; }
-.token.namespace { opacity: .7; }
-.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: #e06c75; }
-.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #98c379; }
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: #56b6c2; }
-.token.atrule, .token.attr-value, .token.keyword { color: #c678dd; }
-.token.function, .token.class-name { color: #61afef; }
-.token.regex, .token.important, .token.variable { color: #c678dd; }
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #a0a1a7;
+    font-style: italic;
+}
+
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.doctype,
+[data-theme="dark"] .token.cdata {
+    color: #5c6370;
+}
+
+.token.punctuation {
+    color: #383a42;
+}
+
+[data-theme="dark"] .token.punctuation {
+    color: #abb2bf;
+}
+
+.token.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #e45649;
+}
+
+[data-theme="dark"] .token.property,
+[data-theme="dark"] .token.tag,
+[data-theme="dark"] .token.boolean,
+[data-theme="dark"] .token.number,
+[data-theme="dark"] .token.constant,
+[data-theme="dark"] .token.symbol,
+[data-theme="dark"] .token.deleted {
+    color: #e06c75;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #50a14f;
+}
+
+[data-theme="dark"] .token.selector,
+[data-theme="dark"] .token.attr-name,
+[data-theme="dark"] .token.string,
+[data-theme="dark"] .token.char,
+[data-theme="dark"] .token.builtin,
+[data-theme="dark"] .token.inserted {
+    color: #98c379;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #4078f2;
+}
+
+[data-theme="dark"] .token.operator,
+[data-theme="dark"] .token.entity,
+[data-theme="dark"] .token.url,
+[data-theme="dark"] .language-css .token.string,
+[data-theme="dark"] .style .token.string {
+    color: #56b6c2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #a626a4;
+}
+
+[data-theme="dark"] .token.atrule,
+[data-theme="dark"] .token.attr-value,
+[data-theme="dark"] .token.keyword {
+    color: #c678dd;
+}
+
+.token.function,
+.token.class-name {
+    color: #4078f2;
+}
+
+[data-theme="dark"] .token.function,
+[data-theme="dark"] .token.class-name {
+    color: #61afef;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #e45649;
+}
+
+[data-theme="dark"] .token.regex,
+[data-theme="dark"] .token.important,
+[data-theme="dark"] .token.variable {
+    color: #c678dd;
+}
 
 /* Line Numbers Plugin Styling */
 pre[class*="language-"].line-numbers {
