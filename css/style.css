@@ -1463,14 +1463,17 @@ h6:target {
     .profile-avatar {
         width: 90px;
         height: 90px;
+        margin: 0 auto 10px; /* Reduce margin below avatar */
     }
     
     .profile-name {
         font-size: 20px;
+        margin-bottom: 2px; /* Reduce gap between name and description */
     }
     
     .profile-desc {
         font-size: 13px;
+        margin: 0 auto 15px; /* Add some space below description */
     }
     
     /* Stack header elements on mobile */
