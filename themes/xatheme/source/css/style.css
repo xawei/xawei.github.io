@@ -1545,6 +1545,14 @@ h6:target {
         display: inline-block; /* Show text again on mobile menu */
     }
     
+    .theme-item {
+        justify-content: center;
+    }
+    
+    .theme-toggle-switch {
+        margin: 0 auto;
+    }
+    
     /* Adjust banner height for stacked header */
     .banner {
         position: fixed; /* Change back to fixed for mobile */
@@ -1622,7 +1630,7 @@ h6:target {
     .theme-toggle-switch {
         width: 50px;
         height: 26px;
-        margin-left: 10px;
+        margin: 0 auto;
     }
     
     .toggle-slider {
