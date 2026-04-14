@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, xawei</rights>
   <subtitle>hello world</subtitle>
   <title>MyCatalog</title>
-  <updated>2026-04-14T15:51:11.761Z</updated>
+  <updated>2026-04-14T15:56:14.176Z</updated>
   <entry>
     <author>
       <name>xawei</name>
@@ -24,7 +24,7 @@
       <![CDATA[<p>A concise guide to understanding and resolving Cross-Origin Resource Sharing (CORS) issues in modern web applications.</p>]]>
     </summary>
     <title>Understanding Cross-Origin Resource Sharing (CORS): Problems and Solutions</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -39,7 +39,7 @@
       <![CDATA[<p>A concise, fast-paced Go refresher tailored for experienced backend developers returning to the language.</p>]]>
     </summary>
     <title>Mastering Go Again: A Refresher for Developers with Prior Experience</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -55,7 +55,7 @@
       <![CDATA[<p>Discover how AWS Transit Gateway streamlines complex multi-VPC networking architectures compared to traditional VPC peering.</p>]]>
     </summary>
     <title>Simplifying Multi-VPC Networking with AWS Transit Gateway</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -71,7 +71,7 @@
       <![CDATA[<p>最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和<code>connection reset</code>。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。</p>]]>
     </summary>
     <title>AWS NLB后端服务间歇性超时问题</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -88,7 +88,7 @@
       <![CDATA[<p>Istio is an open platform that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic, enforcing access policies, and aggregating telemetry data, all without requiring changes to the actual services. This article will introduce the basic resources of Istio, including <code>Gateway</code>, <code>VirtualService</code>, <code>DestinationRule</code>, <code>ServiceEntry</code>, <code>Sidecar</code>, and <code>AuthorizationPolicy</code>.</p>]]>
     </summary>
     <title>Introduction to Istio Resources</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -103,7 +103,7 @@
       <![CDATA[<p>本文深入解析 Kubernetes 中各类 Service（ClusterIP、NodePort、LoadBalancer 等）的核心机制及适用场景，带你掌握容器网络访问的最佳实践。</p>]]>
     </summary>
     <title>Kubernetes Service</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -117,7 +117,7 @@
       <![CDATA[<p>AWS VPC Endpoints enhance security and performance by keeping network traffic within the AWS cloud.<br>This article covers what VPC Endpoints are, their types, and how to set them up to improve your AWS infrastructure.</p>]]>
     </summary>
     <title>Use VPC Endpoint to Keep Your Network Traffic in AWS</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -131,7 +131,7 @@
       <![CDATA[<p>hypervisor作用、类型和实现简介。</p>]]>
     </summary>
     <title>Hypervisor介绍</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -145,7 +145,7 @@
       <![CDATA[<p>介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。</p>]]>
     </summary>
     <title>Kubernetes中的Static pod实现与使用场景分析</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -159,7 +159,7 @@
       <![CDATA[<p>介绍任务调度与执行框架Ploto的quick start. 目前可部署使用，源码待整理后开源。</p>]]>
     </summary>
     <title>Ploto quick start</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -173,7 +173,7 @@
       <![CDATA[<p>详解 Kubernetes 官方提供的两大扩展利器：CRD (Custom Resource Definition) 与 Aggregation Layer，深度剖析其工作原理与最佳适用场景。</p>]]>
     </summary>
     <title>使用CRD和Aggregated Server扩展Kubernetes</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -187,7 +187,7 @@
       <![CDATA[<p>深入浅出解析 Kubernetes 持久化存储核心概念，带你掌握 PV (PersistentVolume) 与 PVC (PersistentVolumeClaim) 的工作原理与实践操作。</p>]]>
     </summary>
     <title>PV和PVC</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -201,7 +201,7 @@
       <![CDATA[<p>一文讲透 Kubernetes 中蓝绿、红黑、金丝雀（灰度）及滚动发布等核心策略的原理与实践应用。</p>]]>
     </summary>
     <title>几种常见的发布策略</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
   <entry>
     <author>
@@ -215,6 +215,6 @@
       <![CDATA[<p>Kubernets是一个容器编排平台，本文主要介绍其整体架构，以及各个核心组件之间是如何协作完成容器的各项编排工作。</p>]]>
     </summary>
     <title>Kubernetes架构及核心组件介绍</title>
-    <updated>2026-04-14T15:51:11.761Z</updated>
+    <updated>2026-04-14T15:56:14.176Z</updated>
   </entry>
 </feed>
