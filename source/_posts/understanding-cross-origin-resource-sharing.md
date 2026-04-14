@@ -7,6 +7,8 @@ tags:
   - Web Development
 ---
 
+A concise guide to understanding and resolving Cross-Origin Resource Sharing (CORS) issues in modern web applications.
+
 <!--more-->
 
 ## What is Cross-Origin Resource Sharing (CORS)?
