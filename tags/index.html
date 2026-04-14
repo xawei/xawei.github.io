@@ -81,6 +81,12 @@
                     </li>
                 
                 
+                <li class="menu-item search-item">
+                    <a class="menu-link search-button" href="javascript:void(0);">
+                        <i class="fa-solid fa-magnifying-glass"></i> Search
+                    </a>
+                </li>
+                
                 
                     <li class="menu-item theme-item">
                         <div class="theme-toggle">
@@ -106,43 +112,43 @@
     <div class="tags-cloud">
         
             
-                <a href="/tags/AWS/" class="tag-item" style="font-size: 0.9032634444921352em; opacity: 0.9620562965050522;">
+                <a href="/tags/AWS/" class="tag-item" style="font-size: 1.1000158853917958em; opacity: 0.7391412211088854;">
                     AWS (2)
                 </a>
             
-                <a href="/tags/Go/" class="tag-item" style="font-size: 0.8270083578701307em; opacity: 0.8606420973850215;">
+                <a href="/tags/Go/" class="tag-item" style="font-size: 1.1712949268536845em; opacity: 0.7790097266871673;">
                     Go (1)
                 </a>
             
-                <a href="/tags/Istio/" class="tag-item" style="font-size: 1.0242899204959763em; opacity: 0.9408680226422211;">
+                <a href="/tags/Istio/" class="tag-item" style="font-size: 0.8158805412261999em; opacity: 0.9703240682961276;">
                     Istio (1)
                 </a>
             
-                <a href="/tags/JavaScript/" class="tag-item" style="font-size: 0.9034032000715724em; opacity: 0.6311946826190323;">
+                <a href="/tags/JavaScript/" class="tag-item" style="font-size: 1.416832382236036em; opacity: 0.7051399630325886;">
                     JavaScript (2)
                 </a>
             
-                <a href="/tags/Kubernetes/" class="tag-item" style="font-size: 1.2182276957777225em; opacity: 0.8502655272734142;">
+                <a href="/tags/Kubernetes/" class="tag-item" style="font-size: 1.250280096630881em; opacity: 0.7591945103066378;">
                     Kubernetes (2)
                 </a>
             
-                <a href="/tags/NLB/" class="tag-item" style="font-size: 1.1571157887921562em; opacity: 0.57888615729456;">
+                <a href="/tags/NLB/" class="tag-item" style="font-size: 1.4302621534477935em; opacity: 0.93400739063311;">
                     NLB (1)
                 </a>
             
-                <a href="/tags/Node-js/" class="tag-item" style="font-size: 1.0758807138910673em; opacity: 0.8426935011401404;">
+                <a href="/tags/Node-js/" class="tag-item" style="font-size: 1.3633474199174864em; opacity: 0.791048975010489;">
                     Node.js (1)
                 </a>
             
-                <a href="/tags/Service-Mesh/" class="tag-item" style="font-size: 1.1578295588999923em; opacity: 0.5786293758815534;">
+                <a href="/tags/Service-Mesh/" class="tag-item" style="font-size: 0.8197215261601613em; opacity: 0.7911387102525063;">
                     Service Mesh (1)
                 </a>
             
-                <a href="/tags/TGW/" class="tag-item" style="font-size: 1.049409325217138em; opacity: 0.7657890309066733;">
+                <a href="/tags/TGW/" class="tag-item" style="font-size: 1.3696857072927777em; opacity: 0.8052076010532746;">
                     TGW (1)
                 </a>
             
-                <a href="/tags/Web-Development/" class="tag-item" style="font-size: 1.4905784047103308em; opacity: 0.5721379109817643;">
+                <a href="/tags/Web-Development/" class="tag-item" style="font-size: 0.9122745485878431em; opacity: 0.9755443498011521;">
                     Web Development (1)
                 </a>
             
@@ -160,6 +166,35 @@
         </div>
     </div>
 </footer> 
+    <!-- Search Modal -->
+<div class="search-modal" id="search-modal">
+    <div class="search-modal-overlay"></div>
+    <div class="search-modal-content">
+        <div class="search-header">
+            <div class="search-input-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Search for posts..." autocomplete="off">
+            </div>
+            <button class="search-close-btn" id="search-close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="search-body">
+            <div class="search-results" id="search-results">
+                <!-- Search results will be dynamically inserted here -->
+                <div class="search-empty-state">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <p>Start typing to search...</p>
+                </div>
+            </div>
+        </div>
+        <div class="search-footer">
+            <span><kbd>ESC</kbd> to close</span>
+            <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+            <span><kbd>↵</kbd> to select</span>
+        </div>
+    </div>
+</div>
     <div class="back-to-top">
         <i class="fa-solid fa-arrow-up"></i>
     </div>
@@ -170,6 +205,7 @@
 
 <!-- Theme scripts -->
 <script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
 
 
 

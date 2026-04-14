@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xawei.xyz/vercel.json</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/masonry/index.html</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/tags/index.html</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2026-04-14</lastmod>
@@ -20,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/</loc>
+    <loc>https://xawei.xyz/2024/05/08/Kubernetes%20Service/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -29,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2024/05/08/Kubernetes%20Service/</loc>
+    <loc>https://xawei.xyz/2021/06/22/Kubernetes%E4%B8%AD%E7%9A%84static%20pod%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -83,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
+    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -92,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
+    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -128,15 +155,6 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://xawei.xyz/2021/03/05/%E4%BD%BF%E7%94%A8CRD%E5%92%8CAggregated%20Server%E6%89%A9%E5%B1%95Kubernetes/</loc>
     
     <lastmod>2026-04-14</lastmod>
@@ -146,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/vercel.json</loc>
+    <loc>https://xawei.xyz/2020/12/13/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -165,24 +183,6 @@
   
   <url>
     <loc>https://xawei.xyz/categories/index.html</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/masonry/index.html</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/tags/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -286,14 +286,14 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/kubernetes/</loc>
+    <loc>https://xawei.xyz/categories/Kubernetes/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/Kubernetes/</loc>
+    <loc>https://xawei.xyz/categories/kubernetes/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
