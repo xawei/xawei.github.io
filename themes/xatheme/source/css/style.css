@@ -639,18 +639,18 @@ a:hover {
 .code-block-wrapper {
     position: relative;
     margin: 1.5em 0;
-    border-radius: 6px; /* Slightly sharper corners */
+    border-radius: 12px; /* Rounded corners like Ollama */
     overflow: hidden;
-    background-color: #f9f9f9; /* Very light background for light mode */
+    background-color: #ffffff; /* White background for light mode */
     font-family: var(--font-mono);
-    border: none; /* Removed border */
-    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Subtle border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); /* Very subtle shadow */
 }
 
 [data-theme="dark"] .post-content figure.highlight,
 [data-theme="dark"] .code-block-wrapper {
     background-color: #1e1e1e; /* Dark background for dark mode */
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Code header styling (Clean) */
@@ -658,10 +658,10 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: flex-end; /* Align items to the right */
-    padding: 8px 12px; /* Slightly more padding */
+    padding: 12px 16px; /* Space for buttons */
     background-color: transparent; /* Completely transparent */
     color: #999; /* Lighter text color */
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     position: absolute; /* Float over code */
     top: 0;
     right: 0;
@@ -686,27 +686,27 @@ a:hover {
 
 /* Language label */
 .lang-label {
-    font-weight: 500; /* Less bold */
-    font-size: 0.75rem;
+    font-weight: 500;
+    font-size: 0.8rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-right: auto; /* Push to the left */
-    padding-left: 5px; /* Align with code */
-    opacity: 0.8;
+    padding-left: 0px; 
+    color: #a1a1aa; /* Subtle gray */
 }
 
 /* Copy and fold buttons */
 .copy-button, 
 .fold-button {
-    background: rgba(0, 0, 0, 0.05); /* Darker for light mode */
+    background: transparent; /* Transparent like Ollama */
     border: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    padding: 4px 10px;
+    padding: 6px 10px;
     margin-left: 8px;
     border-radius: 6px;
-    color: #666; /* Darker icon color for light mode */
+    color: #6b7280; /* Gray icon color */
     transition: all 0.2s ease;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -716,21 +716,21 @@ a:hover {
 
 .copy-button:hover, 
 .fold-button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #333;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #374151;
 }
 
 [data-theme="dark"] .copy-button,
 [data-theme="dark"] .fold-button {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #94A3B8;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #9ca3af;
 }
 
 [data-theme="dark"] .copy-button:hover, 
 [data-theme="dark"] .fold-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #F8FAFC;
+    color: #f3f4f6;
 }
 
 .post-content figure.highlight table {
@@ -745,16 +745,20 @@ a:hover {
     border: none;
 }
 
-.code-block-wrapper pre {
+.code-block-wrapper pre,
+.post-content figure.highlight pre {
     margin: 0;
-    padding: 1.2rem 1rem 1.2rem 1.2rem; /* Adjusted padding, no need for large left padding if no line numbers by default */
+    padding: 3rem 1.2rem 1.2rem 1.2rem; /* Added 3rem top padding so code doesn't overlap header */
     background-color: transparent !important;
     border-radius: 0;
     color: #383a42; /* Light mode text color */
     overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
-[data-theme="dark"] .code-block-wrapper pre {
+[data-theme="dark"] .code-block-wrapper pre,
+[data-theme="dark"] .post-content figure.highlight pre {
     color: #F8FAFC; /* Dark mode text color */
 }
 
