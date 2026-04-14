@@ -3782,7 +3782,7 @@ h1, h2, h3, h4, h5, h6 {
     
     /* Further reduce title size on very small screens */
     .post-title {
-        font-size: 1.1rem; /* Even smaller for very small screens */
+        font-size: 1.05rem; /* Even smaller for very small screens */
         line-height: 1.2;
         margin-bottom: 0;
     }
@@ -3889,7 +3889,7 @@ h1, h2, h3, h4, h5, h6 {
         padding: 15px 20px !important;
     }
     .post-title {
-        font-size: 1.4rem !important;
+        font-size: 1.2rem !important;
     }
     .post-content img, .post-content pre {
         max-width: 100%;
@@ -3915,7 +3915,7 @@ h1, h2, h3, h4, h5, h6 {
         padding: 12px 15px !important;
     }
     .post-title {
-        font-size: 1.25rem !important;
+        font-size: 1.05rem !important;
     }
 }
 
