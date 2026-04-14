@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://xawei.xyz/vercel.json</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/masonry/index.html</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/tags/index.html</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2026-04-14</lastmod>
@@ -110,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
+    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -119,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/04/29/javascript-jquery-essentials-for-backend-engineers/</loc>
+    <loc>https://xawei.xyz/2025/05/12/mastering-go-again/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -173,6 +146,15 @@
   </url>
   
   <url>
+    <loc>https://xawei.xyz/vercel.json</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xawei.xyz/about/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
@@ -183,6 +165,24 @@
   
   <url>
     <loc>https://xawei.xyz/categories/index.html</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/masonry/index.html</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xawei.xyz/tags/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     

@@ -822,26 +822,14 @@ function setupThemeToggle() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Update toggle icon based on theme
-    const toggleIcon = document.querySelector('.theme-toggle i');
-    if (toggleIcon) {
-        toggleIcon.className = savedTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
-    }
-
     // Handle theme toggle click
-    const themeToggle = document.querySelector('.theme-toggle');
+    const themeToggle = document.querySelector('.theme-toggle-switch');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-
-            // Update theme toggle icon
-            const themeIcon = themeToggle.querySelector('i');
-            if (themeIcon) {
-                themeIcon.className = newTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
-            }
         });
     }
     
