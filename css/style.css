@@ -2766,9 +2766,9 @@ figure.highlight,
     }
     
     .profile-avatar {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 10px;
+        width: 70px;
+        height: 70px;
+        margin: 5px auto 10px;
     }
     
     /* Reduce padding in sidebar sections */
@@ -3901,9 +3901,9 @@ h1, h2, h3, h4, h5, h6 {
         margin-bottom: 10px;
     }
     .profile-avatar {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 10px;
+        width: 55px;
+        height: 55px;
+        margin: 5px auto 10px;
     }
     .sidebar-section {
         padding: 12px;
