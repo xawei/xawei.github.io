@@ -2773,7 +2773,7 @@ figure.highlight,
     
     /* Reduce padding in sidebar sections */
     .sidebar-section {
-        padding: 15px;
+        padding: 20px 15px 15px; /* Increase top padding for avatar clearance */
     }
     
     /* Make stats more compact */
@@ -3906,7 +3906,7 @@ h1, h2, h3, h4, h5, h6 {
         margin: 5px auto 10px;
     }
     .sidebar-section {
-        padding: 12px;
+        padding: 20px 12px 12px; /* Increase top padding specifically for avatar clearance */
     }
     .stats-number {
         font-size: 1.1rem;
