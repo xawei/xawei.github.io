@@ -137,7 +137,7 @@
                 <p>Pods 是不稳定的，一般不应该直接连 Pod ，而是通过 Service 来连接。本文介绍Kubernetes中各种类型的Service，以及它们的具体使用场景。</p>
 <span id="more"></span>
 
-<p>[TOC]</p>
+
 <h2 id="Service-类型"><a href="#Service-类型" class="headerlink" title="Service 类型"></a>Service 类型</h2><p><strong>Kubernetes Services</strong> 是访问 Pods 的抽象层，为访问部署的应用程序提供了一个一致且简化的endpoint。在Kubernetes中有不同类型的Services，包括：<code>ClusterIP</code>, <code>NodePort</code>, <code>LoadBalancer</code>. </p>
 <img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405051706209.png" style="zoom: 33%;" />
 
@@ -174,22 +174,22 @@
       <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30007</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h3><p>当在支持automatic load balancer provisioning的云服务提供商（AWS&#x2F;GCP&#x2F;Ali Cloud&#x2F;TencentCloud等）的环境上运行时，LoadBalancer Service 会为你的Service配置一个负载均衡器（load balancer），<strong>并将流量从外部负载均衡器 路由 到自动创建的 NodePort 和 ClusterIP 服务</strong>。这种设置适合于生产环境，特别是需要将应用暴露到公网时。</p>
-<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
-    Client<span class="token text string">([External Client])</span> <span class="token arrow operator">--></span><span class="token label property">|Internet|</span> LB<span class="token text string">[Cloud Load Balancer]</span>
-    LB <span class="token arrow operator">--></span><span class="token label property">|Routing|</span> N1<span class="token text string">[Node 1 : NodePort]</span>
-    LB <span class="token arrow operator">--></span><span class="token label property">|Routing|</span> N2<span class="token text string">[Node 2 : NodePort]</span>
-    N1 <span class="token arrow operator">-.-></span><span class="token label property">|iptables/IPVS|</span> SVC<span class="token text string">[Service : ClusterIP]</span>
-    N2 <span class="token arrow operator">-.-></span><span class="token label property">|iptables/IPVS|</span> SVC
-    SVC <span class="token arrow operator">-.-></span> Pod1<span class="token text string">(Pod 1)</span>
-    SVC <span class="token arrow operator">-.-></span> Pod2<span class="token text string">(Pod 2)</span>
-    SVC <span class="token arrow operator">-.-></span> Pod3<span class="token text string">(Pod 3)</span>
+<pre class="mermaid">graph TD
+    Client([External Client]) -->|Internet| LB[Cloud Load Balancer]
+    LB -->|Routing| N1[Node 1 : NodePort]
+    LB -->|Routing| N2[Node 2 : NodePort]
+    N1 -.->|iptables/IPVS| SVC[Service : ClusterIP]
+    N2 -.->|iptables/IPVS| SVC
+    SVC -.-> Pod1(Pod 1)
+    SVC -.-> Pod2(Pod 2)
+    SVC -.-> Pod3(Pod 3)
 
-    <span class="token keyword">classDef</span> k8s <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#326ce5<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#fff<span class="token punctuation">,</span><span class="token property">stroke-width</span><span class="token operator">:</span>2px<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#fff</span><span class="token punctuation">;</span>
-    <span class="token keyword">classDef</span> pod <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#e8f5e9<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#388e3c<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#000</span><span class="token punctuation">;</span>
-    <span class="token keyword">classDef</span> lb <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#ffb300<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#fff<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#000</span><span class="token punctuation">;</span>
-    <span class="token keyword">class</span> LB lb<span class="token punctuation">;</span>
-    <span class="token keyword">class</span> SVC k8s<span class="token punctuation">;</span>
-    <span class="token keyword">class</span> Pod1,Pod2,Pod3 pod<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef pod fill:#e8f5e9,stroke:#388e3c,color:#000;
+    classDef lb fill:#ffb300,stroke:#fff,color:#000;
+    class LB lb;
+    class SVC k8s;
+    class Pod1,Pod2,Pod3 pod;</pre>
 
 <p><strong>Example Configuration:</strong></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -393,6 +393,14 @@
 
 <!-- TOC functionality -->
 <script src="/js/toc.js"></script>
+
+
+
+<!-- Mermaid diagrams -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.esm.min.mjs';
+  mermaid.initialize(JSON.parse('{"startOnLoad":true}'));
+</script>
 
 </body>
 </html> 

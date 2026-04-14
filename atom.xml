@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, xawei</rights>
   <subtitle>hello world</subtitle>
   <title>MyCatalog</title>
-  <updated>2026-04-14T07:57:22.719Z</updated>
+  <updated>2026-04-14T08:12:18.382Z</updated>
   <entry>
     <author>
       <name>xawei</name>
@@ -24,7 +24,7 @@
       <![CDATA[<p>If you’ve ever built a modern web application, you’ve likely encountered the infamous “Access to fetch at ‘<a href="https://api.example.com/">https://api.example.com</a>‘ from origin ‘<a href="https://myapp.com/">https://myapp.com</a>‘ has been blocked by CORS policy” error. This comprehensive guide explains what cross-origin issues are, why they exist, and how to solve them effectively.</p>]]>
     </summary>
     <title>Understanding Cross-Origin Resource Sharing (CORS): Problems and Solutions</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -39,7 +39,7 @@
       <![CDATA[<p>Welcome back to Go! As a backend developer who hasn’t touched Go for years, you’re likely looking to refresh your skills and master the language without wading through beginner tutorials. This guide is designed for someone with prior experience who needs a detailed, concise refresher on Go’s essentials, including recent updates and best practices.</p>]]>
     </summary>
     <title>Mastering Go Again: A Refresher for Developers with Prior Experience</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -55,7 +55,7 @@
       <![CDATA[<p>EJS (Embedded JavaScript Templates) is a simple yet powerful templating language that lets you generate HTML markup with plain JavaScript. The “E” can stand for “Embedded,” “Effective,” “Elegant,” or simply “Easy” - all of which describe this lightweight templating engine.</p>]]>
     </summary>
     <title>EJS Template Engine Guide for Backend Engineers</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -70,7 +70,7 @@
       <![CDATA[<p>As a backend engineer, venturing into frontend territory with JS and jQuery can feel like learning a new language. This guide covers the essential concepts you need to understand as a backend developer diving into frontend development, updated for 2025.</p>]]>
     </summary>
     <title>JavaScript and jQuery Essentials for Backend Engineers</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -86,7 +86,7 @@
       <![CDATA[<p>AWS Transit Gateway provides a <strong>centralized, scalable</strong> solution for managing multi-VPC networking, overcoming the limitations of VPC peering. This article explores why Transit Gateway is necessary, how it works, and a real-world example of its benefits.</p>]]>
     </summary>
     <title>Simplifying Multi-VPC Networking with AWS Transit Gateway</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -102,7 +102,7 @@
       <![CDATA[<p>最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和<code>connection reset</code>。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。</p>]]>
     </summary>
     <title>AWS NLB后端服务间歇性超时问题</title>
-    <updated>2026-04-14T07:57:22.718Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -119,7 +119,7 @@
       <![CDATA[<p>Istio is an open platform that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic, enforcing access policies, and aggregating telemetry data, all without requiring changes to the actual services. This article will introduce the basic resources of Istio, including <code>Gateway</code>, <code>VirtualService</code>, <code>DestinationRule</code>, <code>ServiceEntry</code>, <code>Sidecar</code>, and <code>AuthorizationPolicy</code>.</p>]]>
     </summary>
     <title>Introduction to Istio Resources</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -134,7 +134,7 @@
       <![CDATA[<p>Pods 是不稳定的，一般不应该直接连 Pod ，而是通过 Service 来连接。本文介绍Kubernetes中各种类型的Service，以及它们的具体使用场景。</p>]]>
     </summary>
     <title>Kubernetes Service</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -148,7 +148,7 @@
       <![CDATA[<p>AWS VPC Endpoints enhance security and performance by keeping network traffic within the AWS cloud.<br>This article covers what VPC Endpoints are, their types, and how to set them up to improve your AWS infrastructure.</p>]]>
     </summary>
     <title>Use VPC Endpoint to Keep Your Network Traffic in AWS</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -162,7 +162,7 @@
       <![CDATA[<p>hypervisor作用、类型和实现简介。</p>]]>
     </summary>
     <title>Hypervisor介绍</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -176,7 +176,7 @@
       <![CDATA[<p>介绍Kubernetes中的staic pod具体的实现逻辑，以及可能的使用场景。</p>]]>
     </summary>
     <title>Kubernetes中的Static pod实现与使用场景分析</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -190,7 +190,7 @@
       <![CDATA[<p>介绍任务调度与执行框架Ploto的quick start. 目前可部署使用，源码待整理后开源。</p>]]>
     </summary>
     <title>Ploto quick start</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -204,7 +204,7 @@
       <![CDATA[<p>Kubernetes官方提供了两种常用的方式让开发者可以方便地进行自定义的扩展。一种是使用CRD（Custom Resource Definition），另一种则是配置Aggregation layer，将请求代理到Aggreated Server中。本文主要介绍两者的使用原理和相关的适用场景。</p>]]>
     </summary>
     <title>使用CRD和Aggregated Server扩展Kubernetes</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -218,7 +218,7 @@
       <![CDATA[<p>在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。</p>]]>
     </summary>
     <title>PV和PVC</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -232,7 +232,7 @@
       <![CDATA[<p>本文主要介绍Kubernetes中经常使用到的几种发布策略，如蓝绿发布、红黑发布、金丝雀（灰度）发布、滚动发布等。</p>]]>
     </summary>
     <title>几种常见的发布策略</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
   <entry>
     <author>
@@ -246,6 +246,6 @@
       <![CDATA[<p>Kubernets是一个容器编排平台，本文主要介绍其整体架构，以及各个核心组件之间是如何协作完成容器的各项编排工作。</p>]]>
     </summary>
     <title>Kubernetes架构及核心组件介绍</title>
-    <updated>2026-04-14T07:57:22.719Z</updated>
+    <updated>2026-04-14T08:12:18.382Z</updated>
   </entry>
 </feed>
