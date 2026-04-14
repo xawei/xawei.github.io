@@ -742,23 +742,76 @@ function setupTocCollapse() {
  * Setup mobile menu toggle
  */
 function setupMobileMenu() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
+    // Mobile Nav Toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const menuContainer = document.querySelector('.menu-container');
     
-    if (!menuToggle || !menu) return;
+    if (mobileNavToggle && menuContainer) {
+        mobileNavToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menuContainer.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (menuContainer.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (menuContainer.classList.contains('active') && !menuContainer.contains(e.target) && e.target !== mobileNavToggle) {
+                menuContainer.classList.remove('active');
+                const icon = mobileNavToggle.querySelector('i');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // Mobile TOC Toggle
+    const mobileTocToggle = document.querySelector('.mobile-toc-toggle');
+    const postToc = document.querySelector('.post-toc');
     
-    menuToggle.addEventListener('click', () => {
-        menu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!menu.contains(e.target) && !menuToggle.contains(e.target) && menu.classList.contains('active')) {
-            menu.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
-    });
+    if (mobileTocToggle && postToc) {
+        mobileTocToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            postToc.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (postToc.classList.contains('active')) {
+                icon.classList.remove('fa-list-ul');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-list-ul');
+            }
+        });
+
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(e) {
+            if (postToc.classList.contains('active') && !postToc.contains(e.target) && e.target !== mobileTocToggle) {
+                postToc.classList.remove('active');
+                const icon = mobileTocToggle.querySelector('i');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-list-ul');
+            }
+        });
+        
+        // Close TOC when clicking a TOC link
+        const tocLinks = postToc.querySelectorAll('.toc-link');
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 1100) {
+                    postToc.classList.remove('active');
+                    const icon = mobileTocToggle.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-list-ul');
+                }
+            });
+        });
+    }
 }
 
 /**
