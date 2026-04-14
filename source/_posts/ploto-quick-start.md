@@ -1,6 +1,6 @@
 ---
 title: Ploto quick start
-categories: 开源
+categories: Open Source
 date: 2021-04-13 14:52:41
 ---
 

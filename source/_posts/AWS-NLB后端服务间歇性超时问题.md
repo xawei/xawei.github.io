@@ -2,7 +2,7 @@
 title: AWS NLB后端服务间歇性超时问题
 date: 2025-02-09 10:26:02
 tags: [AWS, NLB]
-categories: [AWS]
+categories: AWS
 ---
 
 最近在AWS上遇到一个问题：两个EKS集群（ClusterA与ClusterB）跨3个可用区部署，均部署了Istio，但在通过Route53访问服务时，突然出现了间歇性连接超时和`connection reset`。经排查，发现问题出现在NLB与后端服务之间，也和网络配置有关。

@@ -1,6 +1,6 @@
 ---
 title: 使用CRD和Aggregated Server扩展Kubernetes
-categories: kubernetes
+categories: Kubernetes
 date: 2021-3-5 10:01:00
 
 ---

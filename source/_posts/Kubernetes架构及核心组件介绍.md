@@ -1,6 +1,6 @@
 ---
 title: Kubernetes架构及核心组件介绍
-categories: kubernetes
+categories: Kubernetes
 date: 2019-10-17 19:03:15
 ---
 

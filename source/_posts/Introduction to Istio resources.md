@@ -2,7 +2,7 @@
 title: "Introduction to Istio Resources"
 date: 2025-1-21 12:55:00 
 tags: ["Istio", "Kubernetes", "Service Mesh"]
-categories: ["Istio"]
+categories: Istio
 author: "xawei"
 ---
 

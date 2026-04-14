@@ -1,6 +1,6 @@
 ---
 title: Hypervisor介绍
-categories: 虚拟化
+categories: Virtualization
 date: 2022-3-10 11:48:03
 
 ---

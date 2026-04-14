@@ -1,6 +1,6 @@
 ---
 title: Kubernetes中的Static pod实现与使用场景分析
-categories: kubernetes
+categories: Kubernetes
 date: 2021-06-22 12:00:00
 ---
 
