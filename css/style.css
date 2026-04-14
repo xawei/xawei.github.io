@@ -593,18 +593,18 @@ a:hover {
 .code-block-wrapper {
     position: relative;
     margin: 1.5em 0;
-    border-radius: 8px;
+    border-radius: 6px; /* Slightly sharper corners */
     overflow: hidden;
-    background-color: #f6f8fa; /* Light background for light mode */
+    background-color: #f9f9f9; /* Very light background for light mode */
     font-family: var(--font-mono);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: none; /* Removed border */
     box-shadow: none;
 }
 
 [data-theme="dark"] .post-content figure.highlight,
 [data-theme="dark"] .code-block-wrapper {
-    background-color: #282c34; /* Dark background for dark mode */
-    border-color: rgba(255, 255, 255, 0.1);
+    background-color: #1e1e1e; /* Dark background for dark mode */
+    border: none;
 }
 
 /* Code header styling (Clean) */
@@ -612,10 +612,10 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: flex-end; /* Align items to the right */
-    padding: 6px 10px;
-    background-color: rgba(0, 0, 0, 0.03);
-    color: #666;
-    font-size: 0.8rem;
+    padding: 8px 12px; /* Slightly more padding */
+    background-color: transparent; /* Completely transparent */
+    color: #999; /* Lighter text color */
+    font-size: 0.75rem;
     position: absolute; /* Float over code */
     top: 0;
     right: 0;
@@ -633,19 +633,19 @@ a:hover {
 }
 
 [data-theme="dark"] .code-header {
-    background-color: rgba(255, 255, 255, 0.03);
-    color: #abb2bf;
+    background-color: transparent;
+    color: #5c6370;
 }
 
 /* Language label */
 .lang-label {
-    font-weight: 600;
+    font-weight: 500; /* Less bold */
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-right: auto; /* Push to the left if needed, or keep right */
-    padding-left: 10px;
-    opacity: 0.7;
+    margin-right: auto; /* Push to the left */
+    padding-left: 5px; /* Align with code */
+    opacity: 0.8;
 }
 
 /* Copy and fold buttons */
