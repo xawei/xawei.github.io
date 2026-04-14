@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2026-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xawei.xyz/2025/01/21/Introduction%20to%20Istio%20resources/</loc>
     
     <lastmod>2026-04-14</lastmod>
@@ -74,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
+    <loc>https://xawei.xyz/2021/01/10/pv-pvc-basic-use/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -83,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2021/01/10/pv-pvc-basic-use/</loc>
+    <loc>https://xawei.xyz/2021/04/13/ploto-quick-start/</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -128,16 +137,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/index.html</loc>
-    
-    <lastmod>2026-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/tags/index.html</loc>
+    <loc>https://xawei.xyz/about/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/about/index.html</loc>
+    <loc>https://xawei.xyz/categories/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/2025/02/09/AWS-NLB%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E9%97%B4%E6%AD%87%E6%80%A7%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://xawei.xyz/tags/index.html</loc>
     
     <lastmod>2026-04-14</lastmod>
     
@@ -261,28 +261,21 @@
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/kubernetes/</loc>
+    <loc>https://xawei.xyz/categories/Virtualization/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <loc>https://xawei.xyz/categories/Go/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xawei.xyz/categories/Go-Programming-Language/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://xawei.xyz/categories/%E5%BC%80%E6%BA%90/</loc>
+    <loc>https://xawei.xyz/categories/Open-Source/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
