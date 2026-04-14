@@ -3891,7 +3891,14 @@ h1, h2, h3, h4, h5, h6 {
     .profile-avatar {
         width: 70px;
         height: 70px;
-        margin: 0 auto 10px;
+        margin: 0 auto 15px; /* Increase gap between avatar and name */
+    }
+    .profile-name {
+        margin-top: 10px;
+        margin-bottom: 2px !important; /* Bring name and desc closer */
+    }
+    .profile-desc {
+        margin-top: 0;
     }
     .sidebar-section {
         padding: 15px;
@@ -3914,7 +3921,15 @@ h1, h2, h3, h4, h5, h6 {
     .profile-avatar {
         width: 55px;
         height: 55px;
-        margin: 5px auto 10px;
+        margin: 5px auto 15px; /* Increase gap between avatar and name */
+    }
+    .profile-name {
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 2px !important; /* Bring name and desc closer */
+    }
+    .profile-desc {
+        margin-top: 0;
     }
     .sidebar-section {
         padding: 20px 12px 12px; /* Increase top padding specifically for avatar clearance */
