@@ -1420,15 +1420,15 @@ h6:target {
     
     /* Stack header elements on mobile */
     .header-inner {
-        flex-direction: column;
-        padding: 5px 15px;
-        height: auto;
-        gap: 8px;
+        flex-direction: row;
+        padding: 0 10px;
+        height: 100%;
+        gap: 0;
     }
     
     /* Center the logo */
     .logo {
-        margin-bottom: 5px;
+        margin-bottom: 0;
     }
     
     .logo .title {
@@ -1437,62 +1437,68 @@ h6:target {
     
     /* Center the menu container */
     .menu-container {
-        justify-content: center;
-        width: 100%;
+        justify-content: flex-end;
+        width: auto;
     }
     
     /* Menu items spacing */
     .menu {
-        justify-content: center;
-        gap: 10px;
-        margin-top: 5px;
-        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 4px;
+        margin-top: 0;
+        flex-wrap: nowrap;
         z-index: 1002;
     }
     
     .menu-item {
         margin-left: 0;
-        margin: 0 8px;
+        margin: 0 2px;
     }
     
     .menu-link {
-        font-size: 14px;
+        font-size: 16px;
+        padding: 6px;
+    }
+    
+    .menu-text {
+        display: none;
     }
     
     /* Adjust banner height for stacked header */
     .banner {
         position: fixed; /* Change back to fixed for mobile */
-        height: auto;
-        min-height: 90px;
-        padding: 5px 0;
+        height: 60px;
+        min-height: 60px;
+        padding: 0;
         z-index: 1003; /* Ensure banner stays on top */
     }
     
     .banner.scrolled {
-        min-height: 90px;
+        min-height: 60px;
+        height: 60px;
     }
     
     .banner-content {
-        padding: 5px 0;
+        padding: 0;
         max-width: 100%;
     }
     
     /* Adjust background wrapper for taller header */
     .background-wrapper {
         position: fixed; /* Change back to fixed for mobile */
-        top: 90px;
+        top: 60px;
         z-index: 5;
     }
     
     .banner.scrolled ~ .background-wrapper {
-        top: 90px;
+        top: 60px;
     }
     
     /* Container spacing */
     .container {
         max-width: 100%;
         padding: 0 15px;
-        padding-top: 100px; /* Fixed value that accounts for banner height */
+        padding-top: 80px; /* Fixed value that accounts for banner height */
         z-index: 10; /* Ensure content stays on top */
     }
     
@@ -1575,25 +1581,25 @@ h6:target {
     
     /* Adjust banner and content for very small screens */
     .banner {
-        min-height: 110px;
+        min-height: 60px;
         position: fixed;
     }
     
     .banner.scrolled {
-        min-height: 110px;
+        min-height: 60px;
     }
     
     .background-wrapper {
         position: fixed;
-        top: 110px;
+        top: 60px;
     }
     
     .banner.scrolled ~ .background-wrapper {
-        top: 110px;
+        top: 60px;
     }
     
     .container {
-        padding-top: 120px; /* Fixed padding to account for banner height */
+        padding-top: 75px; /* Fixed padding to account for banner height */
     }
 }
 
@@ -3449,15 +3455,16 @@ body.post-page .main-content {
     width: 100%;
     order: -1; /* Move TOC to top on mobile */
     margin-left: 0;
+    position: static; /* Disable sticky on mobile so it flows normally */
+    margin-bottom: 20px;
   }
   
   .toc-inner {
     margin-top: 0;
-    margin-bottom: 20px;
-    position: relative;
-    top: 3rem !important; /* Updated to match other TOC positioning */
+    margin-bottom: 0;
+    position: static;
+    top: auto !important;
     max-height: 300px;
-    margin-bottom: 20px; /* Added space below to ensure content isn't hidden */
   }
   
   .post {
@@ -3468,8 +3475,8 @@ body.post-page .main-content {
 /* Clean up container styles for posts */
 body.post-page .container {
   max-width: 100%; /* Allow post-layout to control width */
-  padding: 0;
-  padding-top: 30px; /* Reduced from 50px to make content closer to navbar */
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Ensure the post content has good typography */
@@ -3586,7 +3593,7 @@ h1, h2, h3, h4, h5, h6 {
     .container {
         max-width: 100%;
         padding: 0 15px;
-        padding-top: 110px; /* Increased from 85px to prevent sidebar overlap with navbar */
+        padding-top: 80px; /* Fixed value that accounts for banner height */
         z-index: 10;
     }
     
@@ -3624,15 +3631,15 @@ h1, h2, h3, h4, h5, h6 {
     
     /* Bring content much closer to navbar on very small screens */
     .banner {
-        min-height: 100px; /* Reduced from 110px */
+        min-height: 60px; /* Reduced from 110px */
     }
     
     .banner.scrolled {
-        min-height: 100px; /* Reduced from 110px */
+        min-height: 60px; /* Reduced from 110px */
     }
     
     .container {
-        padding-top: 105px; /* Adjusted to prevent overlap while keeping content close to navbar */
+        padding-top: 75px; /* Adjusted to prevent overlap while keeping content close to navbar */
     }
     
     /* Further reduce title size on very small screens */
@@ -3749,10 +3756,6 @@ h1, h2, h3, h4, h5, h6 {
     .post-content img, .post-content pre {
         max-width: 100%;
         height: auto;
-    }
-    .banner {
-        height: auto;
-        padding: 60px 0 20px 0;
     }
 }
 @media (max-width: 480px) {

@@ -29,14 +29,14 @@
                             <% } else { %>
                                 <i class="fa-solid fa-circle-info"></i>
                             <% } %>
-                            <%= __('nav.' + name.toLowerCase()) || name %>
+                            <span class="menu-text"><%= __('nav.' + name.toLowerCase()) || name %></span>
                         </a>
                     </li>
                 <% } %>
                 
                 <li class="menu-item search-item">
                     <a class="menu-link search-button" href="javascript:void(0);">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search
+                        <i class="fa-solid fa-magnifying-glass"></i> <span class="menu-text">Search</span>
                     </a>
                 </li>
                 
