@@ -410,26 +410,64 @@ a:hover {
     width: 100%;
 }
 
-/* Dark Mode Toggle */
-.theme-toggle {
+/* Dark Mode Toggle Switch */
+.theme-toggle-switch {
     margin-left: 15px;
     cursor: pointer;
-    font-size: 18px;
-    color: var(--text-color);
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    justify-content: space-between;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
     background-color: var(--card-background);
-    box-shadow: 0 2px 8px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    position: relative;
+    padding: 0 6px;
     transition: all 0.3s ease;
 }
 
-.theme-toggle:hover {
-    transform: rotate(30deg);
-    color: var(--primary-color);
+.toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 1;
+}
+
+[data-theme="dark"] .toggle-slider {
+    transform: translateX(30px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle-switch i {
+    font-size: 14px;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.toggle-icon-sun {
+    color: var(--text-color);
+}
+
+.toggle-icon-moon {
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+[data-theme="dark"] .toggle-icon-sun {
+    opacity: 0.5;
+}
+
+[data-theme="dark"] .toggle-icon-moon {
+    color: #fff;
+    opacity: 1;
 }
 
 .theme-item {
@@ -1581,10 +1619,23 @@ h6:target {
         font-size: 13px;
     }
     
-    .theme-toggle {
-        width: 28px;
-        height: 28px;
-        margin-left: 15px;
+    .theme-toggle-switch {
+        width: 50px;
+        height: 26px;
+        margin-left: 10px;
+    }
+    
+    .toggle-slider {
+        width: 20px;
+        height: 20px;
+    }
+    
+    [data-theme="dark"] .toggle-slider {
+        transform: translateX(24px);
+    }
+    
+    .theme-toggle-switch i {
+        font-size: 12px;
     }
     
     .logo .title {
