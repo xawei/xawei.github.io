@@ -7,7 +7,7 @@ tags:
   - JavaScript
 ---
 
-As a backend engineer, venturing into frontend territory with JS and jQuery can feel like learning a new language. This guide covers the essential concepts you need to understand as a backend developer diving into frontend development, updated for 2025.
+A practical cheat sheet on modern JavaScript and jQuery essentials to help backend engineers confidently navigate frontend code.
 
 <!--more-->
 

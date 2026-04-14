@@ -7,7 +7,7 @@ tags:
   - Go
 ---
 
-Welcome back to Go! As a backend developer who hasn’t touched Go for years, you’re likely looking to refresh your skills and master the language without wading through beginner tutorials. This guide is designed for someone with prior experience who needs a detailed, concise refresher on Go’s essentials, including recent updates and best practices.
+A concise, fast-paced Go refresher tailored for experienced backend developers returning to the language.
 
 <!--more-->
 
