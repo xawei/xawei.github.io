@@ -14,7 +14,7 @@
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用CRD和Aggregated Server扩展Kubernetes">
-<meta property="og:description" content="&lt;p&gt;Kubernetes官方提供了两种常用的方式让开发者可以方便地进行自定义的扩展。一种是使用CRD（Custom Resource Definition），另一种则是配置Aggregation layer，将请求代理到Aggreated Server中。本文主要介绍两者的使用原理和相关的适用场景。&lt;/p&gt;">
+<meta property="og:description" content="&lt;p&gt;详解 Kubernetes 官方提供的两大扩展利器：CRD (Custom Resource Definition) 与 Aggregation Layer，深度剖析其工作原理与最佳适用场景。&lt;/p&gt;">
 <meta property="og:url" content="https://xawei.xyz/2021/03/05/%E4%BD%BF%E7%94%A8CRD%E5%92%8CAggregated%20Server%E6%89%A9%E5%B1%95Kubernetes/">
 <meta property="og:site_name" content="MyCatalog">
 
@@ -131,7 +131,7 @@
                     
                     
                     <span class="post-wordcount">
-                        <i class="fa-solid fa-file-word"></i> 1k 字
+                        <i class="fa-solid fa-file-word"></i> 966 字
                         <span class="divider">|</span>
                         <i class="fa-regular fa-clock"></i> 3 分钟
                     </span>
@@ -139,7 +139,7 @@
             </div>
             
             <div class="post-content">
-                <p>Kubernetes官方提供了两种常用的方式让开发者可以方便地进行自定义的扩展。一种是使用CRD（Custom Resource Definition），另一种则是配置Aggregation layer，将请求代理到Aggreated Server中。本文主要介绍两者的使用原理和相关的适用场景。</p>
+                <p>详解 Kubernetes 官方提供的两大扩展利器：CRD (Custom Resource Definition) 与 Aggregation Layer，深度剖析其工作原理与最佳适用场景。</p>
 <span id="more"></span>
 
 <h2 id="CRD扩展原理简介"><a href="#CRD扩展原理简介" class="headerlink" title="CRD扩展原理简介"></a>CRD扩展原理简介</h2><p>在Kube-apisever中，有许多内置的API对象，例如我们非常熟悉的Pod、ConfigMap、Namespace等。Kube-apiserver能够识别这些API对象，并把相关的资源实例持久化存储在集群的etcd中。所以当我们使用<code>kubectl get node</code>等命令时，Kube-apiserver能够正确处理，返回相应的信息。</p>
