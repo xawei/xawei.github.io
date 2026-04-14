@@ -130,3 +130,10 @@ tag_generator:
   
 category_generator:
   per_page: 10
+
+# Mermaid diagrams
+mermaid:
+  enable: true
+  version: '10.9.0'
+  options:
+    startOnLoad: true

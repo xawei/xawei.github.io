@@ -10,3 +10,11 @@
 <!-- TOC functionality -->
 <script src="<%- url_for('js/toc.js') %>"></script>
 <% } %>
+
+<% if (config.mermaid && config.mermaid.enable) { %>
+<!-- Mermaid diagrams -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@<%= config.mermaid.version || "10.9.0" %>/dist/mermaid.esm.min.mjs';
+  mermaid.initialize(JSON.parse('<%- JSON.stringify(config.mermaid.options || { startOnLoad: true }) %>'));
+</script>
+<% } %>
