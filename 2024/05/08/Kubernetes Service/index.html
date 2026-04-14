@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kubernetes Service - MyCatalog</title>
+
+<link rel="icon" href="https://blog202411-1252613377.cos.ap-guangzhou.myqcloud.com/boat.png" />
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Service">
+<meta property="og:description" content="&lt;p&gt;Pods 是不稳定的，一般不应该直接连 Pod ，而是通过 Service 来连接。本文介绍Kubernetes中各种类型的Service，以及它们的具体使用场景。&lt;/p&gt;">
+<meta property="og:url" content="https://xawei.xyz/2024/05/08/Kubernetes%20Service/">
+<meta property="og:site_name" content="MyCatalog">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue&family=Architects+Daughter&display=swap" rel="stylesheet">
+
+<!-- Canonical -->
+ <link rel="canonical" href="https://xawei.xyz/2024/05/08/Kubernetes%20Service/" />
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="MyCatalog" type="application/atom+xml">
+</head>
+<body class="post-page">
+    <div class="banner">
+        <div class="banner-content">
+            <!-- Header & Logo -->
+<div class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <a href="/" class="title">
+                
+                    MyCatalog
+                
+            </a>
+        </div>
+        
+        <nav class="menu-container">
+            <ul class="menu">
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/">
+                            
+                                <i class="fa-solid fa-house"></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/categories">
+                            
+                                <i class="fa-solid fa-folder"></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/archives">
+                            
+                                <i class="fa-solid fa-box-archive"></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a class="menu-link" href="/about">
+                            
+                                <i class="fa-solid fa-user"></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                
+                
+                    <li class="menu-item theme-item">
+                        <div class="theme-toggle">
+                            <i class="fa-regular fa-moon"></i>
+                        </div>
+                    </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div> 
+        </div>
+    </div>
+    <div class="background-wrapper"></div>
+    <div class="container">
+        
+        <div class="main-content">
+            <div class="post-layout">
+    <!-- Main post content -->
+    <div class="post-main">
+        <article class="post">
+            <div class="post-header">
+                <h1 class="post-title">Kubernetes Service</h1>
+                <div class="post-meta">
+                    <span><i class="fa-regular fa-calendar"></i> 2024-05-08</span>
+                    
+                        <span><i class="fa-regular fa-calendar-plus"></i> 2026-04-14</span>
+                    
+                    
+                        <span><i class="fa-regular fa-folder"></i>
+                            
+                                <a href="/categories/Kubernetes/">Kubernetes</a>
+                                
+                            
+                        </span>
+                    
+                    
+                        <span><i class="fa-solid fa-tags"></i>
+                            
+                                <a href="/tags/Kubernetes/" class="post-tag">Kubernetes</a>
+                                
+                            
+                        </span>
+                    
+                    <span class="post-wordcount">
+                        <i class="fa-solid fa-file-word"></i> 2.1k 字
+                        <span class="divider">|</span>
+                        <i class="fa-regular fa-clock"></i> 8 分钟
+                    </span>
+                </div>
+            </div>
+            
+            <div class="post-content">
+                <p>Pods 是不稳定的，一般不应该直接连 Pod ，而是通过 Service 来连接。本文介绍Kubernetes中各种类型的Service，以及它们的具体使用场景。</p>
+<span id="more"></span>
+
+<p>[TOC]</p>
+<h2 id="Service-类型"><a href="#Service-类型" class="headerlink" title="Service 类型"></a>Service 类型</h2><p><strong>Kubernetes Services</strong> 是访问 Pods 的抽象层，为访问部署的应用程序提供了一个一致且简化的endpoint。在Kubernetes中有不同类型的Services，包括：<code>ClusterIP</code>, <code>NodePort</code>, <code>LoadBalancer</code>. </p>
+<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405051706209.png" style="zoom: 33%;" />
+
+<h3 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h3><p><code>ClusterIP</code> 是Kubernetes中默认的Service类型，通过“<strong>仅集群内可见的IP</strong>”把部署在集群中的服务应用暴露出来。也就是说，这样的Service仅在集群内部可以访问。<code>ClusterIP</code> 非常适合于 <u>面向内部</u> 的 backend services，这些服务不应该暴露在集群外部。</p>
+<p><strong>Example Configuration:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>internal<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> ClusterIP
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h3><p>NodePort Service 在每个Node的 IP 上通过一个静态端口（即 NodePort）暴露服务。这允许来自集群外部的外部流量通过 <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> 访问服务。这种类型的服务一般适用于临时配置，如演示或开发环境。</p>
+<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405051423533.png" style="zoom: 33%;" />
+
+<p><strong>Example Configuration:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nodeport<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30007</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h3><p>当在支持automatic load balancer provisioning的云服务提供商（AWS&#x2F;GCP&#x2F;Ali Cloud&#x2F;TencentCloud等）的环境上运行时，LoadBalancer Service 会为你的Service配置一个负载均衡器（load balancer），<strong>并将流量从外部负载均衡器 路由 到自动创建的 NodePort 和 ClusterIP 服务</strong>。这种设置适合于生产环境，特别是需要将应用暴露到公网时。</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
+    Client<span class="token text string">([External Client])</span> <span class="token arrow operator">--></span><span class="token label property">|Internet|</span> LB<span class="token text string">[Cloud Load Balancer]</span>
+    LB <span class="token arrow operator">--></span><span class="token label property">|Routing|</span> N1<span class="token text string">[Node 1 : NodePort]</span>
+    LB <span class="token arrow operator">--></span><span class="token label property">|Routing|</span> N2<span class="token text string">[Node 2 : NodePort]</span>
+    N1 <span class="token arrow operator">-.-></span><span class="token label property">|iptables/IPVS|</span> SVC<span class="token text string">[Service : ClusterIP]</span>
+    N2 <span class="token arrow operator">-.-></span><span class="token label property">|iptables/IPVS|</span> SVC
+    SVC <span class="token arrow operator">-.-></span> Pod1<span class="token text string">(Pod 1)</span>
+    SVC <span class="token arrow operator">-.-></span> Pod2<span class="token text string">(Pod 2)</span>
+    SVC <span class="token arrow operator">-.-></span> Pod3<span class="token text string">(Pod 3)</span>
+
+    <span class="token keyword">classDef</span> k8s <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#326ce5<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#fff<span class="token punctuation">,</span><span class="token property">stroke-width</span><span class="token operator">:</span>2px<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#fff</span><span class="token punctuation">;</span>
+    <span class="token keyword">classDef</span> pod <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#e8f5e9<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#388e3c<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#000</span><span class="token punctuation">;</span>
+    <span class="token keyword">classDef</span> lb <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#ffb300<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#fff<span class="token punctuation">,</span><span class="token property">color</span><span class="token operator">:</span>#000</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> LB lb<span class="token punctuation">;</span>
+    <span class="token keyword">class</span> SVC k8s<span class="token punctuation">;</span>
+    <span class="token keyword">class</span> Pod1,Pod2,Pod3 pod<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Example Configuration:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>loadbalancer<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="ExternalName"><a href="#ExternalName" class="headerlink" title="ExternalName"></a>ExternalName</h3><p>ExternalName Service 是一种特殊 Service 类型，它没有Selector，也不管理任何Pods。相反，它使用DNS将流量重定向到外部服务。在 Service 的YAML配置中，通过 <code>externalName</code> 参数指向所需的外部DNS地址。</p>
+<p>这种服务类型使得内部应用能够通过稳定的内部DNS入口访问外部资源，从而提高了系统的灵活性和可维护性，尤其是在迁移或外部服务变更时。所以，ExternalName 一般用于将<strong>数据库、外部 API 和遗留系统</strong>等服务直接整合到 Kubernetes Service 中的场景。</p>
+<p><strong>Example Configuration:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>external<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> ExternalName
+  <span class="token key atrule">externalName</span><span class="token punctuation">:</span> my.database.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Headless-Service"><a href="#Headless-Service" class="headerlink" title="Headless Service"></a>Headless Service</h2><p>如果每个通过 Service 的connection都随机到后端的一个 pod，那要是 client 想要连接每一个 pod 怎么办呢？它需要知道每一个 pod 的 IP。当然，我们可以通过调用 Kubernetes API Server 来获取到所有 pod 的 IP，但我们应该让应用保持Kubernetes-agnostic，所以这不是一个很理想的方法。</p>
+<p>所以在 Kubernetes 中，我们可以通过 DNS lookups 来让 client 发现 pod IPs。通常情况下，当你通过DNS lookup来查询一个 Service，DNS Server 会返回一个 IP—— Service 的 Cluster IP。但是，如果你告诉 Kubernetes 你不需要这个service的 IP（把 service 中的 <code>clusterIP</code> 字段设为 <code>None</code>），那么DNS Server 就会返回 pod IPs 而不是 service IP。也就是说，这时 Kubernetes 返回的是service 的多个 A 记录而不是单个 A 记录，每一个都分别指向后端每个 pod 的 IP。</p>
+<p>这就是Headless Service，把 service 中的 <code>clusterIP</code> 字段设为 <code>None</code>，Kubernetes 就不会为service 分配 clusterIP，那么 client 可以直接连到 pod 的 IP。</p>
+<p>那么 DNS 是如何自动地配置的呢？这取决于service 是否有设置selectors：</p>
+<h3 id="With-selectors"><a href="#With-selectors" class="headerlink" title="With selectors"></a>With selectors</h3><p>对于设置了 selectors 的 service，endpoint controller会在集群中创建<code>EndpointSlices</code> 资源，然后修改 DNS 配置来返回A or AAAA记录（IPv4 or IPv6地址），直接指向后端支撑服务的 Pods。</p>
+<h3 id="Without-selectors"><a href="#Without-selectors" class="headerlink" title="Without selectors"></a>Without selectors</h3><p>没有 selectors 的话，control plane 不会创建EndpointSlice. 不过，DNS system 会配置以下之一：</p>
+<ul>
+<li>对于<code>type: ExternalName</code> 的 Headless Service, 配置DNS CNAME记录</li>
+<li>对于其他，配置DNS A &#x2F; AAAA 记录（包括service 的所有ready 的 endpoints ）</li>
+</ul>
+<h2 id="Discovering-services"><a href="#Discovering-services" class="headerlink" title="Discovering services"></a>Discovering services</h2><p>对于在 Kubernetes 集群中的应用，有两种主要的方式发现Service：环境变量 和 DNS。</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>Pod 运行在 Node 上，而 Node 上的 Kubelet 会获取到所有在该 namespace 下的 active service 的信息，注入到 pod 的环境变量中，格式是<code>&#123;SVCNAME&#125;_SERVICE_HOST</code> 和 <code>&#123;SVCNAME&#125;_SERVICE_PORT</code>。 </p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@pdb-dp-857c7ff884-m7nkd:/<span class="token comment"># env|grep SERVICE</span>
+<span class="token assign-left variable">KUBERNETES_SERVICE_PORT_HTTPS</span><span class="token operator">=</span><span class="token number">443</span>
+<span class="token assign-left variable">KUBERNETES_SERVICE_PORT</span><span class="token operator">=</span><span class="token number">443</span>
+<span class="token assign-left variable">KUBERNETES_SERVICE_HOST</span><span class="token operator">=</span><span class="token number">10.96</span>.0.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>📢：如果 pod 是在创建 Service 前创建的，那么不会注入 Service 相关的环境变量信息。</p>
+</blockquote>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>正常集群中都会部署一个cluster-aware的 DNS service 插件，例如 CoreDNS。CoreDNS 持续监听 Kubernetes API 来发现新的 Services，为它们创建 DNS 记录。</p>
+<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405082353211.png" style="zoom:33%;" />
+
+<img src="https://weiblog-1252613377.cos.ap-chengdu.myqcloud.com/202405082338947.png" style="zoom: 33%;" />
+
+<h2 id="Virtual-IP-addressing-mechanism"><a href="#Virtual-IP-addressing-mechanism" class="headerlink" title="Virtual IP addressing mechanism"></a>Virtual IP addressing mechanism</h2><p>以上内容介绍了 Kubernetes Service 的基本使用方法和场景，现在介绍的是 Service 的 Virtual IP 是如何实现的😄</p>
+<h3 id="Traffic-policies"><a href="#Traffic-policies" class="headerlink" title="Traffic policies"></a>Traffic policies</h3><p>Kubernetes 提供了路由流量的策略，主要分为 <code>externalTrafficPolicy</code> 和 <code>internalTrafficPolicy</code>：</p>
+<ul>
+<li>**<code>externalTrafficPolicy</code>**：控制来自外部的流量（如 NodePort 或 LoadBalancer）如何路由。默认值为 <code>Cluster</code>，流量可能会被路由到集群中任意节点上的 Pod，这会导致额外的网络跳数（SNAT）。如果设置为 <code>Local</code>，则流量只会路由到接收流量的当前节点上的 Pod，从而保留客户端源 IP 并减少网络跳数，但可能导致流量分配不均。</li>
+<li>**<code>internalTrafficPolicy</code>**：控制集群内部流量的路由。默认值为 <code>Cluster</code>，流量随机分配给所有可用的 endpoints。如果设置为 <code>Local</code>，kube-proxy 会优先将流量路由到与客户端处于同一节点上的 endpoints，如果当前节点没有可用的 endpoints，则丢弃流量。</li>
+</ul>
+<h3 id="Session-stickiness"><a href="#Session-stickiness" class="headerlink" title="Session stickiness"></a>Session stickiness</h3><p>默认情况下，Service 的请求会被随机负载均衡到后端的各个 Pod 上。但如果你需要来自特定客户端 IP 的所有请求每次都连接到同一个 Pod，你可以配置会话保持（Session Stickiness）。</p>
+<p>可以通过将 <code>sessionAffinity</code> 设置为 <code>ClientIP</code> 来实现基于客户端 IP 的会话亲和性。还可以通过 <code>sessionAffinityConfig.clientIP.timeoutSeconds</code> 来配置会话保持的最大时间（默认为 10800 秒，即 3 小时）。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">sessionAffinity</span><span class="token punctuation">:</span> ClientIP
+  <span class="token key atrule">sessionAffinityConfig</span><span class="token punctuation">:</span>
+    <span class="token key atrule">clientIP</span><span class="token punctuation">:</span>
+      <span class="token key atrule">timeoutSeconds</span><span class="token punctuation">:</span> <span class="token number">10800</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="External-IPs"><a href="#External-IPs" class="headerlink" title="External IPs"></a>External IPs</h2><p>如果存在路由到一个或多个集群节点的外部 IP 地址，Kubernetes Service 可以暴露在这些 <code>externalIPs</code> 上。当网络流量进入集群时，如果目标 IP 是 Service 的外部 IP，且目标端口与 Service 端口匹配，流量就会被路由到该 Service 的某个 endpoint 上。</p>
+<p><code>externalIPs</code> 不由 Kubernetes 管理，集群管理员需要自己配置网络路由以确保流量能够到达集群节点。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>app
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9376</span>
+  <span class="token key atrule">externalIPs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> 80.11.12.10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Services-without-selectors"><a href="#Services-without-selectors" class="headerlink" title="Services without selectors"></a>Services without selectors</h3><p>Service 通常用于抽象访问 Kubernetes Pods，但它们也可以用于抽象其他类型的后端。例如：</p>
+<ul>
+<li>希望在生产环境中使用外部数据库集群，但在测试环境中使用自己的数据库。</li>
+<li>希望将 Service 指向另一个 Namespace 或其他集群中的 Service。</li>
+<li>正在将工作负载迁移到 Kubernetes，目前只有一部分后端运行在 Kubernetes 中。</li>
+</ul>
+<p>在这些场景下，可以定义一个不带 selector 的 Service，然后手动创建一个 <code>EndpointSlice</code>（或 <code>Endpoints</code>）对象，将其映射到指定的后端 IP 和端口。</p>
+<h3 id="EndpointSlices-and-Endpoints"><a href="#EndpointSlices-and-Endpoints" class="headerlink" title="EndpointSlices and Endpoints"></a>EndpointSlices and Endpoints</h3><ul>
+<li><strong>Endpoints</strong>：是 Kubernetes 早期用于映射 Service 到 Pod IP 的 API 资源。由于所有的后端 IP 都存储在一个单一的 Endpoints 对象中，当 Service 后端拥有大量 Pod 时，该对象会变得非常大，导致性能和可扩展性问题。</li>
+<li><strong>EndpointSlices</strong>：为了解决 Endpoints 的扩展性问题，Kubernetes 引入了 EndpointSlices。它将一个 Service 的网络端点“切片”成多个资源，每个 EndpointSlice 默认最多包含 100 个端点。这极大地减少了 kube-proxy 等组件在端点更新时需要处理的数据量，提升了大规模集群的性能。</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/">Kubernetes Services 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/52707840/what-is-a-headless-service-what-does-it-do-accomplish-and-what-are-some-legiti">What is a Headless Service? (StackOverflow)</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/">Kubernetes EndpointSlices 官方文档</a></li>
+</ol>
+
+            </div>
+            
+            
+                <div class="post-copyright">
+                    <div class="copyright-title">版权声明</div>
+                    <div class="copyright-info">
+                        <div class="copyright-info-item">
+                            <span>作者:</span>
+                            <span>xawei</span>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>post.copyright.created_at:</span>
+                            <span>2024-05-08</span>
+                        </div>
+                        
+                            <div class="copyright-info-item">
+                                <span>post.copyright.updated_at:</span>
+                                <span>2026-04-14</span>
+                            </div>
+                        
+                        <div class="copyright-info-item">
+                            <span>链接:</span>
+                            <a href="https://xawei.xyz/2024/05/08/Kubernetes%20Service/">https://xawei.xyz/2024/05/08/Kubernetes%20Service/</a>
+                        </div>
+                        <div class="copyright-info-item">
+                            <span>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。</span>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            
+                <div class="post-tags">
+                    <div class="post-tags-header">post.tags:</div>
+                    <div class="post-tags-list">
+                        
+                            <a class="post-tag" href="/tags/Kubernetes/"># Kubernetes</a>
+                        
+                    </div>
+                </div>
+            
+            
+            <div class="post-navigation">
+                <div class="post-nav-prev">
+                    
+                        <a href="/2025/01/21/Introduction%20to%20Istio%20resources/" class="post-nav-link">
+                            <i class="fa-solid fa-angle-left"></i>
+                            <span class="post-nav-title">Introduction to Istio Resources</span>
+                        </a>
+                    
+                </div>
+                <div class="post-nav-next">
+                    
+                        <a href="/2024/05/01/Use%20VPC%20Endpoint%20to%20Keep%20Your%20Network%20Traffic%20in%20AWS/" class="post-nav-link">
+                            <span class="post-nav-title">Use VPC Endpoint to Keep Your Network Traffic in AWS</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+
+            
+        </article>
+    </div>
+
+    <!-- TOC column -->
+    
+        <div class="post-toc">
+            <div class="toc-inner">
+                <div class="toc-title">
+                    <i class="fa-solid fa-list"></i> <span>目录</span>
+                </div>
+                <div class="toc-content">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Service-%E7%B1%BB%E5%9E%8B"><span class="toc-text">Service 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ClusterIP"><span class="toc-text">ClusterIP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NodePort"><span class="toc-text">NodePort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoadBalancer"><span class="toc-text">LoadBalancer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ExternalName"><span class="toc-text">ExternalName</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Headless-Service"><span class="toc-text">Headless Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#With-selectors"><span class="toc-text">With selectors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Without-selectors"><span class="toc-text">Without selectors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovering-services"><span class="toc-text">Discovering services</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtual-IP-addressing-mechanism"><span class="toc-text">Virtual IP addressing mechanism</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Traffic-policies"><span class="toc-text">Traffic policies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-stickiness"><span class="toc-text">Session stickiness</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#External-IPs"><span class="toc-text">External IPs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Services-without-selectors"><span class="toc-text">Services without selectors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EndpointSlices-and-Endpoints"><span class="toc-text">EndpointSlices and Endpoints</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+    
+</div>
+
+        </div>
+        
+    </div>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright">
+            © 2026 <i class="fa-solid fa-heart"></i> xawei
+        </div>
+    </div>
+</footer> 
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<!-- Theme scripts -->
+<script src="/js/main.js"></script>
+
+
+<!-- TOC functionality -->
+<script src="/js/toc.js"></script>
+
+</body>
+</html> 
