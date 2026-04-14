@@ -621,6 +621,7 @@ a:hover {
     right: 0;
     width: 100%;
     pointer-events: none; /* Let clicks pass through background */
+    z-index: 10; /* Ensure buttons stay on top of the code text */
 }
 
 .code-header > * {
@@ -651,31 +652,39 @@ a:hover {
 /* Copy and fold buttons */
 .copy-button, 
 .fold-button {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05); /* Darker for light mode */
+    border: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
     padding: 4px 10px;
     margin-left: 8px;
     border-radius: 6px;
-    color: #94A3B8;
+    color: #666; /* Darker icon color for light mode */
     transition: all 0.2s ease;
     font-size: 0.8rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .copy-button:hover, 
 .fold-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #F8FAFC;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+[data-theme="dark"] .copy-button,
+[data-theme="dark"] .fold-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94A3B8;
 }
 
 [data-theme="dark"] .copy-button:hover, 
 [data-theme="dark"] .fold-button:hover {
-    background-color: rgba(0, 229, 255, 0.15);
-    color: #00E5FF;
-    border-color: rgba(0, 229, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #F8FAFC;
 }
 
 .post-content figure.highlight table {
