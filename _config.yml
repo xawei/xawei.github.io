@@ -137,3 +137,10 @@ mermaid:
   version: '10.9.0'
   options:
     startOnLoad: true
+
+# Search
+search:
+  path: search.json
+  field: post
+  content: true
+  format: html
