@@ -4,7 +4,7 @@ categories: kubernetes
 date: 2021-01-10 11:10:00
 ---
 
-在 Kubernetes 中，有状态应用(stateful application)非常普遍和重要，而PV和PVC是实现有状态应用的核心基础。
+深入浅出解析 Kubernetes 持久化存储核心概念，带你掌握 PV (PersistentVolume) 与 PVC (PersistentVolumeClaim) 的工作原理与实践操作。
 
 <!--more-->
 

@@ -7,7 +7,7 @@ date: 2021-3-5 10:01:00
 
 
 
-Kubernetes官方提供了两种常用的方式让开发者可以方便地进行自定义的扩展。一种是使用CRD（Custom Resource Definition），另一种则是配置Aggregation layer，将请求代理到Aggreated Server中。本文主要介绍两者的使用原理和相关的适用场景。
+详解 Kubernetes 官方提供的两大扩展利器：CRD (Custom Resource Definition) 与 Aggregation Layer，深度剖析其工作原理与最佳适用场景。
 
 <!--more-->
 

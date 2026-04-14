@@ -7,7 +7,7 @@ tags:
   - Web Development
 ---
 
-If you've ever built a modern web application, you've likely encountered the infamous "Access to fetch at 'https://api.example.com' from origin 'https://myapp.com' has been blocked by CORS policy" error. This comprehensive guide explains what cross-origin issues are, why they exist, and how to solve them effectively.
+A comprehensive guide demystifying CORS (Cross-Origin Resource Sharing)—explaining what cross-origin issues are, why they exist, and how to effectively solve them in modern web apps.
 
 <!--more-->
 
